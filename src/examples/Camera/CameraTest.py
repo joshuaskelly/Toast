@@ -4,9 +4,8 @@ from pygame.locals import *
 import toast
 
 try:
-    #import psyco
-    #psyco.full()
-    pass
+    import psyco
+    psyco.full()
 except:
     raise 'Psyco not found.'
 
@@ -22,7 +21,7 @@ pygame.display.set_mode(SCREEN_SIZE)
 screen = pygame.display.get_surface()
 
 # Create a level from an xml file
-level = toast.Level('Data/map.xml')
+level = toast.Level('Data/map.tmx')
 
 # Create a camera to render our scene
 camera = level.get_element_by_ID('default camera')
