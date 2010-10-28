@@ -1,7 +1,6 @@
 import pygame
 from pygame.locals import *
 
-import toast
 from toast import EventObserver
 from toast import Camera
 from toast.component import Component
