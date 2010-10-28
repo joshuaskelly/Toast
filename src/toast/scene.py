@@ -4,9 +4,12 @@ from pygame.locals import *
 import toast
 from toast import EventObserver
 from toast import Camera
+from toast.component import Component
 
-class Scene(object):
+class Scene(Component):
     def __init__(self):
+        super(Scene, self).__init__()
+        
         self.__keypress_observer      = EventObserver("key_press")
         self.__keyrelease_observer    = EventObserver("key_release")
         self.__mouse_press_observer   = EventObserver("mouse_press")
@@ -26,7 +29,6 @@ class Scene(object):
         self.camera = Camera((320,240))
         self.camera.position = (160, 120)
     
-        self.scene_root = []
         self.__running = True
         
         self.__clear_color = (0,0,0)
@@ -36,7 +38,7 @@ class Scene(object):
         
         self.initialize_scene()
         
-        for element in self.scene_root:
+        for element in self:
             self.camera.add_renderable(element)
     
     def get_clear_color(self):
@@ -72,7 +74,9 @@ class Scene(object):
         self.__mouse_release_observer.add(listener)
         
     def update(self, delta):
-        pass
+        for entity in self:
+            if hasattr(entity, 'update'):
+                entity.update(delta)
     
     def run(self):
         while self.__running:
@@ -82,10 +86,6 @@ class Scene(object):
             self.__frame_count += 1
             
             self.update(delta)
-            
-            for entity in self.scene_root:
-                if hasattr(entity, 'update'):
-                    entity.update(delta)
                     
             #self.__screen.fill(self.clear_color)
             self.camera.render(self.__screen)

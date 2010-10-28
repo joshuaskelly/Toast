@@ -112,8 +112,8 @@ class Level(object):
                         id = self.get_object_id(object)
                         self.names[id] = object
                 
-                except:
-                    pass
+                except Exception as e:
+                    raise Exception(e)
                 
             self.add_attributes(object_group, group)
                 

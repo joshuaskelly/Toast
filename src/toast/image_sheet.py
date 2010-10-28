@@ -40,8 +40,6 @@ class ImageSheet(object):
 
         self.__dimension = dimension
         
-        pixel_array = pygame.PixelArray(self.__image_sheet)
-        
         # Create a dictionary to hold the sub-images.
         self.__image_dict = {}
         self.__empty_dict = {}

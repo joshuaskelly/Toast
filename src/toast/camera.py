@@ -13,9 +13,7 @@
 
 import pygame
 
-import toast
 from toast.component import Component
-
 from toast.camera_effects.shake_effect import ShakeEffect
 
 class Camera(Component):
@@ -26,7 +24,7 @@ class Camera(Component):
         " *    imageSheet:   An ImageSheet object.
         " *    data:         A two dimensional array.
         """
-        Component.__init__(self)
+        super(Camera, self).__init__()
         
         self.__position = (0, 0)
         self.__render_list = []
@@ -93,7 +91,7 @@ class Camera(Component):
                 
         self.handle_out_of_bounds()
         
-        Component.update(self, delta)
+        super(Camera, self).update(delta)
         
     def handle_out_of_bounds(self):
         if self.bounds != None:
@@ -127,7 +125,7 @@ class Camera(Component):
         position = (self.__position[0] - self.__viewport.get_width() / 2,
                     self.__position[1] - self.__viewport.get_height() / 2)
         
-        Component.render(self, surface, (0,0))
+        super(Camera, self).render(surface, (0,0))
         
         for element in self.__render_list:
             element.render(buffer, (int(position[0]), int(position[1])))
