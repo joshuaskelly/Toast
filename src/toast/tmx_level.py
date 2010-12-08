@@ -151,6 +151,7 @@ class Level(object):
         custom_object = script.get_instance()
         
         self.add_attributes(custom_object, node)
+        self.add_properties(custom_object, node)
         
         return custom_object
     
@@ -181,6 +182,12 @@ class Level(object):
         
         for key in attributes:
             setattr(object, key, attributes[key])
+            
+    def add_properties(self, object, node):
+        properties = self.get_properties(node)
+        
+        for key in properties:
+            setattr(object, key, properties[key])
             
     def get_attributes(self, node):
         attributes = {}

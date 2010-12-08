@@ -29,6 +29,7 @@ class Scene(Component):
         self.camera.position = (160, 120)
     
         self.__running = True
+        self.__frame_limit = 0
         
         self.__clear_color = (0,0,0)
         
@@ -48,6 +49,14 @@ class Scene(Component):
         self.camera.clear_color = self.__clear_color
     
     clear_color = property(get_clear_color, set_clear_color)
+    
+    @property
+    def frame_limit(self):
+        return self.__frame_limit
+    
+    @frame_limit.setter
+    def frame_limit(self, value):
+        self.__frame_limit = value
     
     def get_resolution(self):
         return self.__resolution
@@ -79,7 +88,7 @@ class Scene(Component):
     
     def run(self):
         while self.__running:
-            delta = self.__clock.tick()
+            delta = self.__clock.tick(self.__frame_limit)
             
             self.__msecs += delta
             self.__frame_count += 1
@@ -113,6 +122,9 @@ class Scene(Component):
                 
             elif event.type == USEREVENT:
                 self.__handle_user_events(event)
+                
+            elif event.type == 24:
+                pygame.time.Clock().tick()
                 
             elif event.type == QUIT:
                 self.__running = False

@@ -1,0 +1,18 @@
+# Files to Ignore when committing #
+###################################
+
+# Compiled Source #
+###################
+
+*.pyc
+*.exe
+*.dll
+*.o
+*.so
+
+# OS generated files #
+######################
+.DS_Store?
+ehthumbs.db
+Icon?
+Thumbs.db

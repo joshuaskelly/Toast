@@ -3,18 +3,28 @@ import weakref
 class Component(object):
     __component_list = []
     
-    def __init__(self):
+    def __init__(self, object_to_wrap=None):
         self.__children = []
         self.__parent = None
+        self.added = False
         self.index = 0
+        
+        self.__component_list.append(self)
+            
         
     @property
     def parent(self):
+        if self.__parent is None:
+            return None
+        
         return self.__parent()
     
     @parent.setter
     def parent(self, object):
         self.__parent = weakref.ref(object)
+        
+    def is_a_component(self):
+        return True
     
     def __iter__(self):
         return self
@@ -42,24 +52,40 @@ class Component(object):
                 child().render(surface, offset)
             
     def add(self, child):
-        #if hasattr(child, 'update'):
         if child != None:
-            if child in self.__component_list:
-                raise ComponentException('Error: Trying to add a duplicate component.')
-                
-            self.__component_list.append(child)
-                
+            #Handle the case of adding a non-component. Should this even be
+            #supported?
+            if child not in self.__component_list:
+                self.__component_list.append(child)
+            
             self.__children.append(weakref.ref(child))
             
             if hasattr(child, 'parent'):
                 child.parent = self
             
-    def remove(self, child):
-        if child not in self.__component_list:
-            raise ComponentException('Error: Trying to remove a component not in the scenegraph.')
+    def remove(self, target=None):
+        
+        #Default to self if target is None.
+        if target == None:
+            target = self
             
-        self.__component_list.remove(child)
-        self.__children.remove(weakref.ref(child))
+        #Check if the object we're trying to remove is valid
+        if (target not in Component.__component_list) and (weakref.ref(target) not in self.__children):
+            raise ComponentException('Error: Trying to remove a component not in the scenegraph.')
+        
+        if target in Component.__component_list:
+            Component.__component_list.remove(target)
+        
+        #If removing this component...
+        if self is target:
+            if target.parent != None:
+                target.parent.remove(target)
+            
+            for child in [x for x in self]:
+                child.remove()
+        #...otherwise remove the appropriate child.
+        else:
+            self.__children.remove(weakref.ref(target))
 
         
 class ComponentException(Exception):

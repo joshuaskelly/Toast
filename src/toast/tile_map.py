@@ -82,6 +82,22 @@ class TileMap(object):
     def position(self, value):
         self.__position = (value[0], value[1])
         
+    @property
+    def width(self):
+        return self.__map_size[0]
+    
+    @width.setter
+    def width(self, value):
+        self.__map_size = (value, self.__map_size[1])
+    
+    @property
+    def height(self):
+        return self.__map_size[1]
+    
+    @height.setter
+    def height(self, value):
+        self.__map_size = (self.__map_size[0], value)
+        
     def tile_id_at_index(self, index):
         x = index[0] % self.__map_size[0]
         y = index[1] % self.__map_size[1]
@@ -105,7 +121,43 @@ class TileMap(object):
         y = ((pixel[1] / self.__tile_size[1]) * self.__tile_size[1]) + offset[1]
         
         return (x, y, self.__tile_size[0], self.__tile_size[1])
-
+    
+    def get_collide_list(self, rect, predicate=None):
+        result = []
+        
+        if predicate is None:
+            predicate = lambda s, x: s.tile_id_at_index(x) >=0
+        
+        for index, rect in self.get_indexes_in_rect(rect):    
+            if predicate(self, index):
+                result.append(rect)
+                    
+        return result
+    
+    #TODO: Rename this to reflect the index, rect pairing
+    def get_indexes_in_rect(self, rect):
+        offset = (self.__scroll_register[0], self.__scroll_register[1])
+        
+        left = (rect[0] + offset[0]) / self.__tile_size[0]
+        top = (rect[1] + offset[1]) / self.__tile_size[1]
+        right = left + (rect[2] + self.__tile_size[0] / 2) / self.__tile_size[0]
+        bottom = top + (rect[3] + self.__tile_size[1] / 2) / self.__tile_size[1]
+        
+        result = []
+        
+        for x in range(left, right + 1):
+            for y in range(top, bottom + 1):
+                index = (x % self.__map_size[0], y % self.__map_size[1])
+                
+                x1 = x * self.__tile_size[0]
+                y1 = y * self.__tile_size[1]
+                
+                sub_rect = pygame.Rect(x1 + offset[0], y1 + offset[1], self.__tile_size[0], self.__tile_size[1])
+                
+                result.append((index, sub_rect))
+                
+        return result
+    
     def draw_tile_outlines(self, surface, offset=(0, 0)):
         """
         draw_tile_outlines
@@ -129,7 +181,7 @@ class TileMap(object):
         y_begin = int(offset[1] / int(self.__tile_size[1]))
         y_end = int(y_begin + height + 1)
         
-        print "Drawing Area: %s x %s" % (len(range(x_begin, x_end)), len(range(y_begin, y_end)))
+        #print "Drawing Area: %s x %s" % (len(range(x_begin, x_end)), len(range(y_begin, y_end)))
         
         num_tiles = 0
         
@@ -176,9 +228,6 @@ class TileMap(object):
 
         x_begin = int(offset[0] / self.__tile_size[0])
         x_end = int(x_begin + width + 1)
-        
-#        tiles_x = map((lambda x: x * self.__tile_size[0]), range(surface.get_width() / self.__tile_size[0]))
-#        tiles_y = map((lambda y: y * self.__tile_size[1]), range(surface.get_height() / self.__tile_size[1]))
         
         y_begin = int(offset[1] / int(self.__tile_size[1]))
         y_end = int(y_begin + height + 1)
