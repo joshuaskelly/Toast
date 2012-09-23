@@ -1,5 +1,5 @@
 """
-" * Camera.py
+" * camera.py
 " * Copyright (C) 2009 Joshua Skelton
 " *                    joshua.skelton@gmail.com
 " *
@@ -142,10 +142,7 @@ class Camera(Component):
 
         SCREEN_SIZE = (surface.get_width(), surface.get_height())
 
-        if (buffer.get_width() != SCREEN_SIZE[0]):
-            pygame.transform.scale(buffer, SCREEN_SIZE, surface)
-        else:
-            surface.blit(buffer, (0,0))
+        pygame.transform.scale(buffer, SCREEN_SIZE, surface)
             
     def onCameraEvent(self, event):
         if event.action == 'set_target':

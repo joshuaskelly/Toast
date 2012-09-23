@@ -1,7 +1,7 @@
 import os
 import pygame
 
-from toast.Decorators.memoize import Memoize
+from toast.decorators.memoize import Memoize
 
 IMAGE_FILE_EXTENSIONS = ['PNG', 'GIF', 'BMP', 'JPG', 'TGA', 'TIF', 'GIF']
 SOUND_FILE_EXTENSIONS = ['OGG', 'WAV']

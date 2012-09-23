@@ -10,17 +10,13 @@
 " * but WITHOUT ANY WARRANTY; without even the implied warranty of
 " * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 """
-import pygame
-import time
 
-class Animation(pygame.Surface):
-    
+from toast.component import Component, ComponentException
+
+class Animation(Component):
     def __init__(self, key=None, anim=None):
-        dim = (anim[0][0].get_width(),
-               anim[0][0].get_height())
-
-        pygame.Surface.__init__(self,dim)
-
+        super(Animation, self).__init__()
+        
         self.__animation_list = {}
         
         self.__running = True
@@ -30,11 +26,18 @@ class Animation(pygame.Surface):
         self.__current_animation = ''
         self.__current_frame = None
         self.__index = 0
-        self.target = None
-        self.mode = 1
         
         if key != None:
             self.add_animation(key, anim)
+            
+    def add(self, child):
+        raise ComponentException('Animations are not allowed to have component children.')
+    
+    def remove(self, target=None):
+        if target is None or target is self:
+            Component.remove(self, self)
+        else:
+            raise ComponentException('Animations have no component children to remove.')
         
     def update(self, time=0):
         if self.__current_animation != '':
@@ -45,28 +48,14 @@ class Animation(pygame.Surface):
             
             self.__current_frame, duration = self.__animation_list[self.__current_animation][self.__index]
             
+            if hasattr(self.parent, 'image'):
+                self.parent.image = self.get_current_frame()
+            
             if self.__time > duration:
                 self.__time -= duration
                 
                 self.__index +=1
                 
-        
-    def run(self):
-        return
-        while self.__running:
-            if self.__current_animation != '':
-
-                if self.__index > len(self.__animation_list[self.__current_animation]) - 1:
-                    self.__index = 0
-                    
-                frame, seconds = self.__animation_list[self.__current_animation][self.__index]
-                
-                self.__current_frame = frame
-                
-                time.sleep(seconds)
-                
-                self.__index += 1
-
     def add_animation(self, key, animation):
         if self.__current_animation == '':
             self.__current_animation = key

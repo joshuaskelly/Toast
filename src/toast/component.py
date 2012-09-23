@@ -15,8 +15,8 @@ class Component(object):
         return self.__parent()
     
     @parent.setter
-    def parent(self, object):
-        self.__parent = weakref.ref(object)
+    def parent(self, other):
+        self.__parent = weakref.ref(other)
         
     def is_a_component(self, other=None):
         if other is not None:
@@ -42,11 +42,6 @@ class Component(object):
             if hasattr(child, 'update'):
                 child.update(milliseconds)
             
-#    def render(self, surface, offset):
-#        for child in self.__children:
-#            if not hasattr(child, 'add_renderable') and hasattr(child, 'render'):
-#                child.render(surface, offset)
-            
     def add(self, child):
         if not self.is_a_component(child):
             raise ComponentException('Cannot add a child object that is not a component.')
@@ -58,7 +53,6 @@ class Component(object):
                 child.parent = self
             
     def remove(self, target=None):
-        
         #Default to self if target is None.
         if target is None or target is self:
             if target.parent != None:
