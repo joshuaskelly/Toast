@@ -1,7 +1,7 @@
 from animation import Animation
 from bitmap_font import BitmapFont
 from text import Text
-#from level import Level
+from level import Level as LegacyLevel
 from camera import Camera
 from image_sheet import ImageSheet
 from tile_map import TileMap
@@ -9,7 +9,7 @@ from component import Component
 
 from tmx_level import Level
 
-from event_observer import EventObserver
+from event_manager import EventManager
 from scene import Scene
 
 def log(message):

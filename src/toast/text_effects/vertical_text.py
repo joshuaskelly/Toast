@@ -11,27 +11,26 @@
 " * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 """
 
-import pygame
+import wrapper
 
-import Wrapper
-
-class VerticalText(Wrapper.Wrapper):
+class VerticalText(wrapper.Wrapper):
     def __init__(self, internal):
-        Wrapper.Wrapper.__init__(self, internal)
+        wrapper.Wrapper.__init__(self, internal)
     
-    """
-    " * VerticalText.Update
-    " *    time:        The amount of time lapsed since the last call to update.
-    " *    Overrides:   Wrapper.Update()
-    " *    Description: Orients the text vertically.
-    """     
-    def Update(self, time = 0.01667):
-        self.internal.Update(time)
+ 
+    def update(self, time = 0.01667):
+        """
+        " * VerticalText.update
+        " *    time:        The amount of time lapsed since the last call to update.
+        " *    Overrides:   Wrapper.update()
+        " *    Description: Orients the text vertically.
+        """    
+        self.internal.update(time)
         self.charList = self.internal.charList
         
         offset = 0
         
-        for (image, rect) in self.charList:
+        for (_, rect) in self.charList:
             rect.left = self.position[0]
             rect.top = self.position[1] + offset
             offset += rect.height

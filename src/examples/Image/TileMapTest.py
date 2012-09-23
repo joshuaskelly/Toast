@@ -31,7 +31,7 @@ data = [[0,1,2,3],
         [1,2,3,0]]
 
 map = toast.TileMap(sheet, data)
-map.position = (16, 16)
+map.position = (0, 0)
 
 clock = pygame.time.Clock()
 

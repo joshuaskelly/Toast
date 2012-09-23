@@ -4,7 +4,7 @@ from impostor import Impostor
 
 from pygame.locals import *
 
-from toast import resource_loader
+from toast.resource_loader import ResourceLoader
 
 # Define the origin
 ORIGIN = (0,0)
@@ -21,10 +21,7 @@ buffer = pygame.Surface((43, 43))
 # Define the sub-image dimension.
 dimension = (40,43)
 
-# Get a Borg instance
-r = resource_loader.ResourceLoader()
-
-data1 = r.load('Data/run.png')
+data1 = ResourceLoader.load('Data/run.png')
 data = Impostor()
 data.load(data1)
 

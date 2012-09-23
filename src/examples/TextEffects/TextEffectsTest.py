@@ -1,63 +1,54 @@
-import pygame
+from pygame.locals import K_1, K_2, K_3
+
 import toast
+from toast import Scene
+from toast.text_effects import wavy_text, shaky_text, dialog_text
+from toast import EventManager
 
-from toast.text_effects import wavy_text
+class NewScene(Scene):
+    def initialize_scene(self):
+        self.resolution = (640, 480)
+        EventManager.subscribe(self, 'onKeyDown')
+        
+        # Read the alphabet string from a file.
+        alphaArray = open("Data\\anomaly.dat","r").readline()
+        # Define the font dimensions
+        fontDimension = (32,32)
+        # Create bitmap font object
+        self.font = toast.BitmapFont("Data\\anomaly.png", fontDimension, alphaArray)
 
-from pygame.locals import *
+        # Create the text object
+        self.text = toast.Text(self.font,"Wavy Text")
+        # Wrap the text object with an effect
+        self.effect = wavy_text.WavyText(self.text)
+        
+        # Set the text object's position
+        self.effect.position = (16, 88)
+        
+        self.add(self.effect)
+        
+    def onKeyDown(self, event):
+        if event.key == K_1:
+            self.remove(self.effect)
+            self.effect = wavy_text.WavyText(toast.Text(self.font,"Wavy Text"))
+            self.effect.position = (16, 88)
+            self.add(self.effect)
+            
+        elif event.key == K_2:
+            self.remove(self.effect)
+            self.text = toast.Text(self.font,"Shaky Text")
+            self.effect = shaky_text.ShakyText(self.text)
+            self.effect.position = (0, 88)
+            self.add(self.effect)
+            
+        elif event.key == K_3:
+            self.remove(self.effect)
+            self.text = toast.Text(self.font,"Dialog Text")
+            self.effect = dialog_text.DialogText(self.text)
+            self.effect.position = (-16, 88)
+            self.add(self.effect)
+            
 
-# Define the origin
-ORIGIN = (0,0)
-# Set the screen size
-SCREEN_SIZE = (640,480)
+s = NewScene()
 
-# Setup pygame display
-pygame.display.set_mode(SCREEN_SIZE)
-# Get a surface the size of the window
-screen = pygame.display.get_surface()
-# Create a buffer to render to
-buffer = pygame.Surface((320,240))
-
-# Read the alphabet string from a file.
-alphaArray = open("Data/anomaly.dat","r").readline()
-# Define the font dimensions
-fontDimension = (32,32)
-# Create bitmap font object
-font = toast.BitmapFont("Data/anomaly.png", fontDimension, alphaArray)
-
-# Create the text object
-text = toast.Text(font,"Wavy Text")
-# Wrap the text object with an effect
-effect = wavy_text.WavyText(text)
-
-# Set the text object's position
-effect.position = (16, 88)
-
-# Get the pygame clock
-clock = pygame.time.Clock()
-
-
-# Game loop
-running = True
-while running:
-    clock.tick(60)
-    buffer.fill((0,0,0))
-    
-    # Update the text object
-    effect.update()
-
-    # Draw to buffer
-    effect.render(buffer)
-    
-    # Scale up buffer and draw to screen
-    screen.blit(pygame.transform.scale(buffer,SCREEN_SIZE),pygame.Rect(ORIGIN,SCREEN_SIZE))
-    pygame.display.flip()
-
-    # Handle input
-    for event in pygame.event.get():
-        if event.type == QUIT:
-            running = False
-        elif event.type == KEYDOWN:
-            if event.key == K_ESCAPE:
-                running = False
-            else:
-                pass
+s.run()

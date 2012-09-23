@@ -1,5 +1,5 @@
 """
-" * DialogueText.py
+" * DialogText.py
 " * Copyright (C) 2009 Joshua Skelton
 " *                    joshua.skelton@gmail.com
 " *
@@ -11,20 +11,20 @@
 " * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 """
 
-import Wrapper
+import wrapper
 
-class DialogueText(Wrapper.Wrapper):
+class DialogText(wrapper.Wrapper):
     def __init__(self, internal):
-        Wrapper.Wrapper.__init__(self, internal)
-        self.delay = 1
+        wrapper.Wrapper.__init__(self, internal)
+        self.delay = 125
         
-    def Update(self, time = 0.01667):
-        self.internal.Update(time)
+    def update(self, time = 16):
+        self.internal.update(time)
         self.charList = self.internal.charList
         
         index = 0;
         
-        for (image, rect) in self.charList:
+        for (_, rect) in self.charList:
             if self.time > (self.delay * index):
                 pass
             else:

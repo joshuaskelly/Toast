@@ -12,8 +12,9 @@
 """
 
 import math
+from toast.component import Component
 
-class Wrapper(object):
+class Wrapper(Component):
 
     def __init__(self, internal):
         """
@@ -23,6 +24,7 @@ class Wrapper(object):
         " *                 wrappers. Subclasses simply need to override the Update
         " *                 method to implement the desired effect.
         """   
+        super(Wrapper, self).__init__()
         
         self.internal = internal
         self.charList = []
@@ -38,8 +40,8 @@ class Wrapper(object):
         
         raise "Instances of Wrapper can not be created." 
         
-    def render(self, surface):
-        self.internal.render(surface)
+    def render(self, surface, offset=(0,0)):
+        self.internal.render(surface, offset)
         
     def Displacement(self, amplitude, frequency, time, phase):
         return amplitude * math.cos((2 * math.pi * frequency * time) + phase)

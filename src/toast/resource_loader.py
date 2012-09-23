@@ -7,11 +7,6 @@ IMAGE_FILE_EXTENSIONS = ['PNG', 'GIF', 'BMP', 'JPG', 'TGA', 'TIF', 'GIF']
 SOUND_FILE_EXTENSIONS = ['OGG', 'WAV']
 
 class ResourceLoader(object):
-    __shared_state = {}
-    
-    def __init__(self):
-        self.__dict__ = self.__shared_state
-
     @Memoize
     def load(filename):
         extension = filename.rsplit('.').pop().upper()

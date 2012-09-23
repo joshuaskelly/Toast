@@ -11,9 +11,7 @@
 " * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 """
 
-import pygame
 import math
-
 import wrapper
 
 class WavyText(wrapper.Wrapper):
@@ -23,27 +21,29 @@ class WavyText(wrapper.Wrapper):
         self.frequency = 1
         self.phaseStep = 1
     
-    """
-    " * WavyText.Update
-    " *    time:        The amount of time lapsed since the last call to update.
-    " *    Overrides:   Wrapper.Update()
-    " *    Description: A simple harmonic motion function.
-    """     
-    def update(self, time = 0.01667):
+  
+    def update(self, time = 16):
+        """
+        " * WavyText.update
+        " *    time:        The amount of time lapsed since the last call to update.
+        " *    Overrides:   Wrapper.update()
+        " *    Description: A simple harmonic motion function.
+        """   
         self.internal.update(time)
         self.charList = self.internal.charList
         
         phase = 0
         
-        for (image, rect) in self.charList:
-            rect.top += self.Displacement(self.amplitude, self.frequency, self.internal.time, phase)
+        for (_, rect) in self.charList:
+            rect.top += self.Displacement(self.amplitude, self.frequency, self.internal.time / 1000.0, phase)
             phase -= self.phaseStep
     
-    """
-    " * WavyText.displacement
-    " *    Returns: Vertical displacement
-    " *    Description: A simple harmonic motion function.
-    """            
+           
     def Displacement(self, amplitude, frequency, time, phase):
+        """
+        " * WavyText.displacement
+        " *    Returns: Vertical displacement
+        " *    Description: A simple harmonic motion function.
+        """     
         return amplitude * math.cos((2 * math.pi * frequency * time) + phase)
     

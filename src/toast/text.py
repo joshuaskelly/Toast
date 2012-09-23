@@ -1,5 +1,5 @@
 """
-" * Text.py
+" * text.py
 " * Copyright (C) 2009 Joshua Skelton
 " *                    joshua.skelton@gmail.com
 " *
@@ -11,14 +11,9 @@
 " * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 """
 
-import pygame
+from toast.component import Component
 
-from toast import BitmapFont
-
-from pygame.locals import *
-
-
-class Text(object):
+class Text(Component):
 
     def __init__(self, font, message):
         """
@@ -26,6 +21,7 @@ class Text(object):
         " *    font:        A BitmapFont object.
         " *    message:     A string.
         """
+        super(Text, self).__init__()
 
         self.font = font
         self.message = message
@@ -52,7 +48,7 @@ class Text(object):
 
         left = 0
         index = 0
-        for (image, rect) in self.charList:
+        for (_, rect) in self.charList:
             rect.left = self.position[0] + self.positionList[index][0]
             rect.top = self.position[1] + self.positionList[index][1]
             left += rect.width

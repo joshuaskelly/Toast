@@ -13,10 +13,14 @@
 
 import pygame
 
+import toast
 from toast.component import Component
 from toast.camera_effects.shake_effect import ShakeEffect
+from toast.event_manager import EventManager
+from toast.math.math_helper import MathHelper
 
 class Camera(Component):
+    currentCamera = None
 
     def __init__(self, resolution):
         """
@@ -25,14 +29,17 @@ class Camera(Component):
         " *    data:         A two dimensional array.
         """
         super(Camera, self).__init__()
+        Camera.currentCamera = self
         
         self.__position = (0, 0)
-        self.__render_list = []
         self.__viewport = pygame.Surface(resolution).convert()#.convert_alpha()
         self.__viewport.set_colorkey((255,0,255))
         self.__clear_color = (0, 0, 0)
         self.__target = None
         self.__bounds = None
+        self.__tracking_strength = 1.0
+        
+        EventManager.subscribe(self, 'onCameraEvent')
         
     def get_target(self):
         return self.__target
@@ -84,10 +91,14 @@ class Camera(Component):
 
     def update(self, delta):
         if self.target != None:
+            dest = None
+            
             try:
-                self.position = self.target.position
+                dest = self.target.position
             except:
-                self.position = self.target
+                dest = self.target
+                
+            self.position = MathHelper.Lerp(self.position, dest, self.__tracking_strength)
                 
         self.handle_out_of_bounds()
         
@@ -125,20 +136,18 @@ class Camera(Component):
         position = (self.__position[0] - self.__viewport.get_width() / 2,
                     self.__position[1] - self.__viewport.get_height() / 2)
         
-        super(Camera, self).render(surface, (0,0))
-        
-        for element in self.__render_list:
-            element.render(buffer, (int(position[0]), int(position[1])))
+        for element in toast.Scene.currentScene:
+            if hasattr(element, 'render'):
+                element.render(buffer, (int(position[0]), int(position[1])))
 
         SCREEN_SIZE = (surface.get_width(), surface.get_height())
 
         if (buffer.get_width() != SCREEN_SIZE[0]):
-            #surface.blit(pygame.transform.scale(buffer, SCREEN_SIZE), (0,0))
             pygame.transform.scale(buffer, SCREEN_SIZE, surface)
         else:
             surface.blit(buffer, (0,0))
             
-    def notify_event(self, event):
+    def onCameraEvent(self, event):
         if event.action == 'set_target':
             self.__target = event.target
             

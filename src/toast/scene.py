@@ -1,19 +1,17 @@
 import pygame
-from pygame.locals import *
+from pygame.locals import DOUBLEBUF, HWSURFACE, KEYDOWN, KEYUP, \
+MOUSEBUTTONDOWN, MOUSEBUTTONUP, MOUSEMOTION, QUIT
 
-from toast import EventObserver
+from toast import EventManager
 from toast import Camera
 from toast.component import Component
 
 class Scene(Component):
+    currentScene = None
+    
     def __init__(self):
         super(Scene, self).__init__()
-        
-        self.__keypress_observer      = EventObserver("key_press")
-        self.__keyrelease_observer    = EventObserver("key_release")
-        self.__mouse_press_observer   = EventObserver("mouse_press")
-        self.__mouse_release_observer = EventObserver("mouse_release")
-        self.__mouse_motion_observer  = EventObserver("mouse_motion")
+        Scene.currentScene = self
     
         self.__clock = pygame.time.Clock()
 
@@ -37,9 +35,6 @@ class Scene(Component):
         self.__msecs = 0
         
         self.initialize_scene()
-        
-        for element in self:
-            self.camera.add_renderable(element)
     
     def get_clear_color(self):
         return self.__clear_color
@@ -69,22 +64,6 @@ class Scene(Component):
     
     def initialize_scene(self):
         raise
-        
-    def add_keyboard_listener(self, listener):
-        self.__keypress_observer.add(listener)
-        self.__keyrelease_observer.add(listener)
-    
-    def add_mouse_motion_listener(self, listener):
-        self.__mouse_motion_observer.add(listener)
-        
-    def add_mouse_button_listener(self, listener):
-        self.__mouse_press_observer.add(listener)
-        self.__mouse_release_observer.add(listener)
-        
-    def update(self, delta):
-        for entity in self:
-            if hasattr(entity, 'update'):
-                entity.update(delta)
     
     def run(self):
         while self.__running:
@@ -106,22 +85,19 @@ class Scene(Component):
     def __handle_events(self):
         for event in pygame.event.get():
             if event.type == KEYDOWN:
-                self.__keypress_observer.notify(event)
+                EventManager.notify('onKeyDown', event)
                 
             elif event.type == KEYUP:
-                self.__keyrelease_observer.notify(event)
+                EventManager.notify('onKeyUp', event)
                 
             elif event.type == MOUSEMOTION:
-                self.__mouse_motion_observer.notify(event)
+                EventManager.notify('onMouseMotion', event)
                 
             elif event.type == MOUSEBUTTONDOWN:
-                self.__mouse_press_observer.notify(event)
+                EventManager.notify('onMouseDown', event)
                 
             elif event.type == MOUSEBUTTONUP:
-                self.__mouse_release_observer.notify(event)
-                
-            elif event.type == USEREVENT:
-                self.__handle_user_events(event)
+                EventManager.notify('onMouseUp', event)
                 
             elif event.type == 24:
                 pygame.time.Clock().tick()
@@ -129,8 +105,4 @@ class Scene(Component):
             elif event.type == QUIT:
                 self.__running = False
                 print "Average fps: " + str(self.__frame_count / (self.__msecs / 1000))
-                
-    def __handle_user_events(self, event):
-        if event.user_type == 'CAMERAEVENT':
-            self.camera.notify_event(event)
         

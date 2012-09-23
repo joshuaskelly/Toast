@@ -11,11 +11,7 @@
 " * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 """
 import pygame
-
-
 import time
-
-from pygame.locals import *
 
 class Animation(pygame.Surface):
     
@@ -40,8 +36,6 @@ class Animation(pygame.Surface):
         if key != None:
             self.add_animation(key, anim)
         
-        #self.start()
-        
     def update(self, time=0):
         if self.__current_animation != '':
             if self.__index > len(self.__animation_list[self.__current_animation]) - 1:
@@ -53,8 +47,6 @@ class Animation(pygame.Surface):
             
             if self.__time > duration:
                 self.__time -= duration
-                
-                #sl = len(self.__animation_list[self.__current_animation]) - 1
                 
                 self.__index +=1
                 
