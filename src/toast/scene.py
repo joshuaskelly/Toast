@@ -2,8 +2,8 @@ import pygame
 from pygame.locals import DOUBLEBUF, HWSURFACE, KEYDOWN, KEYUP, \
 MOUSEBUTTONDOWN, MOUSEBUTTONUP, MOUSEMOTION, QUIT
 
-from toast import EventManager
-from toast import Camera
+from toast.event_manager import EventManager
+from toast.camera import Camera
 from toast.component import Component
 
 class Scene(Component):
@@ -72,6 +72,7 @@ class Scene(Component):
             self.__msecs += delta
             self.__frame_count += 1
             
+            self.camera.update(delta)
             self.update(delta)
                     
             #self.__screen.fill(self.clear_color)

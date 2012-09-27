@@ -25,6 +25,7 @@ class Sprite(Component):
         if hasattr(image_or_animation, 'add_animation'):
             self.__animation = image_or_animation
             self.add(image_or_animation)
+            self.image = self.__animation.get_current_frame()
         else:
             self.image = image_or_animation
         
@@ -45,4 +46,4 @@ class Sprite(Component):
         self.__image = image
         
     def render(self, surface, offset=(0,0)):
-        surface.blit(self.image, self.position + offset)
+        surface.blit(self.image, self.position - offset)

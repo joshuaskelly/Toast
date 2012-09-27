@@ -6,14 +6,14 @@ from toast.animation import Animation
 
 class NewScene(Scene):
     def initialize_scene(self):
-        self.clear_color = (98, 186, 221)
-        self.resolution = (640, 480)
+        self.clear_color = 98, 186, 221
+        self.resolution = 640, 480
         
-        dimension = (32, 37)
+        dimension = 32, 37
         data = ResourceLoader.load('data//player_run.png')
         sheet = ImageSheet(data, dimension)
         
-        interval = 80
+        interval = 60
 
         run = [(sheet[0], interval), 
                (sheet[1], interval), 

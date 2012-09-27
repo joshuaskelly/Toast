@@ -18,6 +18,7 @@ from toast.component import Component
 from toast.camera_effects.shake_effect import ShakeEffect
 from toast.event_manager import EventManager
 from toast.math.math_helper import MathHelper
+from toast.math.vector2D import Vector2D
 
 class Camera(Component):
     currentCamera = None
@@ -31,13 +32,13 @@ class Camera(Component):
         super(Camera, self).__init__()
         Camera.currentCamera = self
         
-        self.__position = (0, 0)
+        self.__position = Vector2D(0, 0)
         self.__viewport = pygame.Surface(resolution).convert()#.convert_alpha()
         self.__viewport.set_colorkey((255,0,255))
         self.__clear_color = (0, 0, 0)
         self.__target = None
         self.__bounds = None
-        self.__tracking_strength = 1.0
+        self.__tracking_strength = 0.1
         
         EventManager.subscribe(self, 'onCameraEvent')
         
@@ -58,7 +59,7 @@ class Camera(Component):
         return self.__position
 
     def set_position(self, value):
-        self.__position = (value[0], value[1])
+        self.__position = Vector2D(value[0], value[1])
 
     position = property(get_position, set_position)
     
@@ -98,7 +99,7 @@ class Camera(Component):
             except:
                 dest = self.target
                 
-            self.position = MathHelper.Lerp(self.position, dest, self.__tracking_strength)
+            self.position = MathHelper.Lerp(self.position, dest, self.__tracking_strength * (delta / 1000.0) * 60)
                 
         self.handle_out_of_bounds()
         
@@ -125,7 +126,7 @@ class Camera(Component):
                 rect.bottom = self.bounds.bottom
                 self.position = rect.center
         
-    def render(self, surface):
+    def render(self, surface, offset=(0,0)):
         """
         " * Camera.render
         """
@@ -159,15 +160,23 @@ class Camera(Component):
             self.__render_list.append(target)
             target.parent = self
             
-    def camera_to_world(self, coord, rect):
-        scale_x = 1.0 * self.__viewport.get_width() / rect.width
-        scale_y = 1.0 * self.__viewport.get_height() / rect.height
-        return (self.position[0] + (coord[0] * scale_x) - (self.__viewport.get_width() / 2), 
-                self.position[1] + (coord[1] * scale_y) - (self.__viewport.get_height() / 2))
+    @staticmethod
+    def camera_to_world(coord):
+        camera = Camera.currentCamera
+        viewport = toast.scene.Scene.currentScene.resolution
+        
+        scale_x = 1.0 * camera.viewport.get_width() / viewport[0]
+        scale_y = 1.0 * camera.viewport.get_height() / viewport[1]
+        return (camera.position[0] + (coord[0] * scale_x) - (camera.viewport.get_width() / 2), 
+                camera.position[1] + (coord[1] * scale_y) - (camera.viewport.get_height() / 2))
     
-    def world_to_camera(self, coord, rect):
-        scale_x = 1.0 * self.__viewport.get_width() / rect.width
-        scale_y = 1.0 * self.__viewport.get_height() / rect.height
-        return (((self.__viewport.get_width() / 2) - self.position[0] - coord[0]) / -scale_x, 
-                (self.position[1] - coord[1] - (self.__viewport.get_height() / 2)) / -scale_y)
+    @staticmethod
+    def world_to_camera(coord):
+        camera = Camera.currentCamera
+        viewport = toast.scene.Scene.currentScene.resolution
+        
+        scale_x = 1.0 * camera.viewport.get_width() / viewport[0]
+        scale_y = 1.0 * camera.viewport.get_height() / viewport[1]
+        return (((camera.viewport.get_width() / 2) - camera.position[0] - coord[0]) / -scale_x, 
+                (camera.position[1] - coord[1] - (camera.viewport.get_height() / 2)) / -scale_y)
 

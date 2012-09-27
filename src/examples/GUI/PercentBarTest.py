@@ -2,6 +2,7 @@ import pygame
 
 import toast
 from toast.gui.percent_bar import PercentBar
+from toast.math.math_helper import MathHelper
 
 from pygame.locals import *
 
@@ -28,6 +29,11 @@ bar2.position = (0, 9)
 bar3 = PercentBar(sheet[2], sheet[5])
 bar3.position = (0, 18)
 
+x = 0
+y = 0
+
+step = 0.1
+
 # Game loop
 running = True
 while running:
@@ -49,9 +55,11 @@ while running:
             x = x / float(SCREEN_SIZE[0])
             y = y / float(SCREEN_SIZE[1])
             
-            bar1.current = x
-            bar2.current = y
-            bar3.current = (x + y) / 2.0
+
             
         elif event.type == QUIT:
             running = False
+            
+    bar1.current = MathHelper.Lerp(bar1.current, x, step)
+    bar2.current = MathHelper.Lerp(bar2.current, y, step)
+    bar3.current = MathHelper.Lerp(bar3.current, (x + y) / 2.0, step)

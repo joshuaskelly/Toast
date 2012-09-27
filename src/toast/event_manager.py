@@ -11,6 +11,8 @@
 " * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 """
 
+import weakref
+
 class EventManager(object):
     __events = {}
         
@@ -32,17 +34,23 @@ class EventObserver(object):
         self.__target_method = method
     
     def add(self, subscriber):
-        self.__subscribers.append(subscriber)
-        
-        if hasattr(subscriber, 'parent'):
-            subscriber.parent = self
+        self.__subscribers.append(weakref.ref(subscriber))
         
     def notify(self, event):
+        cleanup_list = []
+        
         for subscriber in self.__subscribers:
-            try:
-                subscriber.__getattribute__(self.__target_method)(event)
-            except:
-                raise EventNotificationException('Subscriber: ' + str(subscriber) + ' does not implement the required method: ' + self.__target_method + '(event)')
+            if hasattr(subscriber(), self.__target_method):
+                subscriber().__getattribute__(self.__target_method)(event)
+            else:
+                if subscriber() is None:
+                    cleanup_list.append(subscriber)
+                    continue
+                raise EventNotificationException('Subscriber: ' + str(subscriber()) + ' does not implement the required method: ' + self.__target_method + '(event)')
+            
+        if len(cleanup_list) > 0:
+            for g in cleanup_list:
+                self.__subscribers.remove(g)
             
     def remove(self, subscriber):
         if subscriber in self.__subscribers:
@@ -54,3 +62,4 @@ class EventNotificationException(Exception):
         
     def __str__(self):
         return repr(self.value)
+    

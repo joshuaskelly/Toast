@@ -1,7 +1,5 @@
 import pygame
 import toast
-from impostor import Impostor
-
 from pygame.locals import *
 
 from toast.resource_loader import ResourceLoader
@@ -21,12 +19,9 @@ buffer = pygame.Surface((43, 43))
 # Define the sub-image dimension.
 dimension = (40,43)
 
-data1 = ResourceLoader.load('Data/run.png')
-data = Impostor()
-data.load(data1)
+data = ResourceLoader.load('Data/run.png')
 
 
-print dir(data)
 # Create the image sheet object.
 sheet = toast.ImageSheet(data, dimension)
 

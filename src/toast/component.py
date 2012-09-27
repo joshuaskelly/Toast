@@ -38,13 +38,16 @@ class Component(object):
         return self.__children[key]
     
     def update(self, milliseconds=0):
-        for child in self:
+        for child in self.__children:
             if hasattr(child, 'update'):
                 child.update(milliseconds)
             
     def add(self, child):
         if not self.is_a_component(child):
             raise ComponentException('Cannot add a child object that is not a component.')
+        
+        if child.parent is not None:
+            raise ComponentException('Cannot add component. ' + child.__class__.__name__ + ' is already a child of: ' + child.parent.__class__.__name__)
         
         if child != None:
             self.__children.append(child)
@@ -55,6 +58,7 @@ class Component(object):
     def remove(self, target=None):
         #Default to self if target is None.
         if target is None or target is self:
+            target = self
             if target.parent != None:
                 target.parent.remove(self)
             
@@ -64,7 +68,6 @@ class Component(object):
         #...otherwise remove the appropriate child.
         else:
             self.__children.remove(target)
-
         
 class ComponentException(Exception):
     def __init__(self, value):

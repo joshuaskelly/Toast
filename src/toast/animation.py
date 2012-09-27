@@ -52,8 +52,7 @@ class Animation(Component):
                 self.parent.image = self.get_current_frame()
             
             if self.__time > duration:
-                self.__time -= duration
-                
+                self.__time = 0
                 self.__index +=1
                 
     def add_animation(self, key, animation):
