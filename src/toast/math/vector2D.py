@@ -138,15 +138,21 @@ class Vector2D(object):
     def GetPerpendicular(self):
         return Vector2D(-self.y, self.x)
     
-Zero = Vector2D(0,0)
+    @property
+    @staticmethod
+    def Zero():
+        return Vector2D(0, 0)
+    
+    @staticmethod
+    def UnitVectorFromAngle(angle):
+        r = radians(angle)
+        c = cos(r)
+        s = sin(r)
+        
+        return Vector2D(c, s)
 
 i = Vector2D(1,0)
 
 j = Vector2D(0,1)
 
-def UnitVectorFromAngle(angle):
-    r = radians(angle)
-    c = cos(r)
-    s = sin(r)
-    
-    return Vector2D(c, s)
+

@@ -1,5 +1,5 @@
 import pygame
-from pygame.locals import DOUBLEBUF, HWSURFACE, KEYDOWN, KEYUP, \
+from pygame.locals import DOUBLEBUF, FULLSCREEN, HWSURFACE, KEYDOWN, KEYUP, \
 MOUSEBUTTONDOWN, MOUSEBUTTONUP, MOUSEMOTION, QUIT
 
 from toast.event_manager import EventManager
@@ -18,7 +18,7 @@ class Scene(Component):
         pygame.display.set_caption('Toast Window')
         
         self.__resolution = (320, 240)
-        self.__flags = HWSURFACE | DOUBLEBUF
+        self.__flags = DOUBLEBUF
         pygame.display.set_mode(self.__resolution, self.__flags)
         
         self.__screen = pygame.display.get_surface()
@@ -99,9 +99,6 @@ class Scene(Component):
                 
             elif event.type == MOUSEBUTTONUP:
                 EventManager.notify('onMouseUp', event)
-                
-            elif event.type == 24:
-                pygame.time.Clock().tick()
                 
             elif event.type == QUIT:
                 self.__running = False

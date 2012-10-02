@@ -15,10 +15,10 @@ from toast.component import Component
 from toast.math.vector2D import Vector2D
 
 class Sprite(Component):
-    def __init__(self, image_or_animation):
+    def __init__(self, image_or_animation, position=(0,0)):
         super(Sprite, self).__init__()
         
-        self.__position = Vector2D(0, 0)
+        self.__position = Vector2D(position)
         self.__image = None
         self.__animation = None
         
