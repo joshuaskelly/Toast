@@ -1,13 +1,31 @@
 from toast import Scene
 from toast.sprite import Sprite
 from toast.animation import Animation
+from toast.component import Component
 from toast.image_sheet import ImageSheet
 from toast.resource_loader import ResourceLoader
-from toast.event_manager import EventManager
-from toast.camera import Camera
 from toast.emitter import Emitter
 from toast.math.vector2D import Vector2D
+from toast.gradient import Gradient
+
 import random
+import pygame
+
+from examples.demo_game import DemoGame
+
+class EndGameAfter(Component):
+    def __init__(self, milliseconds=0):
+        super(EndGameAfter, self).__init__()
+        self.__counter = 0;
+        self.__lifetime = milliseconds
+        
+    def update(self, milliseconds=0):
+        super(EndGameAfter, self).update(milliseconds)
+        
+        self.__counter += milliseconds
+        
+        if self.__counter > self.__lifetime:
+            pygame.event.post(pygame.event.Event(pygame.locals.QUIT))
 
 class Particle(Sprite):
     def __init__(self, image, lifetime):
@@ -36,26 +54,22 @@ class Particle(Sprite):
             self.__counter = 0
             self.remove()
 
-class NewScene(Scene):
-    def initialize_scene(self):
-        self.clear_color = 33, 33, 33
-        self.resolution = 640, 480
-        EventManager.subscribe(self, 'onMouseMotion')
+class EmitterPerformanceTest(Scene):
+    def __init__(self):
+        super(EmitterPerformanceTest, self).__init__()
         
-        self.emitter = Emitter(Particle, (ImageSheet(ResourceLoader.load('data//puffs.png'), (32, 32))[0], 1000), 40, self.onCreate)
-        self.add(self.emitter)
+        bg = Gradient.createVerticalGradient((20, 15), (255,255,255), (228, 139, 165), (111,86,117))
+        bg = pygame.transform.scale(bg, (320, 240))
+        self.add(Sprite(bg))
         
-        e = Emitter(Particle, (ImageSheet(ResourceLoader.load('data//puffs.png'), (32, 32))[0], 1000), 40, self.onCreate)
-        e.position = 32, 208
-        self.add(e)
+        num_emitters = 8
+        for i in range(num_emitters):
+            e = Emitter(Particle, (ImageSheet(ResourceLoader.load('data//puffs.png'), (32, 32))[0], 1000), 40, self.onCreate)
+            e.position = 32 + (i * (256 / (num_emitters - 1))), 208
+            self.add(e)
         
-        f = Emitter(Particle, (ImageSheet(ResourceLoader.load('data//puffs.png'), (32, 32))[0], 1000), 40, self.onCreate)
-        f.position = 288, 208
-        self.add(f)
+        self.add(EndGameAfter(1000 * 10))
         
-    def onMouseMotion(self, event):
-        self.emitter.position = Camera.camera_to_world(event.pos)
-            
     def onCreate(self, emitter, particle):
         particle.position = Vector2D(emitter.position) - (16, 16)
         particle.position += (random.random() - 0.5) * 2.0 * 8, (random.random() - 0.5) * 2.0 * 16
@@ -63,5 +77,5 @@ class NewScene(Scene):
         if (random.random() < 0.3):
             particle.lifetime = random.randint(1000, 1800)
 
-s = NewScene()
-s.run()
+game = DemoGame((640, 480), EmitterPerformanceTest)
+game.run()

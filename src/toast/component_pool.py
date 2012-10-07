@@ -57,5 +57,9 @@ class ComponentPool(Component):
             
         return self.__getNewInstance(*self.__default_args)
     
+    def has_child_alive(self):
+        return len([child for child in self.__children if not child.dead]) != 0
+            
+    
 def override_remove(self, target=None):
     self.dead = True

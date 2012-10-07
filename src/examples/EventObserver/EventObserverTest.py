@@ -4,6 +4,8 @@ from pygame.locals import K_ESCAPE, QUIT
 from toast import Scene
 from toast import EventManager
 
+from examples.demo_game import DemoGame
+
 class EventSubscriber(object):
     def __init__(self):
         EventManager.subscribe(self, 'onMySpecialEvent')
@@ -24,12 +26,10 @@ class EventSubscriber(object):
         print 'Called my special event!'
 
 class NewScene(Scene):
-    def initialize_scene(self):
-        self.clear_color = (98, 186, 221)
-        self.resolution = (640, 480)
+    def __init__(self):
+        super(NewScene, self).__init__()
         
         self.subscriber = EventSubscriber()
 
-s = NewScene()
-
-s.run()
+game = DemoGame((640, 480), NewScene)
+game.run()

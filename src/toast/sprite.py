@@ -46,4 +46,5 @@ class Sprite(Component):
         self.__image = image
         
     def render(self, surface, offset=(0,0)):
+        
         surface.blit(self.image, self.position - offset)

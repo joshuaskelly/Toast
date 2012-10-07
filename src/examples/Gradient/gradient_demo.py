@@ -4,8 +4,12 @@ from toast.sprite import Sprite
 
 import pygame
 
+from examples.demo_game import DemoGame
+
 class NewScene(Scene):
-    def initialize_scene(self):
+    def __init__(self):
+        super(NewScene, self).__init__()
+        
         self.clear_color = 88, 88, 88
         self.resolution = 640, 480
         
@@ -31,5 +35,5 @@ class NewScene(Scene):
         surf = pygame.transform.scale(surf, (144, 32))
         self.add(Sprite(surf, (160, 64)))
         
-s = NewScene()
-s.run()
+game = DemoGame((640, 480), NewScene)
+game.run()

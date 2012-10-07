@@ -5,9 +5,12 @@ from toast import Scene
 from toast.text_effects import wavy_text, shaky_text, dialog_text
 from toast import EventManager
 
+from examples.demo_game import DemoGame
+
 class NewScene(Scene):
-    def initialize_scene(self):
-        self.resolution = (640, 480)
+    def __init__(self):
+        super(NewScene, self).__init__()
+
         EventManager.subscribe(self, 'onKeyDown')
         
         # Read the alphabet string from a file.
@@ -49,6 +52,5 @@ class NewScene(Scene):
             self.add(self.effect)
             
 
-s = NewScene()
-
-s.run()
+game = DemoGame((640, 480), NewScene)
+game.run()

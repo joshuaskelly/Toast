@@ -68,6 +68,11 @@ class Component(object):
         #...otherwise remove the appropriate child.
         else:
             self.__children.remove(target)
+            
+    def get_component(self, class_name):
+        for child in self.__children:
+            if child.__class__.__name__ == class_name:
+                return child
         
 class ComponentException(Exception):
     def __init__(self, value):
@@ -75,5 +80,3 @@ class ComponentException(Exception):
         
     def __str__(self):
         return repr(self.value)
-        #if self in child.parent:
-        #    child.parent.remove(self)

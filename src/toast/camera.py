@@ -21,7 +21,7 @@ from toast.math.math_helper import MathHelper
 from toast.math.vector2D import Vector2D
 
 class Camera(Component):
-    currentCamera = None
+    current_camera = None
 
     def __init__(self, resolution):
         """
@@ -30,7 +30,7 @@ class Camera(Component):
         " *    data:         A two dimensional array.
         """
         super(Camera, self).__init__()
-        Camera.currentCamera = self
+        Camera.current_camera = self
         
         self.__position = Vector2D(0, 0)
         self.__viewport = pygame.Surface(resolution).convert()#.convert_alpha()
@@ -132,7 +132,7 @@ class Camera(Component):
         """
         
         buffer = self.__viewport
-        buffer.fill(self.clear_color)
+        #buffer.fill(self.clear_color)
 
         position = (self.__position[0] - self.__viewport.get_width() / 2,
                     self.__position[1] - self.__viewport.get_height() / 2)
@@ -154,29 +154,3 @@ class Camera(Component):
                 e = ShakeEffect(self, event.magnitude, event.duration)
                 
                 self.add(e)
-
-    def add_renderable(self, target):
-        if hasattr(target, 'render'):
-            self.__render_list.append(target)
-            target.parent = self
-            
-    @staticmethod
-    def camera_to_world(coord):
-        camera = Camera.currentCamera
-        viewport = toast.scene.Scene.currentScene.resolution
-        
-        scale_x = 1.0 * camera.viewport.get_width() / viewport[0]
-        scale_y = 1.0 * camera.viewport.get_height() / viewport[1]
-        return (camera.position[0] + (coord[0] * scale_x) - (camera.viewport.get_width() / 2), 
-                camera.position[1] + (coord[1] * scale_y) - (camera.viewport.get_height() / 2))
-    
-    @staticmethod
-    def world_to_camera(coord):
-        camera = Camera.currentCamera
-        viewport = toast.scene.Scene.currentScene.resolution
-        
-        scale_x = 1.0 * camera.viewport.get_width() / viewport[0]
-        scale_y = 1.0 * camera.viewport.get_height() / viewport[1]
-        return (((camera.viewport.get_width() / 2) - camera.position[0] - coord[0]) / -scale_x, 
-                (camera.position[1] - coord[1] - (camera.viewport.get_height() / 2)) / -scale_y)
-

@@ -1,9 +1,11 @@
 import toast
 from toast import Scene
 
+from examples.demo_game import DemoGame
+
 class NewScene(Scene):
-    def initialize_scene(self):
-        self.resolution = (640, 480)
+    def __init__(self):
+        super(NewScene, self).__init__()
         
         # Read the alphabet string from a file.
         alphaArray = open("Data\\anomaly.dat","r").readline()
@@ -19,6 +21,5 @@ class NewScene(Scene):
         
         self.add(text)
 
-s = NewScene()
-
-s.run()
+game = DemoGame((640, 480), NewScene)
+game.run()

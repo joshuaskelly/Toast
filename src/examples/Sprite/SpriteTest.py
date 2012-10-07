@@ -4,8 +4,12 @@ from toast.sprite import Sprite
 from toast.resource_loader import ResourceLoader
 from toast.animation import Animation
 
+from examples.demo_game import DemoGame
+
 class NewScene(Scene):
-    def initialize_scene(self):
+    def __init__(self):
+        super(NewScene, self).__init__()
+        
         self.clear_color = 98, 186, 221
         self.resolution = 640, 480
         
@@ -36,6 +40,5 @@ class NewScene(Scene):
             animatedSprite.position = (i + 1) * 32, 132
             self.add(animatedSprite)
 
-s = NewScene()
-
-s.run()
+game = DemoGame((640, 480), NewScene)
+game.run()

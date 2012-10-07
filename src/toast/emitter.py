@@ -9,17 +9,19 @@ class Emitter(ComponentPool):
         self.__counter = 0
         self.__on_particle_create = on_particle_create
         self.position = Vector2D(0, 0)
+        self.is_emitting = True
         
     def update(self, milliseconds=0):
         super(Emitter, self).update(milliseconds)
         
-        self.__counter += milliseconds
-        
-        if self.__counter >= self.__frequency:
-            self.__counter = 0
+        if self.is_emitting:
+            self.__counter += milliseconds
             
-            particle = self.getNextAvailable()
-            
-            if self.__on_particle_create is not None:
-                self.__on_particle_create(self, particle)
+            if self.__counter >= self.__frequency:
+                self.__counter = 0
                 
+                particle = self.getNextAvailable()
+                
+                if self.__on_particle_create is not None:
+                    self.__on_particle_create(self, particle)
+            
