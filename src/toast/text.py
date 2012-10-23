@@ -1,25 +1,12 @@
-"""
-" * text.py
-" * Copyright (C) 2009 Joshua Skelton
-" *                    joshua.skelton@gmail.com
-" *
-" * This program is free software; you can redistribute it and/or
-" * modify it as you see fit.
-" *
-" * This program is distributed in the hope that it will be useful,
-" * but WITHOUT ANY WARRANTY; without even the implied warranty of
-" * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-"""
-
 from toast.component import Component
 
 class Text(Component):
 
     def __init__(self, font, message):
-        """
-        " * Class Constructor
-        " *    font:        A BitmapFont object.
-        " *    message:     A string.
+        """Class Constructor
+        
+        font:        A BitmapFont object.
+        message:     A string.
         """
         super(Text, self).__init__()
 

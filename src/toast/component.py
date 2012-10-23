@@ -8,6 +8,10 @@ class Component(object):
         self.index = 0
         
     @property
+    def children(self):
+        return self.__children
+        
+    @property
     def parent(self):
         if self.__parent is None:
             return None

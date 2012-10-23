@@ -1,35 +1,13 @@
-"""
-TimeMap.py
-Copyright (C) 2009 Joshua Skelton
-                joshua.skelton@gmail.com
-
-This program is free software; you can redistribute it and/or
-modify it as you see fit.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-
-History:
-   2010-07-08 - Refactor to make module more 'pythonic.' It would appear that I
-                managed to also gain a small improvement in performance.
-   
-"""
-
 import pygame
 
 class TileMap(object):
-    """
-    TileMap
-    """
-    
     INVALID_TILE = -1
 
     def __init__(self, image_sheet, data):
-        """
-        Class Constructor
-           imageSheet:   An ImageSheet object.
-           data:         A two dimensional array.
+        """Class Constructor
+        
+        imageSheet:   An ImageSheet object.
+        data:         A two dimensional array.
         """
 
         self.__image_sheet = image_sheet
@@ -159,12 +137,10 @@ class TileMap(object):
         return result
     
     def draw_tile_outlines(self, surface, offset=(0, 0)):
-        """
-        draw_tile_outlines
-           surface:     The surface to draw the tilemap on.
-           offset:      The amount to offset the tilemap.
-           
-           description: Draws a black box around each tile. Handy for debugging.
+        """Draws a black box around each tile. Handy for debugging.
+        
+        surface:     The surface to draw the tilemap on.
+        offset:      The amount to offset the tilemap.
         """
 
         #offset = (offset[0] * self.__parallax + int(self.__scroll_register[0]), 
@@ -214,10 +190,10 @@ class TileMap(object):
                                  self.tile_rect_at_index((x, y), offset))
         
     def render(self, surface, offset=(0, 0)):
-        """
-        render
-           surface:     The surface to draw the tilemap on.
-           offset:      The amount to offset the tilemap.
+        """Draws the tilemap to the given surface with the specified offset.
+        
+        surface:     The surface to draw the tilemap on.
+        offset:      The amount to offset the tilemap.
         """
 
         offset = (offset[0] * self.__parallax + int(self.__scroll_register[0]), 

@@ -1,18 +1,4 @@
-"""
-" * BitmapFont.py
-" * Copyright (C) 2008 Joshua Skelton
-" *                    joshua.skelton@gmail.com
-" *
-" * This program is free software; you can redistribute it and/or
-" * modify it as you see fit.
-" *
-" * This program is distributed in the hope that it will be useful,
-" * but WITHOUT ANY WARRANTY; without even the implied warranty of
-" * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-"""
-
 import pygame
-
 
 class BitmapFont(object):
 

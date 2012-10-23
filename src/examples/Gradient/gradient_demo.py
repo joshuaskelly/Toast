@@ -10,9 +10,6 @@ class NewScene(Scene):
     def __init__(self):
         super(NewScene, self).__init__()
         
-        self.clear_color = 88, 88, 88
-        self.resolution = 640, 480
-        
         # Create a simple black to white gradient.
         surf = Gradient.createVerticalGradient((32, 208), (255,255,255), (0,0,0))
         self.add(Sprite(surf, (16, 16)))

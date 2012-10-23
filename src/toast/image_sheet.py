@@ -1,16 +1,3 @@
-"""
-" * ImageSheet.py
-" * Copyright (C) 2009 Joshua Skelton
-" *                    joshua.skelton@gmail.com
-" *
-" * This program is free software; you can redistribute it and/or
-" * modify it as you see fit.
-" *
-" * This program is distributed in the hope that it will be useful,
-" * but WITHOUT ANY WARRANTY; without even the implied warranty of
-" * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-"""
-
 import pygame
 
 blank_pixel = pygame.Color(0, 255, 255, 255)
@@ -25,18 +12,18 @@ class ImageSheet(object):
     COLORKEY = (255, 0, 255)
 
     def __init__(self, surface, dimension, keys = None):
-        """
-        " * Class Constructor
-        " *    surface:      A surface to be partitioned into sub-images.
-        " *    dimension:    A tuple of the form (width, height).
-        " *    keys:         A list of string identifiers for each sub-image.
-        " *                  If none is provided, defaults to filename + index.
+        """Class Constructor
+        
+        surface:      A surface to be partitioned into sub-images.
+        dimension:    A tuple of the form (width, height).
+        keys:         A list of string identifiers for each sub-image.
+                      If none is provided, defaults to filename + index.
         """
 
         # Set the surface.
-        self.__image_sheet = surface.convert()#convert_alpha()
+        self.__image_sheet = surface
 
-        self.__image_sheet.set_colorkey(ImageSheet.COLORKEY, pygame.RLEACCEL)
+        self.__image_sheet.set_colorkey(ImageSheet.COLORKEY)
 
         self.__dimension = dimension
         
@@ -77,9 +64,6 @@ class ImageSheet(object):
                 bounding_rect = self.__image_dict[frame_ID].get_bounding_rect()
                 
                 self.__empty_dict[frame_ID] = bounding_rect.width == 0 or bounding_rect.height == 0
-                                                          
-                pixel_array = pygame.PixelArray(self.__image_dict[frame_ID])
-
                         
     def __getitem__(self, key):
         try:

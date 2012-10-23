@@ -11,6 +11,9 @@ from toast.gradient import Gradient
 import random
 import pygame
 
+import psyco
+psyco.full()
+
 from examples.demo_game import DemoGame
 
 class EndGameAfter(Component):
@@ -68,7 +71,7 @@ class EmitterPerformanceTest(Scene):
             e.position = 32 + (i * (256 / (num_emitters - 1))), 208
             self.add(e)
         
-        self.add(EndGameAfter(1000 * 10))
+        self.add(EndGameAfter(1000 * 30))
         
     def onCreate(self, emitter, particle):
         particle.position = Vector2D(emitter.position) - (16, 16)

@@ -1,4 +1,4 @@
-from toast import Scene
+from toast.scene import Scene
 from toast.game import Game
 from toast.camera import Camera
 from toast.event_manager import EventManager
@@ -22,6 +22,8 @@ class NewScene(Scene):
         
         c = Crosshair(ResourceLoader.load('data//crosshair.png'))
         c.position = Camera.current_camera.position
+        Camera.current_camera.clear_color = 255, 255, 255
+        
         self.add(c)
         
         EventManager.subscribe(self, 'onMouseDown')

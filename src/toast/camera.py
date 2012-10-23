@@ -1,19 +1,5 @@
-"""
-" * camera.py
-" * Copyright (C) 2009 Joshua Skelton
-" *                    joshua.skelton@gmail.com
-" *
-" * This program is free software; you can redistribute it and/or
-" * modify it as you see fit.
-" *
-" * This program is distributed in the hope that it will be useful,
-" * but WITHOUT ANY WARRANTY; without even the implied warranty of
-" * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-"""
-
 import pygame
 
-import toast
 from toast.component import Component
 from toast.camera_effects.shake_effect import ShakeEffect
 from toast.event_manager import EventManager
@@ -21,7 +7,7 @@ from toast.math.math_helper import MathHelper
 from toast.math.vector2D import Vector2D
 
 class Camera(Component):
-    current_camera = None
+    __current_camera = None
 
     def __init__(self, resolution):
         """
@@ -35,7 +21,7 @@ class Camera(Component):
         self.__position = Vector2D(0, 0)
         self.__viewport = pygame.Surface(resolution).convert()#.convert_alpha()
         self.__viewport.set_colorkey((255,0,255))
-        self.__clear_color = (0, 0, 0)
+        self.__clear_color = None
         self.__target = None
         self.__bounds = None
         self.__tracking_strength = 0.1
@@ -49,6 +35,16 @@ class Camera(Component):
         self.__target = target
         
     target = property(get_target, set_target)
+    
+    @staticmethod
+    def get_current():
+        return Camera.__current_camera
+    
+    @staticmethod
+    def set_current(camera):
+        Camera.__current_camera = camera
+        
+    current_camera = property(get_current, set_current)
 
     @property
     def top_left(self):
@@ -81,7 +77,7 @@ class Camera(Component):
         self.__viewport = pygame.Surface((dimension[0], dimension[1]), pygame.SRCALPHA, 32)
 
     viewport = property(get_viewport_size, set_viewport_size)
-
+    
     def get_clear_color(self):
         return self.__clear_color
 
@@ -126,24 +122,26 @@ class Camera(Component):
                 rect.bottom = self.bounds.bottom
                 self.position = rect.center
         
-    def render(self, surface, offset=(0,0)):
+    def renderScene(self, surface, scene):
         """
-        " * Camera.render
+        " * Camera.renderScene
         """
         
-        buffer = self.__viewport
-        #buffer.fill(self.clear_color)
+        render_target = self.__viewport
+        
+        if self.clear_color:
+            render_target.fill(self.clear_color)
 
         position = (self.__position[0] - self.__viewport.get_width() / 2,
                     self.__position[1] - self.__viewport.get_height() / 2)
         
-        for element in toast.Scene.currentScene:
+        for element in scene:
             if hasattr(element, 'render'):
-                element.render(buffer, (int(position[0]), int(position[1])))
+                element.render(render_target, (int(position[0]), int(position[1])))
 
         SCREEN_SIZE = (surface.get_width(), surface.get_height())
 
-        pygame.transform.scale(buffer, SCREEN_SIZE, surface)
+        pygame.transform.scale(render_target, SCREEN_SIZE, surface)
             
     def onCameraEvent(self, event):
         if event.action == 'set_target':

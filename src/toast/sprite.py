@@ -1,24 +1,14 @@
-"""
-" * sprite.py
-" * Copyright (C) 2012 Joshua Skelton
-" *                    joshua.skelton@gmail.com
-" *
-" * This program is free software; you can redistribute it and/or
-" * modify it as you see fit.
-" *
-" * This program is distributed in the hope that it will be useful,
-" * but WITHOUT ANY WARRANTY; without even the implied warranty of
-" * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-"""
-
 from toast.component import Component
-from toast.math.vector2D import Vector2D
+from toast.transform import Transform
+from toast.decorators.memoize import memoize
 
 class Sprite(Component):
     def __init__(self, image_or_animation, position=(0,0)):
         super(Sprite, self).__init__()
         
-        self.__position = Vector2D(position)
+        self.add(Transform())
+        self.transform.position = position
+        
         self.__image = None
         self.__animation = None
         
@@ -30,12 +20,17 @@ class Sprite(Component):
             self.image = image_or_animation
         
     @property
+    @memoize
+    def transform(self):
+        return self.get_component('Transform')
+        
+    @property
     def position(self):
-        return self.__position
+        return self.transform.position
         
     @position.setter
     def position(self, value):
-        self.__position = Vector2D(value[0], value[1])
+        self.transform.position = value
         
     @property
     def image(self):
@@ -46,5 +41,8 @@ class Sprite(Component):
         self.__image = image
         
     def render(self, surface, offset=(0,0)):
-        
+        for child in self.children:
+            if hasattr(child, 'render'):
+                child.render(surface, offset)
+                
         surface.blit(self.image, self.position - offset)

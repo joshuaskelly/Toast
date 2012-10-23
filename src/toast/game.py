@@ -26,7 +26,7 @@ class Game(object):
         self.camera = Camera((320,240))
         self.camera.position = (160, 120)
         
-        self.__current_scene = initial_scene()
+        Scene.current_scene = initial_scene()
         
         self.__running = True
         self.__frame_limit = 0
@@ -51,7 +51,7 @@ class Game(object):
     @fullscreen.setter
     def fullscreen(self, is_fullscreen):
         if is_fullscreen:
-            self.__flags = self.__flags | HWSURFACE | FULLSCREEN
+            self.__flags = self.__flags | (HWSURFACE | FULLSCREEN)
         else:
             self.__flags = self.__flags ^ (HWSURFACE | FULLSCREEN)
             
@@ -73,12 +73,15 @@ class Game(object):
             self.__msecs += delta
             self.__frame_count += 1
             
-            self.camera.update(delta)
-            self.__current_scene.update(delta)
-                    
-            self.camera.render(self.__screen)
-            
-            pygame.display.flip()
+            camera = Camera.current_camera
+            scene = Scene.current_scene
+           
+            camera.update(delta)
+            scene.update(delta)
+
+            camera.renderScene(self.__screen, scene)
+
+            pygame.display.update()
             pygame.display.set_caption('Toast Window: %d fps' % self.__clock.get_fps())
             
             self.__handle_events()

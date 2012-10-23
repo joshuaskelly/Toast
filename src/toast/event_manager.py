@@ -1,16 +1,3 @@
-"""
-" * event_manager.py
-" * Copyright (C) 2012 Joshua Skelton
-" *                    joshua.skelton@gmail.com
-" *
-" * This program is free software; you can redistribute it and/or
-" * modify it as you see fit.
-" *
-" * This program is distributed in the hope that it will be useful,
-" * but WITHOUT ANY WARRANTY; without even the implied warranty of
-" * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-"""
-
 import weakref
 
 class EventManager(object):
@@ -32,13 +19,19 @@ class EventObserver(object):
     def __init__(self, method):
         self.__subscribers = []
         self.__target_method = method
+        self.__is_notifying_subscribers = False
+        self.__subscribers_to_add = []
     
     def add(self, subscriber):
-        self.__subscribers.append(weakref.ref(subscriber))
+        if self.__is_notifying_subscribers:
+            self.__subscribers_to_add.append(subscriber)
+        else:
+            self.__subscribers.append(weakref.ref(subscriber))
         
     def notify(self, event):
         cleanup_list = []
         
+        self.__is_notifying_subscribers = True
         for subscriber in self.__subscribers:
             if hasattr(subscriber(), self.__target_method):
                 subscriber().__getattribute__(self.__target_method)(event)
@@ -47,7 +40,14 @@ class EventObserver(object):
                     cleanup_list.append(subscriber)
                     continue
                 raise EventNotificationException('Subscriber: ' + str(subscriber()) + ' does not implement the required method: ' + self.__target_method + '(event)')
+        self.__is_notifying_subscribers = False
+        
+        # Add any new subscribers now that we are done notifying
+        for subscriber in self.__subscribers_to_add:
+            self.add(subscriber)
             
+        self.__subscribers_to_add = []
+        
         if len(cleanup_list) > 0:
             for g in cleanup_list:
                 self.__subscribers.remove(g)

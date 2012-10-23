@@ -114,20 +114,21 @@ class Vector2D(object):
             """
             return Vector2D(0, 0, self.x * other[1] - self.y * other[0])
     
-    def GetLength(self):
+    def Magnitude(self):
         return sqrt(self.Dot(self))
     
-    def GetUnit(self):
+    def MagnitudeSquared(self):
+        return self.Dot(self)
+    
+    def Normalized(self):
         """
-        " * GetUnit
+        " * Normalized
         " *   Returns: A vector of length one in the direction of self.
         """
-        length = self.GetLength()
+        length = self.Magnitude()
         if length != 0:
             return self / length
         return Vector2D(self)
-    
-    GetNormalized = GetUnit
     
     def GetAngle(self):
         if self.x == self.y == 0:
@@ -138,7 +139,6 @@ class Vector2D(object):
     def GetPerpendicular(self):
         return Vector2D(-self.y, self.x)
     
-    @property
     @staticmethod
     def Zero():
         return Vector2D(0, 0)

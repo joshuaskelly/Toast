@@ -10,7 +10,11 @@ class ComponentPool(Component):
         
         #Hijack parent class' child list.
         self.__children = self._Component__children
+        self.__limit_instances = False
         
+        if initial_size > 0:
+            self.__limit_instances = True
+            
         for _ in range(initial_size):
             instance = self.__getNewInstance(*default_args)
             instance.dead = True
@@ -44,7 +48,10 @@ class ComponentPool(Component):
     def __getNewInstance(self, *args):
         instance = self.__class_name(*args)
         instance.dead = False
-        #instance.remove = new.instancemethod(override_remove, instance, None)
+        
+        if self.__limit_instances:
+            instance.remove = new.instancemethod(override_remove, instance, None)
+            
         self.__add(instance)
         
         return instance
@@ -54,8 +61,11 @@ class ComponentPool(Component):
             if child.dead:
                 child.dead = False
                 return child
-            
-        return self.__getNewInstance(*self.__default_args)
+        
+        if self.__limit_instances:
+            return None
+        else:
+            return self.__getNewInstance(*self.__default_args)
     
     def has_child_alive(self):
         return len([child for child in self.__children if not child.dead]) != 0
