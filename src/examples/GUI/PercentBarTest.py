@@ -1,6 +1,6 @@
 import pygame
 
-import toast
+from toast.image_sheet import ImageSheet
 from toast.gui.percent_bar import PercentBar
 from toast.math.math_helper import MathHelper
 
@@ -20,8 +20,9 @@ buffer = pygame.Surface((80, 60))
 
 clock = pygame.time.Clock()
 
-data = pygame.image.load('Data/bar.png')
-sheet = toast.ImageSheet(data, (51, 8))
+data = pygame.image.load('Data/bar.png').convert()
+data.set_colorkey((255, 0, 255))
+sheet = ImageSheet(data, (51, 8))
 
 bar1 = PercentBar(sheet[0], sheet[3])
 bar2 = PercentBar(sheet[1], sheet[4])

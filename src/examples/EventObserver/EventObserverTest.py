@@ -1,8 +1,8 @@
 import pygame
 from pygame.locals import K_ESCAPE, QUIT
 
-from toast import Scene
-from toast import EventManager
+from toast.scene import Scene
+from toast.event_manager import EventManager
 
 from examples.demo_game import DemoGame
 

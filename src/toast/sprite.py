@@ -1,7 +1,7 @@
-from toast.component import Component
+from toast.game_object import GameObject
 from toast.transform import Transform
 
-class Sprite(Component):
+class Sprite(GameObject):
     def __init__(self, image_or_animation, position=(0,0)):
         super(Sprite, self).__init__()
         

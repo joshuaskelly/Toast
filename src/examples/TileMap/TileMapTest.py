@@ -1,7 +1,8 @@
 import pygame
-import toast
-
 from pygame.locals import *
+
+from toast.image_sheet import ImageSheet
+from toast.tile_map import TileMap
 
 # Define the origin
 ORIGIN = (0,0)
@@ -22,7 +23,7 @@ dimension = (32,32)
 data = pygame.image.load("Data/tiles.png")
 
 # Create the image sheet object.
-sheet = toast.ImageSheet(data, dimension)
+sheet = ImageSheet(data, dimension)
 
 # Define the tilemap data.
 data = [[0,1,2,3],
@@ -30,7 +31,7 @@ data = [[0,1,2,3],
         [2,3,0,1],
         [1,2,3,0]]
 
-map = toast.TileMap(sheet, data)
+map = TileMap(sheet, data)
 map.position = (0, 0)
 
 clock = pygame.time.Clock()

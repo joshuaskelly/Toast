@@ -21,7 +21,7 @@ class NewScene(Scene):
         super(NewScene, self).__init__()
         EventManager.subscribe(self, 'onMouseDown')
         
-        Camera.current_camera.clear_color = 255, 255, 255
+        Camera.current_camera.clear_color = 0, 0, 0
         
     def onMouseDown(self, event):
         if event.button is 1:

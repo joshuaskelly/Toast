@@ -35,8 +35,8 @@ class Animation(Component):
             
             self.__current_frame, duration = self.__animation_list[self.__current_animation][self.__index]
             
-            if hasattr(self.parent, 'image'):
-                self.parent.image = self.get_current_frame()
+            if hasattr(self.game_object, 'image'):
+                self.game_object.image = self.get_current_frame()
             
             if self.__time > duration:
                 self.__time = 0

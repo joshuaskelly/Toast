@@ -1,7 +1,7 @@
-from toast.component_pool import ComponentPool
+from toast.game_object_pool import GameObjectPool
 from toast.math.vector2D import Vector2D
 
-class Emitter(ComponentPool):
+class Emitter(GameObjectPool):
     def __init__(self, particle_class_name, default_args=(), frequency=0, on_particle_create=None):
         super(Emitter, self).__init__(particle_class_name, default_args)
         

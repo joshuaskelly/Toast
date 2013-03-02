@@ -1,4 +1,4 @@
-from toast import Scene
+from toast.scene import Scene
 from toast.image_sheet import ImageSheet
 from toast.sprite import Sprite
 from toast.resource_loader import ResourceLoader

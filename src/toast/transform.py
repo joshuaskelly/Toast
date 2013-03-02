@@ -13,7 +13,7 @@ class Transform(Component):
     @property
     def grandparent(self):
         """ Returns the parent of the parent. """
-        return self.parent.parent
+        return self.game_object.parent if self.game_object else None
         
     @property
     def position(self):
@@ -31,8 +31,8 @@ class Transform(Component):
         other -- A position in world space.
         
         """
-        if self.parent.parent and hasattr(self.parent.parent, 'transform'):
-            self.__local_position = self.parent.parent.get_component('Transform').position - other
+        if self.grandparent and hasattr(self.grandparent, 'transform'):
+            self.__local_position = self.grandparent.get_component('Transform').position - other
         else:
             self.local_position = other
         

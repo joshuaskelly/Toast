@@ -1,14 +1,14 @@
 import pygame
 
 from toast.quadtree import QuadTree
-from toast.component import Component
+from toast.game_object import GameObject
 from toast.scene import Scene
 from toast.camera import Camera
 from toast.event_manager import EventManager
 
 from examples.demo_game import DemoGame
 
-class QuadTreeVisualizer(Component):
+class QuadTreeVisualizer(GameObject):
     def __init__(self, quadtree):
         super(QuadTreeVisualizer, self).__init__()
         
@@ -33,6 +33,7 @@ class QuadTreeVisualizer(Component):
 class NewScene(Scene):
     def __init__(self):
         super(NewScene, self).__init__()
+        
         EventManager.subscribe(self, 'onMouseMotion')
         
         Camera.current_camera.viewport = 512, 512

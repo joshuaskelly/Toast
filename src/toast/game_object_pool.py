@@ -1,15 +1,15 @@
 import new
 
-from toast.component import Component, ComponentException
+from toast.game_object import GameObject, GameObjectException
 
-class ComponentPool(Component):
+class GameObjectPool(GameObject):
     def __init__(self, class_name, default_args=(), initial_size=0):
-        super(ComponentPool, self).__init__()
+        super(GameObjectPool, self).__init__()
         self.__class_name = class_name
         self.__default_args = default_args
         
         #Hijack parent class' child list.
-        self.__children = self._Component__children
+        self.__children = self._GameObject__children
         self.__limit_instances = False
         
         if initial_size > 0:
@@ -33,11 +33,11 @@ class ComponentPool(Component):
                 child.render(surface, offset)
     
     def add(self, child):
-        raise ComponentException('Cannot add a child to a Component Pool.')
+        raise GameObjectException('Cannot add a child to a Component Pool.')
     
     def __add(self, child):
-        if not self.is_a_component(child):
-            raise ComponentException('Cannot add a child object that is not a component.')
+        if not self.is_a_game_object(child):
+            raise GameObjectException('Cannot add a child object that is not a game object.')
         
         if child != None:
             self.__children.append(child)
@@ -57,7 +57,9 @@ class ComponentPool(Component):
         return instance
     
     def getNextAvailable(self):
-        """ Returns first-available non-dead child. """
+        """ Returns first-available non-dead child. If you are limiting the
+        number of instances created, this can possibly return None.
+        """
         for child in self.__children:
             if child.dead:
                 child.dead = False

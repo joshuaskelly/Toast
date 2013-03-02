@@ -8,6 +8,8 @@ class DemoGame(Game):
     def __init__(self, resolution, initial_scene):
         super(DemoGame, self).__init__(resolution, initial_scene)
         
+        pygame.mouse.set_visible(True)
+        
         EventManager.subscribe(self, 'onKeyDown')
         
     def onKeyDown(self, event):

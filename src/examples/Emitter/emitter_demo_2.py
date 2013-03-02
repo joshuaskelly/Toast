@@ -30,7 +30,7 @@ class DestroyAfter(Component):
         
         if self.__counter > self.lifetime:
             self.__counter = 0
-            self.parent.remove()
+            self.game_object.remove()
 
 class Particle(Sprite):
     def __init__(self, image, lifetime):

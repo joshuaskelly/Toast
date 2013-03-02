@@ -1,6 +1,6 @@
-from toast.component import Component
+from toast.game_object import GameObject
 
-class Text(Component):
+class Text(GameObject):
 
     def __init__(self, font, message):
         """Class Constructor

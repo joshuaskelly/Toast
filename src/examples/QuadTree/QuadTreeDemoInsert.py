@@ -2,14 +2,14 @@ import pygame
 import random
 
 from toast.quadtree import QuadTree
-from toast.component import Component
+from toast.game_object import GameObject
 from toast.scene import Scene
 from toast.camera import Camera
 from toast.event_manager import EventManager
 
 from examples.demo_game import DemoGame
 
-class QuadTreeVisualizer(Component):
+class QuadTreeVisualizer(GameObject):
     def __init__(self, quadtree):
         super(QuadTreeVisualizer, self).__init__()
         
@@ -35,7 +35,7 @@ class QuadTreeVisualizer(Component):
             for item in quadtree.bucket:
                 item.render(surface)
             
-class RectComponent(Component):
+class RectComponent(GameObject):
     def __init__(self, left, top, width, height):
         super(RectComponent, self).__init__()
         self.left = left
@@ -60,6 +60,7 @@ class RectComponent(Component):
 class NewScene(Scene):
     def __init__(self):
         super(NewScene, self).__init__()
+        
         EventManager.subscribe(self, 'onMouseDown')
         
         Camera.current_camera.viewport = 512, 512

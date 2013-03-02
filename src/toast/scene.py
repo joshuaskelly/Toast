@@ -1,6 +1,6 @@
-from toast.component import Component
+from toast.game_object import GameObject
 
-class Scene(Component):
+class Scene(GameObject):
     __current_scene = None
     
     def __init__(self):

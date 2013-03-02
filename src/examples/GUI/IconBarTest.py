@@ -1,6 +1,6 @@
 import pygame
 
-import toast
+from toast.image_sheet import ImageSheet
 from toast.gui.icon_bar import IconBar
 
 from pygame.locals import *
@@ -19,8 +19,10 @@ buffer = pygame.Surface((160,120))
 
 clock = pygame.time.Clock()
 
-data = pygame.image.load('Data/hud.png')
-sheet = toast.ImageSheet(data, (16, 13))
+data = pygame.image.load('Data/hud.png').convert()
+data.set_colorkey((255, 0, 255))
+
+sheet = ImageSheet(data, (16, 13))
 
 bar = IconBar(6, sheet[0], sheet[1])
 bar.spacing = 6

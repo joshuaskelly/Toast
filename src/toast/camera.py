@@ -1,12 +1,12 @@
 import pygame
 
-from toast.component import Component
+from toast.game_object import GameObject
 from toast.camera_effects.shake_effect import ShakeEffect
 from toast.event_manager import EventManager
 from toast.math.math_helper import MathHelper
 from toast.math.vector2D import Vector2D
 
-class Camera(Component):
+class Camera(GameObject):
     __current_camera = None
 
     def __init__(self, resolution):

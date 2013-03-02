@@ -1,5 +1,7 @@
-import toast
-from toast import Scene
+from toast.scene import Scene
+from toast.bitmap_font import BitmapFont
+from toast.text import Text
+from toast.resource_loader import ResourceLoader
 
 from examples.demo_game import DemoGame
 
@@ -8,14 +10,14 @@ class NewScene(Scene):
         super(NewScene, self).__init__()
         
         # Read the alphabet string from a file.
-        alphaArray = open("Data\\anomaly.dat","r").readline()
+        alphaArray = open('Data\\anomaly.dat','r').readline()
         # Define the font dimensions
         fontDimension = (32,32)
         # Create bitmap font object
-        font = toast.BitmapFont("Data\\anomaly.png", fontDimension, alphaArray)
+        font = BitmapFont(ResourceLoader.load('Data\\anomaly.png'), fontDimension, alphaArray)
         
         # Create the text object
-        text = toast.Text(font,"Basic Text")
+        text = Text(font,'Basic Text')
         # Set the text object's position
         text.position = (0, 88)
         
