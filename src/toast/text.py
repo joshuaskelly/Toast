@@ -14,6 +14,7 @@ class Text(Component):
         self.message = message
         self.__position = (0, 0)
         self.__time = 0
+        self.visible = True
 
         self.charList = []
         self.positionList = []
@@ -31,6 +32,8 @@ class Text(Component):
             left += rect.width
 
     def update(self, time = 0.1667):
+        super(Text, self).update(time)
+        
         self.time += time
 
         left = 0
@@ -42,6 +45,9 @@ class Text(Component):
             index += 1
 
     def render(self, surface, offset=(0,0)):
+        if not self.visible:
+            return
+        
         for (image, rect) in self.charList:
             surface.blit(image, rect)
 

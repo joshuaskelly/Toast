@@ -1,16 +1,3 @@
-"""
-" * Vector2D.py
-" * Copyright (C) 2009 Joshua Skelton
-" *                    joshua.skelton@gmail.com
-" *
-" * This program is free software; you can redistribute it and/or
-" * modify it as you see fit.
-" *
-" * This program is distributed in the hope that it will be useful,
-" * but WITHOUT ANY WARRANTY; without even the implied warranty of
-" * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-" *
-"""
 from math import sqrt, degrees, atan2, cos, sin, radians
 
 class Vector2D(object):
@@ -31,7 +18,7 @@ class Vector2D(object):
         elif index == 1:
             return self.y
         else:
-            raise IndexError('Error: Index ' + str(index) + ' is out of range.')
+            raise IndexError('Error: Index {0} is out of range.'.format(index))
         
     def __setitem__(self, index, value):
         if index == 0:
@@ -39,10 +26,10 @@ class Vector2D(object):
         elif index == 1:
             self.y = value
         else:
-            raise IndexError('Error: Index ' + str(index) + ' is out of range.')
+            raise IndexError('Error: Index {0} is out of range.'.format(index))
         
     def __repr__(self):
-        return 'Vector2D(%s, %s)' % (self.x,self.y)
+        return '<{0} {1}>'.format(self.__class__.__name__, (self.x, self.y))
     
     def __eq__(self, other):
         if hasattr(other, '__getitem__') and len(other) == 2:
@@ -72,27 +59,34 @@ class Vector2D(object):
         if hasattr(other, '__getitem__') and len(other) == 2:
             return Vector2D(other[0] - self.x , other[1] - self.y)
         
-    def __mul__(self, other):
-            """
-            " * Scalar Multiplication
-            " *   other  Stricly a scalar.
-            """
-            if hasattr(other, '__getitem__') and len(other) == 2:
-                raise "Ambiguity: Use Dot() or Cross() to compute the respective products."
-            
-            return Vector2D(self.x * other, self.y * other)
+    def __mul__(self, scalar):
+        """ Returns the product of self by other. 
+        
+        Arguments:
+        scalar -- Strictly a scalar value.
+        
+        """
+        if not isinstance(scalar, (int, float, long)):
+            if hasattr(scalar, 'Dot'):
+                raise TypeError('Unable to multiply Vector2D by type \'{0}\'. Did you mean Dot() or Cross()?'.format(scalar.__class__.__name__))
+            else:
+                raise TypeError('Unable to multiply Vector2D by type \'{0}\'.'.format(scalar.__class__.__name__))
+        
+        return Vector2D(self.x * scalar, self.y * scalar)
         
     __rmul__ = __mul__
     
-    def __div__(self, other):
-            """
-            " * Scalar Division
-            " *   other  Stricly a scalar
-            """
-            if hasattr(other, '__getitem__') and len(other) == 2:
-                raise "Ambiguity: Division of two vectors is not well-defined."
-           
-            return Vector2D(self.x / other, self.y / other)
+    def __div__(self, scalar):
+        """ Returns the quotient of self by other. 
+        
+        Arguments:
+        scalar -- Strictly a scalar value.
+        
+        """
+        if hasattr(scalar, '__getitem__') and len(scalar) == 2:
+            raise TypeError('Division of two vectors is not well-defined.')
+       
+        return Vector2D(self.x / scalar, self.y / scalar)
         
     def __neg__(self):
         return Vector2D( -self.x , -self.y)
@@ -101,36 +95,30 @@ class Vector2D(object):
         return Vector2D( self.x , self.y)
     
     def Dot(self, other):
-            """
-            " * Dot Product
-            " *   other  A vector or triple
-            """
-            return float(self.x * other[0] + self.y * other[1])
+        """ Returns the dot product of self by other """
+        return float(self.x * other[0] + self.y * other[1])
         
     def Cross(self, other):
-            """
-            " * Cross Product
-            " *   other  A vector or triple
-            """
-            return Vector2D(0, 0, self.x * other[1] - self.y * other[0])
+        """ Returns the cross product of self by other. """
+        return Vector2D(0, 0, self.x * other[1] - self.y * other[0])
     
     def Magnitude(self):
+        """ Returns the length of this vector. """
         return sqrt(self.Dot(self))
     
     def MagnitudeSquared(self):
+        """ Returns the length of this vector in square space. """
         return self.Dot(self)
     
     def Normalized(self):
-        """
-        " * Normalized
-        " *   Returns: A vector of length one in the direction of self.
-        """
+        """ Returns a unit vector in the direction of this vector. """
         length = self.Magnitude()
         if length != 0:
             return self / length
         return Vector2D(self)
     
     def GetAngle(self):
+        """ Returns the angle of this vector. """
         if self.x == self.y == 0:
             return 0
         else:
@@ -141,15 +129,13 @@ class Vector2D(object):
     
     @staticmethod
     def Zero():
+        """ Returns a vector of length zero. """
         return Vector2D(0, 0)
     
     @staticmethod
     def UnitVectorFromAngle(angle):
-        r = radians(angle)
-        c = cos(r)
-        s = sin(r)
-        
-        return Vector2D(c, s)
+        """ Returns a unit vector in the direction of angle. """
+        return Vector2D(cos(radians(angle)), sin(radians(angle)))
 
 i = Vector2D(1,0)
 

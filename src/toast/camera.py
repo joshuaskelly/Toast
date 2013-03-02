@@ -135,7 +135,7 @@ class Camera(Component):
         position = (self.__position[0] - self.__viewport.get_width() / 2,
                     self.__position[1] - self.__viewport.get_height() / 2)
         
-        for element in scene:
+        for element in scene.children:
             if hasattr(element, 'render'):
                 element.render(render_target, (int(position[0]), int(position[1])))
 

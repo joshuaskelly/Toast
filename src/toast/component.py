@@ -13,71 +13,57 @@ class Component(object):
         
     @property
     def parent(self):
-        if self.__parent is None:
-            return None
-        
-        return self.__parent()
+        return None if self.__parent is None else self.__parent()
     
     @parent.setter
     def parent(self, other):
         self.__parent = weakref.ref(other)
         
     def is_a_component(self, other=None):
-        if other is not None:
-            return hasattr(other,'is_a_component')
-        return True
-    
-    def __iter__(self):
-        return self
-    
-    def next(self):
-        if self.index >= len(self.__children):
-            self.index = 0
-            raise StopIteration
-        
-        self.index += 1
-        return self.__children[self.index - 1]
-    
-    def __getitem__(self, key):
-        return self.__children[key]
+        return hasattr(other, 'is_a_component') if other is not None else True
     
     def update(self, milliseconds=0):
-        for child in self.__children:
-            if hasattr(child, 'update'):
-                child.update(milliseconds)
+        for child in [c for c in self.__children if hasattr(c, 'update')]:
+            child.update(milliseconds)
             
     def add(self, child):
+        """ Adds child component. """
+        if child is None:
+            return
+        
         if not self.is_a_component(child):
-            raise ComponentException('Cannot add a child object that is not a component.')
+            message = 'Cannot add a child object that is not a component.'
+            raise ComponentException(message)
         
         if child.parent is not None:
-            raise ComponentException('Cannot add component. ' + child.__class__.__name__ + ' is already a child of: ' + child.parent.__class__.__name__)
+            message = 'Cannot add component. {0} is already a child of: {1}'
+            message.format(child.__class__.__name__, \
+                           child.parent.__class__.__name__)
+            raise ComponentException(message)
         
-        if child != None:
-            self.__children.append(child)
-            
-            if hasattr(child, 'parent'):
-                child.parent = self
+        self.__children.append(child)
+        
+        if hasattr(child, 'parent'):
+            child.parent = self
             
     def remove(self, target=None):
-        #Default to self if target is None.
-        if target is None or target is self:
-            target = self
-            if target.parent != None:
-                target.parent.remove(self)
-            
-            for child in [x for x in self]:
-                child.remove()
+        """ Removes target from self or self from parent. """
+        if (target is None or target is self) and self.parent is not None:
+            self.parent.remove(self)
                 
-        #...otherwise remove the appropriate child.
         else:
             self.__children.remove(target)
             
     def get_component(self, class_name):
+        """ Returns first child component with specified class name. """
         for child in self.__children:
             if child.__class__.__name__ == class_name:
                 return child
-        
+            
+    def __del__(self):
+        return
+        print 'Deleting instance of: {0}'.format(self.__class__.__name__)
+            
 class ComponentException(Exception):
     def __init__(self, value):
         self.value = value

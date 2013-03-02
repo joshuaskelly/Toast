@@ -1,4 +1,4 @@
-from toast import Scene
+from toast.scene import Scene
 from toast.sprite import Sprite
 from toast.component import Component
 from toast.animation import Animation
@@ -37,8 +37,6 @@ class Particle(Sprite):
         super(Particle, self).__init__(image)
         self.__velocity = Vector2D.UnitVectorFromAngle(random.randrange(80, 100)) * -1.35
         
-        self.add(DestroyAfter(lifetime))
-        
         sheet = ImageSheet(ResourceLoader.load('data//puffs.png'), (32, 32))
         
         puff = [(sheet[3], int(lifetime * 0.2)),
@@ -48,6 +46,7 @@ class Particle(Sprite):
         
         self.animation = Animation('puff', puff)
         self.add(self.animation)
+        self.add(DestroyAfter(lifetime))
         
     def update(self, milliseconds=0):
         super(Particle, self).update(milliseconds)

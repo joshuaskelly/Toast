@@ -22,6 +22,8 @@ class Game(object):
         self.__flags = DOUBLEBUF #| HWSURFACE | FULLSCREEN
         pygame.display.set_mode(self.__resolution, self.__flags)
         
+        pygame.mouse.set_visible(False)
+        
         self.__screen = pygame.display.get_surface()
         self.camera = Camera((320,240))
         self.camera.position = (160, 120)

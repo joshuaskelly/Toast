@@ -2,7 +2,7 @@ import pygame
 
 class BitmapFont(object):
 
-    def __init__(self, filename, dimension, sample_string):
+    def __init__(self, surface, dimension, sample_string):
         """
         " * Class Constructor
         " *    filename:     The path to the font bitmap.
@@ -12,14 +12,7 @@ class BitmapFont(object):
         """
 
         # Load font image
-        self.font_sheet = pygame.Surface((0, 0))
-        try:
-            self.font_sheet = pygame.image.load(filename).convert_alpha()
-        except:
-            try:
-                self.font_sheet = pygame.image.load(filename)#.convert_alpha()
-            except:
-                raise "Unable to load image: ", filename
+        self.font_sheet = surface
 
         self.dimension = dimension
 

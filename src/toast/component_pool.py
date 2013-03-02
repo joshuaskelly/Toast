@@ -57,6 +57,7 @@ class ComponentPool(Component):
         return instance
     
     def getNextAvailable(self):
+        """ Returns first-available non-dead child. """
         for child in self.__children:
             if child.dead:
                 child.dead = False
@@ -66,10 +67,19 @@ class ComponentPool(Component):
             return None
         else:
             return self.__getNewInstance(*self.__default_args)
+        
+    @property
+    def children(self):
+        """ Returns a list of non-dead children. """
+        return [child for child in self.__children if not child.dead]
     
     def has_child_alive(self):
-        return len([child for child in self.__children if not child.dead]) != 0
-            
+        """ Returns true if at least one child is not dead. """
+        for child in self.children:
+            if not child.dead:
+                return True
+        
+        return False
     
 def override_remove(self, target=None):
     self.dead = True

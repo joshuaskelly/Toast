@@ -9,8 +9,6 @@ class ImageSheet(object):
     " *
     """
 
-    COLORKEY = (255, 0, 255)
-
     def __init__(self, surface, dimension, keys = None):
         """Class Constructor
         
@@ -22,8 +20,6 @@ class ImageSheet(object):
 
         # Set the surface.
         self.__image_sheet = surface
-
-        self.__image_sheet.set_colorkey(ImageSheet.COLORKEY)
 
         self.__dimension = dimension
         

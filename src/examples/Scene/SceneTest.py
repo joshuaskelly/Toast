@@ -1,10 +1,10 @@
-from toast import Scene
+from toast.scene import Scene
 
 from examples.demo_game import DemoGame
 
 class NewScene(Scene):
-    def initialize_scene(self):
-        pass
+    def __init__(self):
+        super(NewScene, self).__init__()
 
 game = DemoGame((640, 480), NewScene)
 game.run()

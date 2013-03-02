@@ -2,15 +2,24 @@ from toast.component import Component
 from toast.math.vector2D import Vector2D
 
 class Transform(Component):
-    def __init__(self):
+    def __init__(self, *position):
         super(Transform, self).__init__()
-        self.__local_position = Vector2D.Zero()
+        
+        if position is ():
+            self.__local_position = Vector2D.Zero()
+        else:
+            self.__local_position = Vector2D(position)
+            
+    @property
+    def grandparent(self):
+        """ Returns the parent of the parent. """
+        return self.parent.parent
         
     @property
     def position(self):
         """ Returns the world position as a Vector2D. """
-        if self.parent.parent and hasattr(self.parent.parent, 'transform'):
-            return self.parent.parent.get_component('Transform').position + self.__local_position
+        if self.grandparent and hasattr(self.grandparent, 'transform'):
+            return self.grandparent.transform.position + self.__local_position
         else:
             return self.local_position
     

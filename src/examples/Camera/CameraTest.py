@@ -19,14 +19,9 @@ class Crosshair(Sprite):
 class NewScene(Scene):
     def __init__(self):
         super(NewScene, self).__init__()
-        
-        c = Crosshair(ResourceLoader.load('data//crosshair.png'))
-        c.position = Camera.current_camera.position
-        Camera.current_camera.clear_color = 255, 255, 255
-        
-        self.add(c)
-        
         EventManager.subscribe(self, 'onMouseDown')
+        
+        Camera.current_camera.clear_color = 255, 255, 255
         
     def onMouseDown(self, event):
         if event.button is 1:

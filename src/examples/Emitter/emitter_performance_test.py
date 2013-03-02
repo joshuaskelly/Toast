@@ -1,4 +1,6 @@
-from toast import Scene
+# 86 fps 10/27/2012
+
+from toast.scene import Scene
 from toast.sprite import Sprite
 from toast.animation import Animation
 from toast.component import Component
