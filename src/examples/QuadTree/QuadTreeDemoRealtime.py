@@ -21,13 +21,13 @@ class QuadTreeVisualizer(GameObject):
         pygame.draw.rect(surface, (color,color,color), quadtree.quadrant, 0)
         pygame.draw.rect(surface, (255 - color,255 - color,255 - color), quadtree.quadrant, 1)
         
-        if quadtree.northwest_tree:
+        if quadtree.northwest_tree is not None:
             self.render_quadtree(surface, color + 32, quadtree.northwest_tree)
-        if quadtree.northeast_tree:
+        if quadtree.northeast_tree is not None:
             self.render_quadtree(surface, color + 32, quadtree.northeast_tree)
-        if quadtree.southwest_tree:
+        if quadtree.southwest_tree is not None:
             self.render_quadtree(surface, color + 32, quadtree.southwest_tree)
-        if quadtree.southeast_tree:
+        if quadtree.southeast_tree is not None:
             self.render_quadtree(surface, color + 32, quadtree.southeast_tree)
     
 class NewScene(Scene):

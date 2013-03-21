@@ -24,13 +24,13 @@ class QuadTreeVisualizer(GameObject):
             for item in quadtree.bucket:
                 item.render(surface)
         
-        if quadtree.northwest_tree:
+        if quadtree.northwest_tree is not None:
             self.render_quadtree(surface, quadtree.northwest_tree)
-        if quadtree.northeast_tree:
+        if quadtree.northeast_tree is not None:
             self.render_quadtree(surface, quadtree.northeast_tree)
-        if quadtree.southwest_tree:
+        if quadtree.southwest_tree is not None:
             self.render_quadtree(surface, quadtree.southwest_tree)
-        if quadtree.southeast_tree:
+        if quadtree.southeast_tree is not None:
             self.render_quadtree(surface, quadtree.southeast_tree)
         
 class RectComponent(GameObject):

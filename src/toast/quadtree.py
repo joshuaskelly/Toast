@@ -22,14 +22,19 @@ class QuadTree(object):
         
         self.bucket = []
         
+        self.length = len(items)
+        
         for item in items:
             self.insert(item)
+            
+    def __len__(self):
+        return self.length
             
     def create_subtrees(self):
         if self.width < 8:
             return False
         
-        if self.northwest_tree:
+        if self.northwest_tree is not None:
             return True
         
         self.northwest_tree = QuadTree([], (self.left, self.top, self.half_width, self.half_height))
@@ -81,7 +86,7 @@ class QuadTree(object):
         result = [item for item in self.bucket if contains(item)]
            
         # Recurse     
-        if self.northwest_tree:
+        if self.northwest_tree is not None:
             if rect[0] < self.left + self.half_width and \
                rect[1] < self.top + self.half_height:
                 result += self.northwest_tree.hit(rect)

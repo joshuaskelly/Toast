@@ -22,13 +22,13 @@ class QuadTreeVisualizer(GameObject):
         pygame.draw.rect(surface, (255,0,0), quadtree.quadrant, 1)
 
         
-        if quadtree.northwest_tree:
+        if quadtree.northwest_tree is not None:
             self.render_quadtree(surface, quadtree.northwest_tree)
-        if quadtree.northeast_tree:
+        if quadtree.northeast_tree is not None:
             self.render_quadtree(surface, quadtree.northeast_tree)
-        if quadtree.southwest_tree:
+        if quadtree.southwest_tree is not None:
             self.render_quadtree(surface, quadtree.southwest_tree)
-        if quadtree.southeast_tree:
+        if quadtree.southeast_tree is not None:
             self.render_quadtree(surface, quadtree.southeast_tree)
             
         if quadtree.bucket is not []:
