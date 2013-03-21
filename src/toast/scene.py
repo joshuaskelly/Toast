@@ -18,3 +18,7 @@ class Scene(GameObject):
         Scene.__current_scene = scene
         
     current_scene = property(get_current, set_current)
+    
+    def render(self, surface, offset=(0,0)):
+        for child in [c for c in self.children if hasattr(c, 'render')]:
+            child.render(surface, offset)

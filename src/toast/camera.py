@@ -48,8 +48,23 @@ class Camera(GameObject):
 
     @property
     def top_left(self):
-        return (self.__position[0] - (self.__viewport.get_width() / 2),
-                self.__position[1] - (self.__viewport.get_height() / 2))
+        return self.left, self.top
+        
+    @property
+    def top(self):
+        return self.__position[1] - (self.__viewport.get_height() / 2)
+    
+    @property
+    def left(self):
+        return self.__position[0] - (self.__viewport.get_width() / 2)
+    
+    @property
+    def width(self):
+        return self.__viewport.get_width()
+    
+    @property
+    def height(self):
+        return self.__viewport.get_height()
         
     def get_position(self):
         return self.__position
@@ -135,9 +150,7 @@ class Camera(GameObject):
         position = (self.__position[0] - self.__viewport.get_width() / 2,
                     self.__position[1] - self.__viewport.get_height() / 2)
         
-        for element in scene.children:
-            if hasattr(element, 'render'):
-                element.render(render_target, (int(position[0]), int(position[1])))
+        scene.render(render_target, (int(position[0]), int(position[1])))
 
         SCREEN_SIZE = (surface.get_width(), surface.get_height())
 
