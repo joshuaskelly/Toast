@@ -17,6 +17,9 @@ class Component(object):
     def is_a_component(self, other=None):
         return hasattr(other, 'is_a_component') if other is not None else True
     
+    def awake(self):
+        pass
+    
     def update(self, milliseconds=0):
         pass
             

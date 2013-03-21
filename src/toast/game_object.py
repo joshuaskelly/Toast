@@ -24,10 +24,17 @@ class GameObject(object):
     
     @parent.setter
     def parent(self, other):
-        self.__parent = weakref.ref(other)
+        if other is not None:
+            self.__parent = weakref.ref(other)
+        else:
+            self.__parent = None
         
     def is_a_game_object(self, other=None):
         return hasattr(other, 'is_a_game_object') if other is not None else True
+    
+    def awake(self):
+        for child in self.children:
+            child.awake()
     
     def update(self, milliseconds=0):
         for component in self.components:
@@ -43,6 +50,7 @@ class GameObject(object):
         
         if hasattr(child_or_component, 'is_a_component'):
             self.__add_component(child_or_component)
+            child_or_component.awake()
             
         elif hasattr(child_or_component, 'is_a_game_object'):
             self.__add_child(child_or_component)
@@ -88,6 +96,7 @@ class GameObject(object):
     
     def __remove_child(self, child):
         self.__children.remove(child)
+        child.parent = None
         
     def get_component(self, class_name):
         """ Returns first component with specified class name. """

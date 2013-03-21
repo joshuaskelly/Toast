@@ -69,6 +69,8 @@ class Game(object):
         pygame.display.set_mode(resolution, self.__flags)
         
     def run(self):
+        Scene.current_scene.awake()
+        
         while self.__running:
             delta = self.__clock.tick(self.frame_limit)
             
