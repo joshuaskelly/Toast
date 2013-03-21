@@ -11,25 +11,15 @@ class Text(GameObject):
         super(Text, self).__init__()
 
         self.font = font
-        self.message = message
         self.__position = (0, 0)
         self.__time = 0
         self.visible = True
+        self.__message = message
 
         self.charList = []
         self.positionList = []
-
-        left = 0
-        top = 0
-        # Build the list of characters
-        for char in message:
-            image = self.font.render(char)
-            rect = image.get_rect()
-            rect.left = left
-            rect.top = top
-            self.charList.append((image, rect))
-            self.positionList.append((left, top))
-            left += rect.width
+        
+        self.__update_char_list()
 
     def update(self, time = 0.1667):
         super(Text, self).update(time)
@@ -50,6 +40,32 @@ class Text(GameObject):
         
         for (image, rect) in self.charList:
             surface.blit(image, rect)
+       
+    @property
+    def message(self):
+        return self.__message
+    
+    @message.setter     
+    def message(self, message):
+        self.__message = message
+        self.__update_char_list()
+        
+    def __update_char_list(self):
+        self.charList = []
+        self.positionList = []
+        
+        left = 0
+        top = 0
+        
+        # Build the list of characters
+        for char in self.__message:
+            image = self.font.render(char)
+            rect = image.get_rect()
+            rect.left = left
+            rect.top = top
+            self.charList.append((image, rect))
+            self.positionList.append((left, top))
+            left += rect.width
 
     def GetPosition(self):
         return self.__position

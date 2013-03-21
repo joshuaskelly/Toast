@@ -60,7 +60,7 @@ class BitmapFont(object):
                                                      self.dimension[0],
                                                      self.dimension[1]))
                     except:
-                        raise "Missing glyph: ", char
+                        raise IndexError("Missing glyph: '{0}'".format(str(char)))
                 elif char.islower():
                     try:
                         font_buffer.blit(self.font_dict[char.upper()],
@@ -68,9 +68,9 @@ class BitmapFont(object):
                                                      self.dimension[0],
                                                      self.dimension[1]))
                     except:
-                        raise "Missing glyph: ", char
+                        raise IndexError("Missing glyph: '{0}'".format(str(char)))
                 else:
-                    raise "Missing glyph: ", char
+                    raise IndexError("Missing glyph: '{0}'".format(str(char)))
 
             index += self.dimension[0]
 
