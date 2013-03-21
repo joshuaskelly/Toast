@@ -2,6 +2,8 @@ import pygame
 import toast
 from pygame.locals import *
 
+from toast.animation import Animation
+from toast.image_sheet import ImageSheet
 from toast.resource_loader import ResourceLoader
 
 # Define the origin
@@ -23,7 +25,7 @@ data = ResourceLoader.load('Data/run.png')
 
 
 # Create the image sheet object.
-sheet = toast.ImageSheet(data, dimension)
+sheet = ImageSheet(data, dimension)
 
 target = sheet[0]
 
@@ -38,7 +40,7 @@ run = [(sheet[0], interval),
        (sheet[6], interval), 
        (sheet[7], interval)]
 
-anim = toast.Animation('run_cycle', run)
+anim = Animation('run_cycle', run)
 anim.play('run_cycle')
 
 clock = pygame.time.Clock()

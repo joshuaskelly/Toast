@@ -49,4 +49,8 @@ A.add(D)
 A.add(E)
 B.add(F)
 
+# Verify re-parenting a game object
+B.remove(C)
+A.add(C)
+
 A.update()

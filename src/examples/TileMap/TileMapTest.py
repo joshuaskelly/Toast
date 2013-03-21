@@ -46,7 +46,7 @@ while running:
     buffer.fill((98,186,221))
     
     # Simulate parallax
-    map.render_fixed(buffer, (0, 0))
+    map.render(buffer, (0, 0))
     
     # Scale up buffer and draw to screen
     screen.blit(pygame.transform.scale(buffer,SCREEN_SIZE), pygame.Rect(ORIGIN,SCREEN_SIZE))
