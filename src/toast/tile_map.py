@@ -1,6 +1,9 @@
 import pygame
 
-class TileMap(object):
+from toast.game import Game
+from toast.game_object import GameObject
+
+class TileMap(GameObject):
     INVALID_TILE = -1
 
     def __init__(self, image_sheet, data):
@@ -9,6 +12,7 @@ class TileMap(object):
         imageSheet:   An ImageSheet object.
         data:         A two dimensional array.
         """
+        super(TileMap, self).__init__()
 
         self.__image_sheet = image_sheet
         self.__data = data
@@ -19,6 +23,10 @@ class TileMap(object):
         self.__scroll_rate = (0,0)
         self.__position = (0, 0)
         
+        self.__buffer = pygame.Surface((self.__map_size[0] * self.__tile_size[0],
+                                        self.__map_size[1] * self.__tile_size[1]))
+        
+        self.redraw_buffer()
 
     @property
     def parallax(self):
@@ -77,16 +85,50 @@ class TileMap(object):
         self.__map_size = (self.__map_size[0], value)
         
     def tile_id_at_index(self, index):
-        x = index[0] % self.__map_size[0]
-        y = index[1] % self.__map_size[1]
+        x, y = index
         
-        return self.__data[y][x]
+        if x < 0 or y < 0:
+            return None
+        
+        if x >= self.width or y >= self.height:
+            return None
+        
+        try:
+            return self.__data[y][x]
+        except:
+            print 'Invalid index: {0}'.format(index)
+    
+    def tile_id_at_position(self, pos, offset=(0,0)):
+        
+        x = int(pos[0]) / self.__tile_size[0]
+        y = int(pos[1]) / self.__tile_size[1]
+        
+        try:
+            return self.__data[y][x]
+        except:
+            return self
     
     def tile_id_at_pixel(self, pixel, offset=(0,0)):
-        x = pixel[0] / self.__tile_size[0]
-        y = pixel[1] / self.__tile_size[1]
         
-        return self.__data[y][x]
+        p = Game.camera_to_world(pixel)
+        x = int(p[0]) / self.__tile_size[0]
+        y = int(p[1]) / self.__tile_size[1]
+        
+        if x < self.width and y < self.height and x > 0 and y > 0:
+            return self.__data[y][x]
+        else:
+            return self.INVALID_TILE
+    
+    def tile_index_at_pixel(self, pixel):
+        p = Game.camera_to_world(pixel)
+        x = int(p[0]) / self.__tile_size[0]
+        y = int(p[1]) / self.__tile_size[1]
+        
+        return x, y
+    
+    def set_tile(self, index, value):
+        self.__data[index[1]][index[0]] = value
+        self.redraw_buffer()
     
     def tile_rect_at_index(self, index, offset=(0, 0)):
         x = (index[0] * self.__tile_size[0]) - offset[0]
@@ -178,18 +220,42 @@ class TileMap(object):
                     
 
     def update(self, milliseconds=16):
+        super(TileMap, self).update(milliseconds)
+        
         self.__scroll_register = (self.__scroll_register[0] + self.__scroll_rate[0],
                           self.__scroll_register[1] + self.__scroll_rate[1])
         
-    def render_fixed(self, surface, offset=(0, 0)):
+    def render(self, surface, offset=(0,0)):
+        self.render_internal(surface, offset)
+        #surface.blit(self.__buffer, (self.position[0] - offset[0], self.position[1] - offset[1]))
+    
+    
+    def redraw_buffer(self):
+        return
+        self.__buffer = pygame.Surface((self.__map_size[0] * self.__tile_size[0],
+                                self.__map_size[1] * self.__tile_size[1]))
+                
+        self.render_internal(self.__buffer)
+        
+    def render_internal(self, surface, offset=(0, 0)):
         offset = (offset[0] + self.position[0], offset[1] + self.position[1])
-        for y in range(self.__map_size[0]):
-            for x in range(self.__map_size[1]):
-                if self.tile_id_at_index((x, y)) != TileMap.INVALID_TILE:
+        
+        width = surface.get_width() / self.__tile_size[0]
+        height = surface.get_height() / self.__tile_size[1]
+        
+        x_begin = int(offset[0] / self.__tile_size[0])
+        x_end = int(x_begin + width + 0.5) + 1
+        
+        y_begin = int(offset[1] / int(self.__tile_size[1]))
+        y_end = int(y_begin + height + 0.5) + 1
+        
+        for y in range(y_begin, y_end):#self.__map_size[0]):
+            for x in range(x_begin, x_end):#self.__map_size[1]):
+                if self.tile_id_at_index((x, y)):# != TileMap.INVALID_TILE:
                     surface.blit(self.__image_sheet[self.tile_id_at_index((x, y))],
                                  self.tile_rect_at_index((x, y), offset))
         
-    def render(self, surface, offset=(0, 0)):
+    def render_old(self, surface, offset=(0, 0)):
         """Draws the tilemap to the given surface with the specified offset.
         
         surface:     The surface to draw the tilemap on.
