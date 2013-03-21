@@ -9,13 +9,16 @@ SOUND_FILE_EXTENSIONS = ['OGG', 'WAV']
 class ResourceLoader(object):
     @staticmethod
     @memoize
-    def load(filename):
+    def load(filename, options={'colorkey': (255, 0, 255)}):
         extension = filename.rsplit('.').pop().upper()
 
         if extension in IMAGE_FILE_EXTENSIONS:
             try:
                 image = pygame.image.load(os.path.join(filename)).convert()
-                image.set_colorkey((255, 0, 255))
+                
+                if options['colorkey']:
+                    image.set_colorkey(options['colorkey'])
+                    
                 return image
             except:
                 raise ResourceException('Failed to load: %(resource)s.' % \
