@@ -10,6 +10,7 @@ from toast.resource_loader import ResourceLoader
 from toast.emitter import Emitter
 from toast.math.vector2D import Vector2D
 from toast.gradient import Gradient
+from toast.timer import Timer
 
 import random
 import pygame
@@ -22,22 +23,18 @@ from examples.demo_game import DemoGame
 class EndGameAfter(Component):
     def __init__(self, milliseconds=0):
         super(EndGameAfter, self).__init__()
-        self.__counter = 0;
-        self.__lifetime = milliseconds
+        self.__life_timer = Timer(milliseconds)
         
     def update(self, milliseconds=0):
         super(EndGameAfter, self).update(milliseconds)
         
-        self.__counter += milliseconds
-        
-        if self.__counter > self.__lifetime:
+        if self.__life_timer.is_time_up():
             pygame.event.post(pygame.event.Event(pygame.locals.QUIT))
 
 class Particle(Sprite):
     def __init__(self, image, lifetime):
         super(Particle, self).__init__(image)
-        self.__counter = 0
-        self.lifetime = int(lifetime)
+        self.lifetime = Timer(int(lifetime))
         self.__velocity = Vector2D.UnitVectorFromAngle(random.randrange(80.0, 100.0)) * -1.65
         
         sheet = ImageSheet(ResourceLoader.load('data//puffs.png'), (32, 32))
@@ -54,10 +51,9 @@ class Particle(Sprite):
         super(Particle, self).update(milliseconds)
         
         self.position += self.__velocity * (milliseconds / 1000.0) * 60
-        self.__counter += milliseconds
         
-        if self.__counter > self.lifetime:
-            self.__counter = 0
+        if self.lifetime.is_time_up():
+            self.lifetime.reset()
             self.remove()
 
 class EmitterPerformanceTest(Scene):
@@ -81,7 +77,7 @@ class EmitterPerformanceTest(Scene):
         particle.position += (random.random() - 0.5) * 2.0 * 8, (random.random() - 0.5) * 2.0 * 16
         particle.animation.play('puff', 0)
         if (random.random() < 0.3):
-            particle.lifetime = random.randint(1000, 1800)
+            particle.lifetime = Timer(random.randint(1000, 1800))
 
 game = DemoGame((640, 480), EmitterPerformanceTest)
 game.run()

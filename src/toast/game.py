@@ -28,8 +28,6 @@ class Game(object):
         self.camera = Camera((320,240))
         self.camera.position = (160, 120)
         
-        Scene.current_scene = initial_scene()
-        
         self.__running = True
         self.__frame_limit = 0
         
@@ -37,6 +35,8 @@ class Game(object):
         
         self.__frame_count = 0
         self.__msecs = 0
+        
+        Scene.current_scene = initial_scene()
         
     @property
     def frame_limit(self):
@@ -67,6 +67,11 @@ class Game(object):
     def resolution(self, resolution):
         self.__resolution = resolution
         pygame.display.set_mode(resolution, self.__flags)
+       
+    
+    @classmethod
+    def time(cls):
+        return cls.game_instance._Game__msecs
         
     def run(self):
         Scene.current_scene.awake()

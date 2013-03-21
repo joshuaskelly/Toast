@@ -9,6 +9,7 @@ from toast.game import Game
 from toast.emitter import Emitter
 from toast.math.vector2D import Vector2D
 from toast.gradient import Gradient
+from toast.timer import Timer
 
 import random
 import pygame
@@ -21,15 +22,13 @@ psyco.full()
 class DestroyAfter(Component):
     def __init__(self, milliseconds):
         super(DestroyAfter, self).__init__()
-        self.__counter = 0
-        self.lifetime = milliseconds
+        self.__life_timer = Timer(milliseconds)
         
     def update(self, milliseconds=0):
         super(DestroyAfter, self).update(milliseconds)
-        self.__counter += milliseconds
-        
-        if self.__counter > self.lifetime:
-            self.__counter = 0
+            
+        if self.__life_timer.is_time_up():
+            self.__life_timer.reset()
             self.game_object.remove()
 
 class Particle(Sprite):
