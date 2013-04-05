@@ -1,6 +1,34 @@
 import weakref
 
-from toast.component import ComponentException
+class Component(object):
+    def __init__(self):
+        self.__game_object = None
+        self.added = False
+        self.index = 0
+        
+    @property
+    def game_object(self):
+        return None if self.__game_object is None else self.__game_object()
+    
+    @game_object.setter
+    def game_object(self, other):
+        self.__game_object = weakref.ref(other)
+        
+    def is_a_component(self, other=None):
+        return hasattr(other, 'is_a_component') if other is not None else True
+    
+    def awake(self):
+        pass
+    
+    def update(self, milliseconds=0):
+        pass
+    
+class ComponentException(Exception):
+    def __init__(self, value):
+        self.value = value
+        
+    def __str__(self):
+        return repr(self.value)
 
 class GameObject(object):
     def __init__(self):
@@ -116,3 +144,26 @@ class GameObjectException(Exception):
         
     def __str__(self):
         return repr(self.value)
+    
+class Scene(GameObject):
+    __current_scene = None
+    
+    def __init__(self):
+        super(Scene, self).__init__()
+        
+        if Scene.current_scene is None:
+            Scene.current_scene = self
+
+    @staticmethod      
+    def get_current():
+        return Scene.__current_scene
+    
+    @staticmethod
+    def set_current(scene):
+        Scene.__current_scene = scene
+        
+    current_scene = property(get_current, set_current)
+    
+    def render(self, surface, offset=(0,0)):
+        for child in [c for c in self.children if hasattr(c, 'render')]:
+            child.render(surface, offset)

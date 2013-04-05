@@ -1,4 +1,4 @@
-from toast.scene import Scene
+from toast.scene_graph import Scene
 
 from examples.demo_game import DemoGame
 

@@ -1,4 +1,4 @@
-from toast.game_object import GameObject
+from toast.scene_graph import GameObject
 from toast.transform import Transform
 
 class Sprite(GameObject):

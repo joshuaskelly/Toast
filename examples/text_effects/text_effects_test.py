@@ -1,6 +1,6 @@
 from pygame.locals import K_1, K_2, K_3
 
-from toast.scene import Scene
+from toast.scene_graph import Scene
 from toast.text_effects import wavy_text, shaky_text, dialog_text
 from toast.event_manager import EventManager
 from toast.text import Text

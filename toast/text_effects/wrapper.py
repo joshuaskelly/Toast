@@ -12,7 +12,7 @@
 """
 
 import math
-from toast.component import Component
+from toast.scene_graph import Component
 
 class Wrapper(Component):
 

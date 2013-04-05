@@ -1,5 +1,5 @@
-from toast.component import Component
-from toast.math.vector2D import Vector2D
+from toast.scene_graph import Component
+from toast.math.vector import Vector2D
 
 class Transform(Component):
     def __init__(self, *position):

@@ -1,10 +1,10 @@
 import pygame
 
-from toast.game_object import GameObject
+from toast.scene_graph import GameObject
 from toast.camera_effects.shake_effect import ShakeEffect
 from toast.event_manager import EventManager
-from toast.math.math_helper import MathHelper
-from toast.math.vector2D import Vector2D
+from toast.math import lerp
+from toast.math.vector import Vector2D
 
 class Camera(GameObject):
     __current_camera = None
@@ -110,7 +110,7 @@ class Camera(GameObject):
             except:
                 dest = self.target
                 
-            self.position = MathHelper.Lerp(self.position, dest, self.__tracking_strength * (delta / 1000.0) * 60)
+            self.position = lerp(self.position, dest, self.__tracking_strength * (delta / 1000.0) * 60)
                 
         self.handle_out_of_bounds()
         

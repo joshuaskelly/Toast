@@ -3,7 +3,7 @@ from pygame.locals import DOUBLEBUF, FULLSCREEN, HWSURFACE, KEYDOWN, KEYUP, \
 MOUSEBUTTONDOWN, MOUSEBUTTONUP, MOUSEMOTION, QUIT
 
 from toast.camera import Camera
-from toast.scene import Scene
+from toast.scene_graph import Scene
 from toast.event_manager import EventManager
 
 class Game(object):

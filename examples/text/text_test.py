@@ -1,4 +1,4 @@
-from toast.scene import Scene
+from toast.scene_graph import Scene
 from toast.bitmap_font import BitmapFont
 from toast.text import Text
 from toast.resource_loader import ResourceLoader

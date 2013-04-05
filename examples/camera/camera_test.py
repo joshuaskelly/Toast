@@ -1,4 +1,4 @@
-from toast.scene import Scene
+from toast.scene_graph import Scene
 from toast.game import Game
 from toast.camera import Camera
 from toast.event_manager import EventManager

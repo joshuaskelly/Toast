@@ -1,7 +1,7 @@
 import pygame
 
 from toast.game import Game
-from toast.game_object import GameObject
+from toast.scene_graph import GameObject
 
 class TileMap(GameObject):
     INVALID_TILE = -1

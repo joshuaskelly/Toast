@@ -1,4 +1,4 @@
-from toast.scene import Scene
+from toast.scene_graph import Scene
 from toast.sprite import Sprite
 from toast.resource_loader import ResourceLoader
 from toast.event_manager import EventManager

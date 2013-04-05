@@ -2,7 +2,7 @@ import pygame
 
 from toast.image_sheet import ImageSheet
 from toast.gui.percent_bar import PercentBar
-from toast.math.math_helper import MathHelper
+from toast.math import lerp
 
 from pygame.locals import *
 
@@ -61,6 +61,6 @@ while running:
         elif event.type == QUIT:
             running = False
             
-    bar1.current = MathHelper.Lerp(bar1.current, x, step)
-    bar2.current = MathHelper.Lerp(bar2.current, y, step)
-    bar3.current = MathHelper.Lerp(bar3.current, (x + y) / 2.0, step)
+    bar1.current = lerp(bar1.current, x, step)
+    bar2.current = lerp(bar2.current, y, step)
+    bar3.current = lerp(bar3.current, (x + y) / 2.0, step)

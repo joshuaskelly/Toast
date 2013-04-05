@@ -2,8 +2,7 @@ import pygame
 import random
 
 from toast.quadtree import QuadTree
-from toast.game_object import GameObject
-from toast.scene import Scene
+from toast.scene_graph import GameObject, Scene
 from toast.camera import Camera
 from toast.event_manager import EventManager
 

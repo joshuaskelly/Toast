@@ -1,13 +1,12 @@
-from toast.scene import Scene
+from toast.scene_graph import Component, Scene
 from toast.sprite import Sprite
-from toast.component import Component
 from toast.animation import Animation
 from toast.image_sheet import ImageSheet
 from toast.resource_loader import ResourceLoader
 from toast.event_manager import EventManager
 from toast.game import Game
 from toast.emitter import Emitter
-from toast.math.vector2D import Vector2D
+from toast.math.vector import Vector2D
 from toast.gradient import Gradient
 from toast.timer import Timer
 

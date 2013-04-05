@@ -1,4 +1,4 @@
-from toast.component import Component, ComponentException
+from toast.scene_graph import Component, ComponentException
 
 class Animation(Component):
     def __init__(self, key=None, anim=None):
@@ -21,10 +21,7 @@ class Animation(Component):
         raise ComponentException('Animations are not allowed to have component children.')
     
     def remove(self, target=None):
-        if target is None or target is self:
-            Component.remove(self, self)
-        else:
-            raise ComponentException('Animations have no component children to remove.')
+        raise ComponentException('Animations have no component children to remove.')
         
     def update(self, time=0):
         if self.__current_animation != '':

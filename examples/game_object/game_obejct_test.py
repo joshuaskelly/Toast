@@ -1,5 +1,4 @@
-from toast.game_object import GameObject
-from toast.component import Component
+from toast.scene_graph import Component, GameObject 
 
 class VerboseGameObject(GameObject):
     def __init__(self, name):
@@ -25,13 +24,6 @@ class VerboseComponent(Component):
     def update(self, milliseconds=0):
         print '   <VerboseComponent (name:' + self.name + ', game object:' + self.game_object.name + ')>'
         Component.update(self, milliseconds)
-    
-    def remove(self, target=None):
-        if target is None:
-            target = self
-            
-        print 'Removing Component: ' + target.name + ' from Component: ' + self.name
-        Component.remove(self, target)
         
 
 A = VerboseGameObject('GameObject A')

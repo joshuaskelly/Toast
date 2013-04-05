@@ -1,1 +1,2 @@
-import vector2D
+def lerp(fromValue, toValue, step):
+    return fromValue + (toValue - fromValue) * step

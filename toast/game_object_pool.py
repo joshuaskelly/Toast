@@ -1,6 +1,6 @@
 import new
 
-from toast.game_object import GameObject, GameObjectException
+from toast.scene_graph import GameObject, GameObjectException
 
 class GameObjectPool(GameObject):
     def __init__(self, class_name, default_args=(), initial_size=0):

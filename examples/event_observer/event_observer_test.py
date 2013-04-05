@@ -1,7 +1,7 @@
 import pygame
 from pygame.locals import K_ESCAPE, QUIT
 
-from toast.scene import Scene
+from toast.scene_graph import Scene
 from toast.event_manager import EventManager
 
 from examples.demo_game import DemoGame

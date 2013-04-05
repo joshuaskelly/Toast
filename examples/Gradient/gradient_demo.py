@@ -1,4 +1,4 @@
-from toast.scene import Scene
+from toast.scene_graph import Scene
 from toast.gradient import Gradient
 from toast.sprite import Sprite
 
