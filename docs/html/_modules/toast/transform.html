@@ -51,7 +51,16 @@ from toast.scene_graph import Component
 from toast.math.vector import Vector2D
 
 <div class="viewcode-block" id="Transform"><a class="viewcode-back" href="../../toast.html#toast.transform.Transform">[docs]</a>class Transform(Component):
+    """A Component to help with positioning of GameObjects and all it's
+    attached children with transforms. On changing of position, children will
+    re-position themselves relative to their parent's position.
+    """
+    
     def __init__(self, *position):
+        """
+        :param position: The initial position for the transform.
+        :type position: tuple.
+        """
         super(Transform, self).__init__()
         
         if position is ():
@@ -61,12 +70,18 @@ from toast.math.vector import Vector2D
             
     @property
 <div class="viewcode-block" id="Transform.grandparent"><a class="viewcode-back" href="../../toast.html#toast.transform.Transform.grandparent">[docs]</a>    def grandparent(self):
-        """ Returns the parent of the parent. """
+        """Gets the parent of the parent. 
+        
+        :returns: GameObject -- The parent of the parent GameObject.
+        """
         return self.game_object.parent if self.game_object else None
         </div>
     @property
     def position(self):
-        """ Returns the world position as a Vector2D. """
+        """Gets the transform position. 
+        
+        :returns: Vector2D -- The transform position in world space.
+        """
         if self.grandparent and hasattr(self.grandparent, 'transform'):
             return self.grandparent.transform.position + self.__local_position
         else:
@@ -74,10 +89,10 @@ from toast.math.vector import Vector2D
     
     @position.setter
 <div class="viewcode-block" id="Transform.position"><a class="viewcode-back" href="../../toast.html#toast.transform.Transform.position">[docs]</a>    def position(self, other):
-        """ Sets the position in world space.
+        """Sets the position in world space.
         
-        Arguments:
-        other -- A position in world space.
+        :param other: The new position.
+        :type other: tuple.
         
         """
         if self.grandparent and hasattr(self.grandparent, 'transform'):
@@ -87,15 +102,18 @@ from toast.math.vector import Vector2D
         </div>
     @property
     def local_position(self):
-        """ Returns the position relative to it's parent's parent as a Vector2D. """
+        """Gets the position relative to the GameObject's parent. 
+        
+        :returns: Vector2D -- The transform's position in local space.
+        """
         return self.__local_position
     
     @local_position.setter
 <div class="viewcode-block" id="Transform.local_position"><a class="viewcode-back" href="../../toast.html#toast.transform.Transform.local_position">[docs]</a>    def local_position(self, other):
-        """ Sets the position in local(relative to it's parent) space.
+        """Sets the position relative to the GameObject's parent. 
         
-        Arguments:
-        other -- A position in local space.
+        :param other: The new position in the GameObject's parent's local space.
+        :type other: tuple.
         
         """
         self.__local_position = Vector2D(other[0], other[1])

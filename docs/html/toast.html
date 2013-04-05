@@ -528,7 +528,7 @@ number of instances created, this can possibly return None.</p>
 <dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
 <dl class="attribute">
 <dt id="toast.resource_loader.ResourceLoader.load">
-<tt class="descname">load</tt><em class="property"> = &lt;function load at 0x036B5130&gt;</em><a class="reference internal" href="_modules/toast/resource_loader.html#ResourceLoader.load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toast.resource_loader.ResourceLoader.load" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">load</tt><em class="property"> = &lt;function load at 0x036CF130&gt;</em><a class="reference internal" href="_modules/toast/resource_loader.html#ResourceLoader.load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toast.resource_loader.ResourceLoader.load" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -916,22 +916,49 @@ offset:      The amount to offset the tilemap.</p>
 <dt id="toast.transform.Transform">
 <em class="property">class </em><tt class="descclassname">toast.transform.</tt><tt class="descname">Transform</tt><big>(</big><em>*position</em><big>)</big><a class="reference internal" href="_modules/toast/transform.html#Transform"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toast.transform.Transform" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#toast.scene_graph.Component" title="toast.scene_graph.Component"><tt class="xref py py-class docutils literal"><span class="pre">toast.scene_graph.Component</span></tt></a></p>
-<dl class="attribute">
-<dt id="toast.transform.Transform.grandparent">
-<tt class="descname">grandparent</tt><a class="reference internal" href="_modules/toast/transform.html#Transform.grandparent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toast.transform.Transform.grandparent" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the parent of the parent.</p>
-</dd></dl>
-
+<p>Assists with positioning of GameObjects and all it&#8217;s attached children 
+with transforms. On changing of position, those children will re-position 
+themselves relative to their parent&#8217;s position.</p>
 <dl class="attribute">
 <dt id="toast.transform.Transform.local_position">
 <tt class="descname">local_position</tt><a class="reference internal" href="_modules/toast/transform.html#Transform.local_position"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toast.transform.Transform.local_position" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the position relative to it&#8217;s parent&#8217;s parent as a Vector2D.</p>
+<dd><p>Gets the position relative to the GameObject&#8217;s parent.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Vector2D &#8211; The transform&#8217;s position in local space.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="toast.transform.Transform.parent">
+<tt class="descname">parent</tt><a class="headerlink" href="#toast.transform.Transform.parent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the parent of the GameObject.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">GameObject &#8211; The parent of the parent GameObject.</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="toast.transform.Transform.position">
 <tt class="descname">position</tt><a class="reference internal" href="_modules/toast/transform.html#Transform.position"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toast.transform.Transform.position" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the world position as a Vector2D.</p>
+<dd><p>Gets the transform position.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Vector2D &#8211; The transform position in world space.</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </dd></dl>
