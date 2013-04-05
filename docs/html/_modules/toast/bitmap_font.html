@@ -1,0 +1,170 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>toast.bitmap_font &mdash; toast  documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="toast  documentation" href="../../index.html" />
+    <link rel="up" title="Module code" href="../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../index.html">toast  documentation</a> &raquo;</li>
+          <li><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for toast.bitmap_font</h1><pre>
+import pygame
+
+<div class="viewcode-block" id="BitmapFont"><a class="viewcode-back" href="../../toast.html#toast.bitmap_font.BitmapFont">[docs]</a>class BitmapFont(object):
+
+    def __init__(self, surface, dimension, sample_string):
+        """
+        " * Class Constructor
+        " *    filename:     The path to the font bitmap.
+        " *    dimension:    A tuple of the form (width, height).
+        " *    sampleString: A string containing the character values. Left to
+        " *                  right, top to bottom.
+        """
+
+        # Load font image
+        self.font_sheet = surface
+
+        self.dimension = dimension
+
+        # Create an empty dictionary to map the char value to a surface
+        self.font_dict = {}
+
+        # Determine number of steps needed
+        height = self.font_sheet.get_height() / self.dimension[1]
+        width = self.font_sheet.get_width() / self.dimension[0]
+
+        # Build the dictionary
+        for y in range(height):
+            for x in range(width):
+                i = x * dimension[0]
+                j = y * dimension[1]
+
+                self.font_dict[sample_string[((y * width) + x)]] = \
+                self.font_sheet.subsurface(pygame.Rect(i, j, self.dimension[0],
+                                                       self.dimension[1]))
+
+<div class="viewcode-block" id="BitmapFont.render"><a class="viewcode-back" href="../../toast.html#toast.bitmap_font.BitmapFont.render">[docs]</a>    def render(self, text):
+        """
+        " * BitmapFont.render
+        " *    text:    This is the text to render.
+        " *    Returns: A surface
+        """
+
+        # Create a surface that will hold the rendered text.
+        font_buffer = pygame.Surface((len(text) * self.dimension[0],
+                                    self.dimension[1]), pygame.SRCALPHA, 32)
+
+        # Go through each character in string and draw it to the font buffer
+        index = 0
+        for char in text:
+            try:
+                font_buffer.blit(self.font_dict[char],
+                                 pygame.Rect(index, 0, self.dimension[0],
+                                             self.dimension[1]))
+            except:
+                # Unable to find char in dictionary.
+                if char.isupper():
+                    try:
+                        font_buffer.blit(self.font_dict[char.lower()],
+                                         pygame.Rect(index, 0,
+                                                     self.dimension[0],
+                                                     self.dimension[1]))
+                    except:
+                        raise IndexError("Missing glyph: '{0}'".format(str(char)))
+                elif char.islower():
+                    try:
+                        font_buffer.blit(self.font_dict[char.upper()],
+                                         pygame.Rect(index, 0,
+                                                     self.dimension[0],
+                                                     self.dimension[1]))
+                    except:
+                        raise IndexError("Missing glyph: '{0}'".format(str(char)))
+                else:
+                    raise IndexError("Missing glyph: '{0}'".format(str(char)))
+
+            index += self.dimension[0]
+
+
+        return font_buffer</div></div>
+</pre>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../index.html">toast  documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Author.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+    </div>
+  </body>
+</html>

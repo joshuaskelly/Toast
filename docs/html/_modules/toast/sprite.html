@@ -1,0 +1,148 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>toast.sprite &mdash; toast  documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="toast  documentation" href="../../index.html" />
+    <link rel="up" title="Module code" href="../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../index.html">toast  documentation</a> &raquo;</li>
+          <li><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for toast.sprite</h1><pre>
+from toast.scene_graph import GameObject
+from toast.transform import Transform
+
+<div class="viewcode-block" id="Sprite"><a class="viewcode-back" href="../../toast.html#toast.sprite.Sprite">[docs]</a>class Sprite(GameObject):
+    def __init__(self, image_or_animation, position=(0,0)):
+        super(Sprite, self).__init__()
+        
+        self.add(Transform(*position))
+        
+        self.__image = None
+        self.__animation = None
+        self.__visibility = True
+        
+        if hasattr(image_or_animation, 'add_animation'):
+            self.__animation = image_or_animation
+            self.add(image_or_animation)
+            self.image = self.__animation.get_current_frame()
+        else:
+            self.image = image_or_animation
+        
+    @property
+<div class="viewcode-block" id="Sprite.transform"><a class="viewcode-back" href="../../toast.html#toast.sprite.Sprite.transform">[docs]</a>    def transform(self):
+        return self.get_component('Transform')
+        </div>
+    @property
+    def position(self):
+        return self.transform.position
+        
+    @position.setter
+<div class="viewcode-block" id="Sprite.position"><a class="viewcode-back" href="../../toast.html#toast.sprite.Sprite.position">[docs]</a>    def position(self, value):
+        self.transform.position = value
+        </div>
+    @property
+    def visible(self):
+        return self.__visibility
+    
+    @visible.setter
+<div class="viewcode-block" id="Sprite.visible"><a class="viewcode-back" href="../../toast.html#toast.sprite.Sprite.visible">[docs]</a>    def visible(self, value):
+        self.__visibility = value
+        </div>
+    @property
+    def image(self):
+        return self.__image
+    
+    @image.setter
+<div class="viewcode-block" id="Sprite.image"><a class="viewcode-back" href="../../toast.html#toast.sprite.Sprite.image">[docs]</a>    def image(self, image):
+        self.__image = image
+        </div>
+<div class="viewcode-block" id="Sprite.render"><a class="viewcode-back" href="../../toast.html#toast.sprite.Sprite.render">[docs]</a>    def render(self, surface, offset=(0,0)):
+        if not self.visible:
+            return
+        
+        surface.blit(self.image, self.position - offset)
+        
+        for child in [c for c in self.children if hasattr(c, 'render')]:
+                child.render(surface, offset)</div></div>
+</pre>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../index.html">toast  documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Author.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+    </div>
+  </body>
+</html>

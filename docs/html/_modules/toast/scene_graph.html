@@ -1,0 +1,260 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>toast.scene_graph &mdash; toast  documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="toast  documentation" href="../../index.html" />
+    <link rel="up" title="Module code" href="../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../index.html">toast  documentation</a> &raquo;</li>
+          <li><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for toast.scene_graph</h1><pre>
+import weakref
+
+<div class="viewcode-block" id="Component"><a class="viewcode-back" href="../../toast.html#toast.scene_graph.Component">[docs]</a>class Component(object):
+    def __init__(self):
+        self.__game_object = None
+        self.added = False
+        self.index = 0
+        
+    @property
+    def game_object(self):
+        return None if self.__game_object is None else self.__game_object()
+    
+    @game_object.setter
+<div class="viewcode-block" id="Component.game_object"><a class="viewcode-back" href="../../toast.html#toast.scene_graph.Component.game_object">[docs]</a>    def game_object(self, other):
+        self.__game_object = weakref.ref(other)
+        </div>
+<div class="viewcode-block" id="Component.is_a_component"><a class="viewcode-back" href="../../toast.html#toast.scene_graph.Component.is_a_component">[docs]</a>    def is_a_component(self, other=None):
+        return hasattr(other, 'is_a_component') if other is not None else True
+    </div>
+<div class="viewcode-block" id="Component.awake"><a class="viewcode-back" href="../../toast.html#toast.scene_graph.Component.awake">[docs]</a>    def awake(self):
+        pass
+    </div>
+<div class="viewcode-block" id="Component.update"><a class="viewcode-back" href="../../toast.html#toast.scene_graph.Component.update">[docs]</a>    def update(self, milliseconds=0):
+        pass
+    </div></div>
+<div class="viewcode-block" id="ComponentException"><a class="viewcode-back" href="../../toast.html#toast.scene_graph.ComponentException">[docs]</a>class ComponentException(Exception):
+    def __init__(self, value):
+        self.value = value
+        
+    def __str__(self):
+        return repr(self.value)
+</div>
+<div class="viewcode-block" id="GameObject"><a class="viewcode-back" href="../../toast.html#toast.scene_graph.GameObject">[docs]</a>class GameObject(object):
+    def __init__(self):
+        self.__children = []
+        self.__components = []
+        self.__parent = None
+        self.added = False
+        self.index = 0
+        
+    @property
+<div class="viewcode-block" id="GameObject.children"><a class="viewcode-back" href="../../toast.html#toast.scene_graph.GameObject.children">[docs]</a>    def children(self):
+        return self.__children
+    </div>
+    @property
+<div class="viewcode-block" id="GameObject.components"><a class="viewcode-back" href="../../toast.html#toast.scene_graph.GameObject.components">[docs]</a>    def components(self):
+        return self.__components
+    </div>
+    @property
+    def parent(self):
+        return None if self.__parent is None else self.__parent()
+    
+    @parent.setter
+<div class="viewcode-block" id="GameObject.parent"><a class="viewcode-back" href="../../toast.html#toast.scene_graph.GameObject.parent">[docs]</a>    def parent(self, other):
+        if other is not None:
+            self.__parent = weakref.ref(other)
+        else:
+            self.__parent = None
+        </div>
+<div class="viewcode-block" id="GameObject.is_a_game_object"><a class="viewcode-back" href="../../toast.html#toast.scene_graph.GameObject.is_a_game_object">[docs]</a>    def is_a_game_object(self, other=None):
+        return hasattr(other, 'is_a_game_object') if other is not None else True
+    </div>
+<div class="viewcode-block" id="GameObject.awake"><a class="viewcode-back" href="../../toast.html#toast.scene_graph.GameObject.awake">[docs]</a>    def awake(self):
+        for child in self.children:
+            child.awake()
+    </div>
+<div class="viewcode-block" id="GameObject.update"><a class="viewcode-back" href="../../toast.html#toast.scene_graph.GameObject.update">[docs]</a>    def update(self, milliseconds=0):
+        for component in self.components:
+            component.update(milliseconds)
+            
+        for child in self.children:
+            child.update(milliseconds)
+            </div>
+<div class="viewcode-block" id="GameObject.add"><a class="viewcode-back" href="../../toast.html#toast.scene_graph.GameObject.add">[docs]</a>    def add(self, child_or_component):
+        """ Adds either a child game object, or a component """
+        if child_or_component is None:
+            return
+        
+        if hasattr(child_or_component, 'is_a_component'):
+            self.__add_component(child_or_component)
+            child_or_component.awake()
+            
+        elif hasattr(child_or_component, 'is_a_game_object'):
+            self.__add_child(child_or_component)
+            
+        else:
+            message = 'Cannot add an object that is not either a component or game object.'
+            raise GameObjectException(message)
+        </div>
+    def __add_component(self, component):
+        if component.game_object is not None:
+            message = 'Cannot add component. {0} has already been added to: {1}'
+            message.format(component.__class__.__name__,
+                           component.game_object.__class__.__name__)
+            raise ComponentException(message)
+        
+        self.components.append(component)
+        component.game_object = self
+        
+    def __add_child(self, child):
+        if child.parent is not None:
+            message = 'Cannot add game object. {0} is already a child of {1}'
+            message.format(child.__class__.__name__, \
+                           child.parent.__class__.__name__)
+            raise GameObjectException(message)
+        
+        self.children.append(child)
+        child.parent = self
+        
+<div class="viewcode-block" id="GameObject.remove"><a class="viewcode-back" href="../../toast.html#toast.scene_graph.GameObject.remove">[docs]</a>    def remove(self, child_or_component=None):
+        """ Removes either a child game object, or a component """
+        if child_or_component is None or child_or_component is self:
+            if self.parent:
+                self.parent.remove(self)
+        
+        elif hasattr(child_or_component, 'is_a_component'):
+            self.__remove_component(child_or_component)
+            
+        else:
+            self.__remove_child(child_or_component)
+            </div>
+    def __remove_component(self, component):
+        self.components.remove(component)
+    
+    def __remove_child(self, child):
+        self.__children.remove(child)
+        child.parent = None
+        
+<div class="viewcode-block" id="GameObject.get_component"><a class="viewcode-back" href="../../toast.html#toast.scene_graph.GameObject.get_component">[docs]</a>    def get_component(self, class_name):
+        """ Returns first component with specified class name. """
+        for component in self.components:
+            if component.__class__.__name__ == class_name:
+                return component
+            </div>
+<div class="viewcode-block" id="GameObject.get_child"><a class="viewcode-back" href="../../toast.html#toast.scene_graph.GameObject.get_child">[docs]</a>    def get_child(self, class_name):
+        """ Returns first component with specified class name. """
+        for child in self.children:
+            if child.__class__.__name__ == class_name:
+                return child
+    </div></div>
+<div class="viewcode-block" id="GameObjectException"><a class="viewcode-back" href="../../toast.html#toast.scene_graph.GameObjectException">[docs]</a>class GameObjectException(Exception):
+    def __init__(self, value):
+        self.value = value
+        
+    def __str__(self):
+        return repr(self.value)
+    </div>
+<div class="viewcode-block" id="Scene"><a class="viewcode-back" href="../../toast.html#toast.scene_graph.Scene">[docs]</a>class Scene(GameObject):
+    __current_scene = None
+    
+    def __init__(self):
+        super(Scene, self).__init__()
+        
+        if Scene.current_scene is None:
+            Scene.current_scene = self
+
+    @staticmethod      
+<div class="viewcode-block" id="Scene.get_current"><a class="viewcode-back" href="../../toast.html#toast.scene_graph.Scene.get_current">[docs]</a>    def get_current():
+        return Scene.__current_scene
+    </div>
+    @staticmethod
+<div class="viewcode-block" id="Scene.set_current"><a class="viewcode-back" href="../../toast.html#toast.scene_graph.Scene.set_current">[docs]</a>    def set_current(scene):
+        Scene.__current_scene = scene
+        </div>
+    current_scene = property(get_current, set_current)
+    
+<div class="viewcode-block" id="Scene.render"><a class="viewcode-back" href="../../toast.html#toast.scene_graph.Scene.render">[docs]</a>    def render(self, surface, offset=(0,0)):
+        for child in [c for c in self.children if hasattr(c, 'render')]:
+            child.render(surface, offset)</pre></div></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../index.html">toast  documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Author.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+    </div>
+  </body>
+</html>

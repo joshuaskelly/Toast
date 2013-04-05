@@ -1,0 +1,178 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>toast.game_object_pool &mdash; toast  documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="toast  documentation" href="../../index.html" />
+    <link rel="up" title="Module code" href="../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../index.html">toast  documentation</a> &raquo;</li>
+          <li><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for toast.game_object_pool</h1><pre>
+import new
+
+from toast.scene_graph import GameObject, GameObjectException
+
+<div class="viewcode-block" id="GameObjectPool"><a class="viewcode-back" href="../../toast.html#toast.game_object_pool.GameObjectPool">[docs]</a>class GameObjectPool(GameObject):
+    def __init__(self, class_name, default_args=(), initial_size=0):
+        super(GameObjectPool, self).__init__()
+        self.__class_name = class_name
+        self.__default_args = default_args
+        
+        #Hijack parent class' child list.
+        self.__children = self._GameObject__children
+        self.__limit_instances = False
+        
+        if initial_size &gt; 0:
+            self.__limit_instances = True
+            
+        for _ in range(initial_size):
+            instance = self.__getNewInstance(*default_args)
+            instance.dead = True
+            
+    def __len__(self):
+        return len(self.__children)
+        
+<div class="viewcode-block" id="GameObjectPool.update"><a class="viewcode-back" href="../../toast.html#toast.game_object_pool.GameObjectPool.update">[docs]</a>    def update(self, milliseconds=0):
+        for child in self.__children:
+            if hasattr(child, 'update') and not child.dead:
+                child.update(milliseconds)
+                </div>
+<div class="viewcode-block" id="GameObjectPool.render"><a class="viewcode-back" href="../../toast.html#toast.game_object_pool.GameObjectPool.render">[docs]</a>    def render(self, surface, offset=(0,0)):
+        for child in self.__children:
+            if hasattr(child, 'render') and not child.dead:
+                child.render(surface, offset)
+    </div>
+<div class="viewcode-block" id="GameObjectPool.add"><a class="viewcode-back" href="../../toast.html#toast.game_object_pool.GameObjectPool.add">[docs]</a>    def add(self, child):
+        raise GameObjectException('Cannot add a child to a Component Pool.')
+    </div>
+    def __add(self, child):
+        if not self.is_a_game_object(child):
+            raise GameObjectException('Cannot add a child object that is not a game object.')
+        
+        if child != None:
+            self.__children.append(child)
+            
+            if hasattr(child, 'parent'):
+                child.parent = self
+    
+    def __getNewInstance(self, *args):
+        instance = self.__class_name(*args)
+        instance.dead = False
+        
+        if self.__limit_instances:
+            instance.remove = new.instancemethod(override_remove, instance, None)
+            
+        self.__add(instance)
+        
+        return instance
+    
+<div class="viewcode-block" id="GameObjectPool.getNextAvailable"><a class="viewcode-back" href="../../toast.html#toast.game_object_pool.GameObjectPool.getNextAvailable">[docs]</a>    def getNextAvailable(self):
+        """ Returns first-available non-dead child. If you are limiting the
+        number of instances created, this can possibly return None.
+        """
+        for child in self.__children:
+            if child.dead:
+                child.dead = False
+                return child
+        
+        if self.__limit_instances:
+            return None
+        else:
+            return self.__getNewInstance(*self.__default_args)
+        </div>
+    @property
+<div class="viewcode-block" id="GameObjectPool.children"><a class="viewcode-back" href="../../toast.html#toast.game_object_pool.GameObjectPool.children">[docs]</a>    def children(self):
+        """ Returns a list of non-dead children. """
+        return [child for child in self.__children if not child.dead]
+    </div>
+<div class="viewcode-block" id="GameObjectPool.has_child_alive"><a class="viewcode-back" href="../../toast.html#toast.game_object_pool.GameObjectPool.has_child_alive">[docs]</a>    def has_child_alive(self):
+        """ Returns true if at least one child is not dead. """
+        for child in self.children:
+            if not child.dead:
+                return True
+        
+        return False
+    </div></div>
+<div class="viewcode-block" id="override_remove"><a class="viewcode-back" href="../../toast.html#toast.game_object_pool.override_remove">[docs]</a>def override_remove(self, target=None):
+    self.dead = True</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../index.html">toast  documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Author.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+    </div>
+  </body>
+</html>

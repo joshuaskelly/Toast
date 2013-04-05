@@ -1,0 +1,144 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>toast.transform &mdash; toast  documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="toast  documentation" href="../../index.html" />
+    <link rel="up" title="Module code" href="../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../index.html">toast  documentation</a> &raquo;</li>
+          <li><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for toast.transform</h1><pre>
+from toast.scene_graph import Component
+from toast.math.vector import Vector2D
+
+<div class="viewcode-block" id="Transform"><a class="viewcode-back" href="../../toast.html#toast.transform.Transform">[docs]</a>class Transform(Component):
+    def __init__(self, *position):
+        super(Transform, self).__init__()
+        
+        if position is ():
+            self.__local_position = Vector2D.Zero()
+        else:
+            self.__local_position = Vector2D(position)
+            
+    @property
+<div class="viewcode-block" id="Transform.grandparent"><a class="viewcode-back" href="../../toast.html#toast.transform.Transform.grandparent">[docs]</a>    def grandparent(self):
+        """ Returns the parent of the parent. """
+        return self.game_object.parent if self.game_object else None
+        </div>
+    @property
+    def position(self):
+        """ Returns the world position as a Vector2D. """
+        if self.grandparent and hasattr(self.grandparent, 'transform'):
+            return self.grandparent.transform.position + self.__local_position
+        else:
+            return self.local_position
+    
+    @position.setter
+<div class="viewcode-block" id="Transform.position"><a class="viewcode-back" href="../../toast.html#toast.transform.Transform.position">[docs]</a>    def position(self, other):
+        """ Sets the position in world space.
+        
+        Arguments:
+        other -- A position in world space.
+        
+        """
+        if self.grandparent and hasattr(self.grandparent, 'transform'):
+            self.__local_position = self.grandparent.get_component('Transform').position - other
+        else:
+            self.local_position = other
+        </div>
+    @property
+    def local_position(self):
+        """ Returns the position relative to it's parent's parent as a Vector2D. """
+        return self.__local_position
+    
+    @local_position.setter
+<div class="viewcode-block" id="Transform.local_position"><a class="viewcode-back" href="../../toast.html#toast.transform.Transform.local_position">[docs]</a>    def local_position(self, other):
+        """ Sets the position in local(relative to it's parent) space.
+        
+        Arguments:
+        other -- A position in local space.
+        
+        """
+        self.__local_position = Vector2D(other[0], other[1])
+        </pre></div></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../index.html">toast  documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Author.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+    </div>
+  </body>
+</html>

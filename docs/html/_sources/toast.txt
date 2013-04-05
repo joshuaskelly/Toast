@@ -1,0 +1,150 @@
+toast Package
+=============
+
+:mod:`animation` Module
+-----------------------
+
+.. automodule:: toast.animation
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+:mod:`bitmap_font` Module
+-------------------------
+
+.. automodule:: toast.bitmap_font
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+:mod:`camera` Module
+--------------------
+
+.. automodule:: toast.camera
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+:mod:`emitter` Module
+---------------------
+
+.. automodule:: toast.emitter
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+:mod:`event_manager` Module
+---------------------------
+
+.. automodule:: toast.event_manager
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+:mod:`game` Module
+------------------
+
+.. automodule:: toast.game
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+:mod:`game_object_pool` Module
+------------------------------
+
+.. automodule:: toast.game_object_pool
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+:mod:`gradient` Module
+----------------------
+
+.. automodule:: toast.gradient
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+:mod:`image_sheet` Module
+-------------------------
+
+.. automodule:: toast.image_sheet
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+:mod:`quadtree` Module
+----------------------
+
+.. automodule:: toast.quadtree
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+:mod:`resource_loader` Module
+-----------------------------
+
+.. automodule:: toast.resource_loader
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+:mod:`scene_graph` Module
+-------------------------
+
+.. automodule:: toast.scene_graph
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+:mod:`sprite` Module
+--------------------
+
+.. automodule:: toast.sprite
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+:mod:`text` Module
+------------------
+
+.. automodule:: toast.text
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+:mod:`tile_map` Module
+----------------------
+
+.. automodule:: toast.tile_map
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+:mod:`timer` Module
+-------------------
+
+.. automodule:: toast.timer
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+:mod:`transform` Module
+-----------------------
+
+.. automodule:: toast.transform
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+Subpackages
+-----------
+
+.. toctree::
+
+    toast.camera_effects
+    toast.decorators
+    toast.gui
+    toast.math
+    toast.text_effects
+

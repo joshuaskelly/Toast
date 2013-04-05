@@ -1,0 +1,235 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>toast.game &mdash; toast  documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="toast  documentation" href="../../index.html" />
+    <link rel="up" title="Module code" href="../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../index.html">toast  documentation</a> &raquo;</li>
+          <li><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for toast.game</h1><pre>
+import pygame
+from pygame.locals import DOUBLEBUF, FULLSCREEN, HWSURFACE, KEYDOWN, KEYUP, \
+MOUSEBUTTONDOWN, MOUSEBUTTONUP, MOUSEMOTION, QUIT
+
+from toast.camera import Camera
+from toast.scene_graph import Scene
+from toast.event_manager import EventManager
+
+<div class="viewcode-block" id="Game"><a class="viewcode-back" href="../../toast.html#toast.game.Game">[docs]</a>class Game(object):
+    game_instance = None
+    
+    def __init__(self, resolution, initial_scene):
+        if Game.game_instance is not None:
+            raise GameException('Can not instantiate more than one instance of Game object')
+        
+        Game.game_instance = self
+        
+        self.__clock = pygame.time.Clock()
+        pygame.display.set_caption('Toast Window')
+        
+        self.__resolution = resolution
+        self.__flags = DOUBLEBUF #| HWSURFACE | FULLSCREEN
+        pygame.display.set_mode(self.__resolution, self.__flags)
+        
+        pygame.mouse.set_visible(False)
+        
+        self.__screen = pygame.display.get_surface()
+        self.camera = Camera((320,240))
+        self.camera.position = (160, 120)
+        
+        self.__running = True
+        self.__frame_limit = 0
+        
+        self.__clear_color = (0,0,0)
+        
+        self.__frame_count = 0
+        self.__msecs = 0
+        
+        Scene.current_scene = initial_scene()
+        
+    @property
+    def frame_limit(self):
+        return self.__frame_limit
+    
+    @frame_limit.setter
+<div class="viewcode-block" id="Game.frame_limit"><a class="viewcode-back" href="../../toast.html#toast.game.Game.frame_limit">[docs]</a>    def frame_limit(self, max_fps):
+        self.__frame_limit = max_fps
+        </div>
+    @property
+    def fullscreen(self):
+        return (self.__flags &amp; (HWSURFACE | FULLSCREEN)) != 0
+    
+    @fullscreen.setter
+<div class="viewcode-block" id="Game.fullscreen"><a class="viewcode-back" href="../../toast.html#toast.game.Game.fullscreen">[docs]</a>    def fullscreen(self, is_fullscreen):
+        if is_fullscreen:
+            self.__flags = self.__flags | (HWSURFACE | FULLSCREEN)
+        else:
+            self.__flags = self.__flags ^ (HWSURFACE | FULLSCREEN)
+            
+        pygame.display.set_mode(self.resolution, self.__flags)
+        </div>
+    @property
+    def resolution(self):
+        return self.__resolution
+    
+    @resolution.setter
+<div class="viewcode-block" id="Game.resolution"><a class="viewcode-back" href="../../toast.html#toast.game.Game.resolution">[docs]</a>    def resolution(self, resolution):
+        self.__resolution = resolution
+        pygame.display.set_mode(resolution, self.__flags)
+       
+    </div>
+    @classmethod
+<div class="viewcode-block" id="Game.time"><a class="viewcode-back" href="../../toast.html#toast.game.Game.time">[docs]</a>    def time(cls):
+        return cls.game_instance._Game__msecs
+        </div>
+<div class="viewcode-block" id="Game.run"><a class="viewcode-back" href="../../toast.html#toast.game.Game.run">[docs]</a>    def run(self):
+        Scene.current_scene.awake()
+        
+        while self.__running:
+            delta = self.__clock.tick(self.frame_limit)
+            
+            self.__msecs += delta
+            self.__frame_count += 1
+            
+            camera = Camera.current_camera
+            scene = Scene.current_scene
+           
+            camera.update(delta)
+            scene.update(delta)
+
+            camera.renderScene(self.__screen, scene)
+
+            pygame.display.update()
+            pygame.display.set_caption('Toast Window: %d fps' % self.__clock.get_fps())
+            
+            self.__handle_events()
+                    </div>
+    def __handle_events(self):
+        for event in pygame.event.get():
+            if event.type == KEYDOWN:
+                EventManager.notify('onKeyDown', event)
+                
+            elif event.type == KEYUP:
+                EventManager.notify('onKeyUp', event)
+                
+            elif event.type == MOUSEMOTION:
+                EventManager.notify('onMouseMotion', event)
+                
+            elif event.type == MOUSEBUTTONDOWN:
+                EventManager.notify('onMouseDown', event)
+                
+            elif event.type == MOUSEBUTTONUP:
+                EventManager.notify('onMouseUp', event)
+                
+            elif event.type == QUIT:
+                self.__running = False
+                print "Average fps: " + str(self.__frame_count / (self.__msecs / 1000))
+                
+    @staticmethod
+<div class="viewcode-block" id="Game.camera_to_world"><a class="viewcode-back" href="../../toast.html#toast.game.Game.camera_to_world">[docs]</a>    def camera_to_world(coord):
+        camera = Camera.current_camera
+        viewport = Game.game_instance.resolution
+        
+        scale_x = 1.0 * camera.viewport.get_width() / viewport[0]
+        scale_y = 1.0 * camera.viewport.get_height() / viewport[1]
+        return (camera.position[0] + (coord[0] * scale_x) - (camera.viewport.get_width() / 2), 
+                camera.position[1] + (coord[1] * scale_y) - (camera.viewport.get_height() / 2))
+    </div>
+    @staticmethod
+<div class="viewcode-block" id="Game.world_to_camera"><a class="viewcode-back" href="../../toast.html#toast.game.Game.world_to_camera">[docs]</a>    def world_to_camera(coord):
+        camera = Camera.current_camera
+        viewport = Game.game_instance.resolution
+        
+        scale_x = 1.0 * camera.viewport.get_width() / viewport[0]
+        scale_y = 1.0 * camera.viewport.get_height() / viewport[1]
+        return (((camera.viewport.get_width() / 2) - camera.position[0] - coord[0]) / -scale_x, 
+                (camera.position[1] - coord[1] - (camera.viewport.get_height() / 2)) / -scale_y)
+        </div></div>
+<div class="viewcode-block" id="GameException"><a class="viewcode-back" href="../../toast.html#toast.game.GameException">[docs]</a>class GameException(Exception):
+    def __init__(self, value):
+        self.value = value
+        
+    def __str__(self):
+        return repr(self.value)</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../index.html">toast  documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Author.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+    </div>
+  </body>
+</html>

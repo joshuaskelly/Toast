@@ -1,0 +1,259 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>toast.camera &mdash; toast  documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="toast  documentation" href="../../index.html" />
+    <link rel="up" title="Module code" href="../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../index.html">toast  documentation</a> &raquo;</li>
+          <li><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for toast.camera</h1><pre>
+import pygame
+
+from toast.scene_graph import GameObject
+from toast.camera_effects.shake_effect import ShakeEffect
+from toast.event_manager import EventManager
+from toast.math import lerp
+from toast.math.vector import Vector2D
+
+<div class="viewcode-block" id="Camera"><a class="viewcode-back" href="../../toast.html#toast.camera.Camera">[docs]</a>class Camera(GameObject):
+    __current_camera = None
+
+    def __init__(self, resolution):
+        """
+        " * Class Constructor
+        " *    imageSheet:   An ImageSheet object.
+        " *    data:         A two dimensional array.
+        """
+        super(Camera, self).__init__()
+        Camera.current_camera = self
+        
+        self.__position = Vector2D(0, 0)
+        self.__viewport = pygame.Surface(resolution).convert()#.convert_alpha()
+        self.__viewport.set_colorkey((255,0,255))
+        self.__clear_color = None
+        self.__target = None
+        self.__bounds = None
+        self.__tracking_strength = 0.1
+        
+        EventManager.subscribe(self, 'onCameraEvent')
+        
+<div class="viewcode-block" id="Camera.get_target"><a class="viewcode-back" href="../../toast.html#toast.camera.Camera.get_target">[docs]</a>    def get_target(self):
+        return self.__target
+        </div>
+<div class="viewcode-block" id="Camera.set_target"><a class="viewcode-back" href="../../toast.html#toast.camera.Camera.set_target">[docs]</a>    def set_target(self, target):
+        self.__target = target
+        </div>
+    target = property(get_target, set_target)
+    
+    @staticmethod
+<div class="viewcode-block" id="Camera.get_current"><a class="viewcode-back" href="../../toast.html#toast.camera.Camera.get_current">[docs]</a>    def get_current():
+        return Camera.__current_camera
+    </div>
+    @staticmethod
+<div class="viewcode-block" id="Camera.set_current"><a class="viewcode-back" href="../../toast.html#toast.camera.Camera.set_current">[docs]</a>    def set_current(camera):
+        Camera.__current_camera = camera
+        </div>
+    current_camera = property(get_current, set_current)
+
+    @property
+<div class="viewcode-block" id="Camera.top_left"><a class="viewcode-back" href="../../toast.html#toast.camera.Camera.top_left">[docs]</a>    def top_left(self):
+        return self.left, self.top
+        </div>
+    @property
+<div class="viewcode-block" id="Camera.top"><a class="viewcode-back" href="../../toast.html#toast.camera.Camera.top">[docs]</a>    def top(self):
+        return self.__position[1] - (self.__viewport.get_height() / 2)
+    </div>
+    @property
+<div class="viewcode-block" id="Camera.left"><a class="viewcode-back" href="../../toast.html#toast.camera.Camera.left">[docs]</a>    def left(self):
+        return self.__position[0] - (self.__viewport.get_width() / 2)
+    </div>
+    @property
+<div class="viewcode-block" id="Camera.width"><a class="viewcode-back" href="../../toast.html#toast.camera.Camera.width">[docs]</a>    def width(self):
+        return self.__viewport.get_width()
+    </div>
+    @property
+<div class="viewcode-block" id="Camera.height"><a class="viewcode-back" href="../../toast.html#toast.camera.Camera.height">[docs]</a>    def height(self):
+        return self.__viewport.get_height()
+        </div>
+<div class="viewcode-block" id="Camera.get_position"><a class="viewcode-back" href="../../toast.html#toast.camera.Camera.get_position">[docs]</a>    def get_position(self):
+        return self.__position
+</div>
+<div class="viewcode-block" id="Camera.set_position"><a class="viewcode-back" href="../../toast.html#toast.camera.Camera.set_position">[docs]</a>    def set_position(self, value):
+        self.__position = Vector2D(value[0], value[1])
+</div>
+    position = property(get_position, set_position)
+    
+<div class="viewcode-block" id="Camera.get_bounds"><a class="viewcode-back" href="../../toast.html#toast.camera.Camera.get_bounds">[docs]</a>    def get_bounds(self):
+        return self.__bounds
+    </div>
+<div class="viewcode-block" id="Camera.set_bounds"><a class="viewcode-back" href="../../toast.html#toast.camera.Camera.set_bounds">[docs]</a>    def set_bounds(self, value):
+        if value != None:
+            self.__bounds = pygame.Rect(value[0], value[1], value[2], value[3])
+        else:
+            self.__bounds = None
+</div>
+    bounds = property(get_bounds, set_bounds)
+    
+<div class="viewcode-block" id="Camera.get_viewport_size"><a class="viewcode-back" href="../../toast.html#toast.camera.Camera.get_viewport_size">[docs]</a>    def get_viewport_size(self):
+        return self.__viewport
+</div>
+<div class="viewcode-block" id="Camera.set_viewport_size"><a class="viewcode-back" href="../../toast.html#toast.camera.Camera.set_viewport_size">[docs]</a>    def set_viewport_size(self, dimension):
+        self.__viewport = pygame.Surface((dimension[0], dimension[1]), pygame.SRCALPHA, 32)
+</div>
+    viewport = property(get_viewport_size, set_viewport_size)
+    
+<div class="viewcode-block" id="Camera.get_clear_color"><a class="viewcode-back" href="../../toast.html#toast.camera.Camera.get_clear_color">[docs]</a>    def get_clear_color(self):
+        return self.__clear_color
+</div>
+<div class="viewcode-block" id="Camera.set_clear_color"><a class="viewcode-back" href="../../toast.html#toast.camera.Camera.set_clear_color">[docs]</a>    def set_clear_color(self, value):
+        self.__clear_color = (value[0], value[1], value[2])
+</div>
+    clear_color = property(get_clear_color, set_clear_color)
+
+<div class="viewcode-block" id="Camera.update"><a class="viewcode-back" href="../../toast.html#toast.camera.Camera.update">[docs]</a>    def update(self, delta):
+        if self.target != None:
+            dest = None
+            
+            try:
+                dest = self.target.position
+            except:
+                dest = self.target
+                
+            self.position = lerp(self.position, dest, self.__tracking_strength * (delta / 1000.0) * 60)
+                
+        self.handle_out_of_bounds()
+        
+        super(Camera, self).update(delta)
+        </div>
+<div class="viewcode-block" id="Camera.handle_out_of_bounds"><a class="viewcode-back" href="../../toast.html#toast.camera.Camera.handle_out_of_bounds">[docs]</a>    def handle_out_of_bounds(self):
+        if self.bounds != None:
+            rect = self.viewport.get_rect()
+            rect.center = self.position
+            
+            if rect.left &lt; self.bounds.left:
+                rect.left = self.bounds.left
+                self.position = rect.center
+                
+            elif rect.right &gt; self.bounds.right:
+                rect.right = self.bounds.right
+                self.position = rect.center
+                
+            if rect.top &lt; self.bounds.top:
+                rect.top = self.bounds.top
+                self.position = rect.center
+            
+            elif rect.bottom &gt; self.bounds.bottom:
+                rect.bottom = self.bounds.bottom
+                self.position = rect.center
+        </div>
+<div class="viewcode-block" id="Camera.renderScene"><a class="viewcode-back" href="../../toast.html#toast.camera.Camera.renderScene">[docs]</a>    def renderScene(self, surface, scene):
+        """
+        " * Camera.renderScene
+        """
+        
+        render_target = self.__viewport
+        
+        if self.clear_color:
+            render_target.fill(self.clear_color)
+
+        position = (self.__position[0] - self.__viewport.get_width() / 2,
+                    self.__position[1] - self.__viewport.get_height() / 2)
+        
+        scene.render(render_target, (int(position[0]), int(position[1])))
+
+        SCREEN_SIZE = (surface.get_width(), surface.get_height())
+
+        pygame.transform.scale(render_target, SCREEN_SIZE, surface)
+            </div>
+<div class="viewcode-block" id="Camera.onCameraEvent"><a class="viewcode-back" href="../../toast.html#toast.camera.Camera.onCameraEvent">[docs]</a>    def onCameraEvent(self, event):
+        if event.action == 'set_target':
+            self.__target = event.target
+            
+        elif event.action == 'effect':
+            if event.effect == 'shake':
+                e = ShakeEffect(self, event.magnitude, event.duration)
+                
+                self.add(e)</div></div>
+</pre>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../index.html">toast  documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Author.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+    </div>
+  </body>
+</html>

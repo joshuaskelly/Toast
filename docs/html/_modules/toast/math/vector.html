@@ -1,0 +1,238 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>toast.math.vector &mdash; toast  documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="toast  documentation" href="../../../index.html" />
+    <link rel="up" title="toast.math" href="../math.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../index.html">toast  documentation</a> &raquo;</li>
+          <li><a href="../../index.html" >Module code</a> &raquo;</li>
+          <li><a href="../math.html" accesskey="U">toast.math</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for toast.math.vector</h1><pre>
+from math import sqrt, degrees, atan2, cos, sin, radians
+
+<div class="viewcode-block" id="Vector2D"><a class="viewcode-back" href="../../../toast.math.html#toast.math.vector.Vector2D">[docs]</a>class Vector2D(object):
+    def __init__(self, xOrDouble, y = None):
+        if y == None:
+            self.x = xOrDouble[0]
+            self.y = xOrDouble[1]
+        else:
+            self.x = xOrDouble
+            self.y = y
+            
+    def __len__(self):
+        return 2
+    
+    def __getitem__(self, index):
+        if index == 0:
+            return self.x
+        elif index == 1:
+            return self.y
+        else:
+            raise IndexError('Error: Index {0} is out of range.'.format(index))
+        
+    def __setitem__(self, index, value):
+        if index == 0:
+            self.x = value
+        elif index == 1:
+            self.y = value
+        else:
+            raise IndexError('Error: Index {0} is out of range.'.format(index))
+        
+    def __repr__(self):
+        return '&lt;{0} {1}&gt;'.format(self.__class__.__name__, (self.x, self.y))
+    
+    def __eq__(self, other):
+        if hasattr(other, '__getitem__') and len(other) == 2:
+            return self.x == other[0] and self.y == other[1]
+        else:
+            return False
+        
+    def __ne__(self, other):
+        if hasattr(other, '__getitem__') and len(other) == 2:
+            return self.x != other[0] or self.y != other[1]
+        else:
+            return True
+        
+    def __nonzero__(self):
+        return self.x or self.y
+    
+    def __add__(self, other):
+        return Vector2D(self.x + other[0], self.y + other[1])
+    
+    __radd__ = __add__
+    
+    def __sub__(self, other):
+        if hasattr(other, '__getitem__') and len(other) == 2:
+            return Vector2D(self.x - other[0], self.y - other[1])
+        
+    def __rsub__(self, other):
+        if hasattr(other, '__getitem__') and len(other) == 2:
+            return Vector2D(other[0] - self.x , other[1] - self.y)
+        
+    def __mul__(self, scalar):
+        """ Returns the product of self by other. 
+        
+        Arguments:
+        scalar -- Strictly a scalar value.
+        
+        """
+        if not isinstance(scalar, (int, float, long)):
+            if hasattr(scalar, 'Dot'):
+                raise TypeError('Unable to multiply Vector2D by type \'{0}\'. Did you mean Dot() or Cross()?'.format(scalar.__class__.__name__))
+            else:
+                raise TypeError('Unable to multiply Vector2D by type \'{0}\'.'.format(scalar.__class__.__name__))
+        
+        return Vector2D(self.x * scalar, self.y * scalar)
+        
+    __rmul__ = __mul__
+    
+    def __div__(self, scalar):
+        """ Returns the quotient of self by other. 
+        
+        Arguments:
+        scalar -- Strictly a scalar value.
+        
+        """
+        if hasattr(scalar, '__getitem__') and len(scalar) == 2:
+            raise TypeError('Division of two vectors is not well-defined.')
+       
+        return Vector2D(self.x / scalar, self.y / scalar)
+        
+    def __neg__(self):
+        return Vector2D( -self.x , -self.y)
+    
+    def __pos__(self):
+        return Vector2D( self.x , self.y)
+    
+<div class="viewcode-block" id="Vector2D.Dot"><a class="viewcode-back" href="../../../toast.math.html#toast.math.vector.Vector2D.Dot">[docs]</a>    def Dot(self, other):
+        """ Returns the dot product of self by other """
+        return float(self.x * other[0] + self.y * other[1])
+        </div>
+<div class="viewcode-block" id="Vector2D.Cross"><a class="viewcode-back" href="../../../toast.math.html#toast.math.vector.Vector2D.Cross">[docs]</a>    def Cross(self, other):
+        """ Returns the cross product of self by other. """
+        return Vector2D(0, 0, self.x * other[1] - self.y * other[0])
+    </div>
+<div class="viewcode-block" id="Vector2D.Magnitude"><a class="viewcode-back" href="../../../toast.math.html#toast.math.vector.Vector2D.Magnitude">[docs]</a>    def Magnitude(self):
+        """ Returns the length of this vector. """
+        return sqrt(self.Dot(self))
+    </div>
+<div class="viewcode-block" id="Vector2D.MagnitudeSquared"><a class="viewcode-back" href="../../../toast.math.html#toast.math.vector.Vector2D.MagnitudeSquared">[docs]</a>    def MagnitudeSquared(self):
+        """ Returns the length of this vector in square space. """
+        return self.Dot(self)
+    </div>
+<div class="viewcode-block" id="Vector2D.Normalized"><a class="viewcode-back" href="../../../toast.math.html#toast.math.vector.Vector2D.Normalized">[docs]</a>    def Normalized(self):
+        """ Returns a unit vector in the direction of this vector. """
+        length = self.Magnitude()
+        if length != 0:
+            return self / length
+        return Vector2D(self)
+    </div>
+<div class="viewcode-block" id="Vector2D.GetAngle"><a class="viewcode-back" href="../../../toast.math.html#toast.math.vector.Vector2D.GetAngle">[docs]</a>    def GetAngle(self):
+        """ Returns the angle of this vector. """
+        if self.x == self.y == 0:
+            return 0
+        else:
+            return degrees(atan2(self.y, self.x))
+        </div>
+<div class="viewcode-block" id="Vector2D.GetPerpendicular"><a class="viewcode-back" href="../../../toast.math.html#toast.math.vector.Vector2D.GetPerpendicular">[docs]</a>    def GetPerpendicular(self):
+        return Vector2D(-self.y, self.x)
+    </div>
+    @staticmethod
+<div class="viewcode-block" id="Vector2D.Zero"><a class="viewcode-back" href="../../../toast.math.html#toast.math.vector.Vector2D.Zero">[docs]</a>    def Zero():
+        """ Returns a vector of length zero. """
+        return Vector2D(0, 0)
+    </div>
+    @staticmethod
+<div class="viewcode-block" id="Vector2D.UnitVectorFromAngle"><a class="viewcode-back" href="../../../toast.math.html#toast.math.vector.Vector2D.UnitVectorFromAngle">[docs]</a>    def UnitVectorFromAngle(angle):
+        """ Returns a unit vector in the direction of angle. """
+        return Vector2D(cos(radians(angle)), sin(radians(angle)))
+</div></div>
+i = Vector2D(1,0)
+
+j = Vector2D(0,1)
+
+
+</pre>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../index.html">toast  documentation</a> &raquo;</li>
+          <li><a href="../../index.html" >Module code</a> &raquo;</li>
+          <li><a href="../math.html" >toast.math</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Author.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+    </div>
+  </body>
+</html>

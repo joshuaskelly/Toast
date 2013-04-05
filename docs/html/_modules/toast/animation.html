@@ -1,0 +1,166 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>toast.animation &mdash; toast  documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="toast  documentation" href="../../index.html" />
+    <link rel="up" title="Module code" href="../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../index.html">toast  documentation</a> &raquo;</li>
+          <li><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for toast.animation</h1><pre>
+from toast.scene_graph import Component, ComponentException
+
+<div class="viewcode-block" id="Animation"><a class="viewcode-back" href="../../toast.html#toast.animation.Animation">[docs]</a>class Animation(Component):
+    def __init__(self, key=None, anim=None):
+        super(Animation, self).__init__()
+        
+        self.__animation_list = {}
+        
+        self.__running = True
+        
+        self.__time = 0
+        
+        self.__current_animation = ''
+        self.__current_frame = None
+        self.__index = 0
+        
+        if key != None:
+            self.add_animation(key, anim)
+            
+<div class="viewcode-block" id="Animation.add"><a class="viewcode-back" href="../../toast.html#toast.animation.Animation.add">[docs]</a>    def add(self, child):
+        raise ComponentException('Animations are not allowed to have component children.')
+    </div>
+<div class="viewcode-block" id="Animation.remove"><a class="viewcode-back" href="../../toast.html#toast.animation.Animation.remove">[docs]</a>    def remove(self, target=None):
+        raise ComponentException('Animations have no component children to remove.')
+        </div>
+<div class="viewcode-block" id="Animation.update"><a class="viewcode-back" href="../../toast.html#toast.animation.Animation.update">[docs]</a>    def update(self, time=0):
+        if self.__current_animation != '':
+            if self.__index &gt; len(self.__animation_list[self.__current_animation]) - 1:
+                self.__index = 0
+                
+            self.__time += time
+            
+            self.__current_frame, duration = self.__animation_list[self.__current_animation][self.__index]
+            
+            if hasattr(self.game_object, 'image'):
+                self.game_object.image = self.get_current_frame()
+            
+            if self.__time &gt; duration:
+                self.__time = 0
+                self.__index +=1
+                </div>
+<div class="viewcode-block" id="Animation.add_animation"><a class="viewcode-back" href="../../toast.html#toast.animation.Animation.add_animation">[docs]</a>    def add_animation(self, key, animation):
+        if self.__current_animation == '':
+            self.__current_animation = key
+            
+        if self.__current_frame == None:
+            self.__current_frame = animation[0][0]
+            
+        self.__animation_list[key] = animation
+        </div>
+<div class="viewcode-block" id="Animation.get_current_frame"><a class="viewcode-back" href="../../toast.html#toast.animation.Animation.get_current_frame">[docs]</a>    def get_current_frame(self):
+        return self.__current_frame
+    </div>
+<div class="viewcode-block" id="Animation.get_current_index"><a class="viewcode-back" href="../../toast.html#toast.animation.Animation.get_current_index">[docs]</a>    def get_current_index(self):
+        if self.__index &gt; len(self.__animation_list[self.__current_animation]) - 1:
+            self.__index = 0
+            
+        return self.__index
+    </div>
+<div class="viewcode-block" id="Animation.get_current_animation"><a class="viewcode-back" href="../../toast.html#toast.animation.Animation.get_current_animation">[docs]</a>    def get_current_animation(self):
+        return self.__current_animation
+        </div>
+<div class="viewcode-block" id="Animation.play"><a class="viewcode-back" href="../../toast.html#toast.animation.Animation.play">[docs]</a>    def play(self, anim, start_frame=None):
+        self.__current_animation = anim
+        
+        if start_frame != None:
+            self.__index = start_frame
+        </div>
+<div class="viewcode-block" id="Animation.stop"><a class="viewcode-back" href="../../toast.html#toast.animation.Animation.stop">[docs]</a>    def stop(self):
+        self.__current_animation = ''
+        self.__index = 0
+        </div>
+<div class="viewcode-block" id="Animation.goto_and_play"><a class="viewcode-back" href="../../toast.html#toast.animation.Animation.goto_and_play">[docs]</a>    def goto_and_play(self, frame, anim):
+        self.__index = frame
+        self.__current_animation = anim</pre></div></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../index.html">toast  documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Author.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+    </div>
+  </body>
+</html>
