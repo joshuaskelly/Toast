@@ -1,0 +1,270 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>camera Module &mdash; toast  documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="toast  documentation" href="index.html" />
+    <link rel="next" title="emitter Module" href="toast.emitter.html" />
+    <link rel="prev" title="bitmap_font Module" href="toast.bitmap_font.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="toast.emitter.html" title="emitter Module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="toast.bitmap_font.html" title="bitmap_font Module"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">toast  documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-toast.camera">
+<span id="camera-module"></span><h1><tt class="xref py py-mod docutils literal"><span class="pre">camera</span></tt> Module<a class="headerlink" href="#module-toast.camera" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="toast.camera.Camera">
+<em class="property">class </em><tt class="descclassname">toast.camera.</tt><tt class="descname">Camera</tt><big>(</big><em>resolution</em><big>)</big><a class="reference internal" href="_modules/toast/camera.html#Camera"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toast.camera.Camera" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">toast.scene_graph.GameObject</span></tt></p>
+<dl class="attribute">
+<dt id="toast.camera.Camera.bounds">
+<tt class="descname">bounds</tt><a class="headerlink" href="#toast.camera.Camera.bounds" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="toast.camera.Camera.clear_color">
+<tt class="descname">clear_color</tt><a class="headerlink" href="#toast.camera.Camera.clear_color" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="toast.camera.Camera.current_camera">
+<tt class="descname">current_camera</tt><a class="headerlink" href="#toast.camera.Camera.current_camera" title="Permalink to this definition">¶</a></dt>
+<dd><p>staticmethod(function) -&gt; method</p>
+<p>Convert a function to be a static method.</p>
+<p>A static method does not receive an implicit first argument.
+To declare a static method, use this idiom:</p>
+<blockquote>
+<div>class C:
+def f(arg1, arg2, ...): ...
+f = staticmethod(f)</div></blockquote>
+<p>It can be called either on the class (e.g. C.f()) or on an instance
+(e.g. C().f()).  The instance is ignored except for its class.</p>
+<p>Static methods in Python are similar to those found in Java or C++.
+For a more advanced concept, see the classmethod builtin.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="toast.camera.Camera.get_bounds">
+<tt class="descname">get_bounds</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/toast/camera.html#Camera.get_bounds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toast.camera.Camera.get_bounds" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="toast.camera.Camera.get_clear_color">
+<tt class="descname">get_clear_color</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/toast/camera.html#Camera.get_clear_color"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toast.camera.Camera.get_clear_color" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="toast.camera.Camera.get_current">
+<em class="property">static </em><tt class="descname">get_current</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/toast/camera.html#Camera.get_current"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toast.camera.Camera.get_current" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="toast.camera.Camera.get_position">
+<tt class="descname">get_position</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/toast/camera.html#Camera.get_position"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toast.camera.Camera.get_position" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="toast.camera.Camera.get_target">
+<tt class="descname">get_target</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/toast/camera.html#Camera.get_target"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toast.camera.Camera.get_target" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="toast.camera.Camera.get_viewport_size">
+<tt class="descname">get_viewport_size</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/toast/camera.html#Camera.get_viewport_size"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toast.camera.Camera.get_viewport_size" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="toast.camera.Camera.handle_out_of_bounds">
+<tt class="descname">handle_out_of_bounds</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/toast/camera.html#Camera.handle_out_of_bounds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toast.camera.Camera.handle_out_of_bounds" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="toast.camera.Camera.height">
+<tt class="descname">height</tt><a class="reference internal" href="_modules/toast/camera.html#Camera.height"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toast.camera.Camera.height" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="toast.camera.Camera.left">
+<tt class="descname">left</tt><a class="reference internal" href="_modules/toast/camera.html#Camera.left"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toast.camera.Camera.left" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="toast.camera.Camera.onCameraEvent">
+<tt class="descname">onCameraEvent</tt><big>(</big><em>event</em><big>)</big><a class="reference internal" href="_modules/toast/camera.html#Camera.onCameraEvent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toast.camera.Camera.onCameraEvent" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="toast.camera.Camera.position">
+<tt class="descname">position</tt><a class="headerlink" href="#toast.camera.Camera.position" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="toast.camera.Camera.renderScene">
+<tt class="descname">renderScene</tt><big>(</big><em>surface</em>, <em>scene</em><big>)</big><a class="reference internal" href="_modules/toast/camera.html#Camera.renderScene"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toast.camera.Camera.renderScene" title="Permalink to this definition">¶</a></dt>
+<dd><p>&#8221; * Camera.renderScene</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="toast.camera.Camera.set_bounds">
+<tt class="descname">set_bounds</tt><big>(</big><em>value</em><big>)</big><a class="reference internal" href="_modules/toast/camera.html#Camera.set_bounds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toast.camera.Camera.set_bounds" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="toast.camera.Camera.set_clear_color">
+<tt class="descname">set_clear_color</tt><big>(</big><em>value</em><big>)</big><a class="reference internal" href="_modules/toast/camera.html#Camera.set_clear_color"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toast.camera.Camera.set_clear_color" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="toast.camera.Camera.set_current">
+<em class="property">static </em><tt class="descname">set_current</tt><big>(</big><em>camera</em><big>)</big><a class="reference internal" href="_modules/toast/camera.html#Camera.set_current"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toast.camera.Camera.set_current" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="toast.camera.Camera.set_position">
+<tt class="descname">set_position</tt><big>(</big><em>value</em><big>)</big><a class="reference internal" href="_modules/toast/camera.html#Camera.set_position"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toast.camera.Camera.set_position" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="toast.camera.Camera.set_target">
+<tt class="descname">set_target</tt><big>(</big><em>target</em><big>)</big><a class="reference internal" href="_modules/toast/camera.html#Camera.set_target"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toast.camera.Camera.set_target" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="toast.camera.Camera.set_viewport_size">
+<tt class="descname">set_viewport_size</tt><big>(</big><em>dimension</em><big>)</big><a class="reference internal" href="_modules/toast/camera.html#Camera.set_viewport_size"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toast.camera.Camera.set_viewport_size" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="toast.camera.Camera.target">
+<tt class="descname">target</tt><a class="headerlink" href="#toast.camera.Camera.target" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="toast.camera.Camera.top">
+<tt class="descname">top</tt><a class="reference internal" href="_modules/toast/camera.html#Camera.top"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toast.camera.Camera.top" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="toast.camera.Camera.top_left">
+<tt class="descname">top_left</tt><a class="reference internal" href="_modules/toast/camera.html#Camera.top_left"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toast.camera.Camera.top_left" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="toast.camera.Camera.update">
+<tt class="descname">update</tt><big>(</big><em>delta</em><big>)</big><a class="reference internal" href="_modules/toast/camera.html#Camera.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toast.camera.Camera.update" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="toast.camera.Camera.viewport">
+<tt class="descname">viewport</tt><a class="headerlink" href="#toast.camera.Camera.viewport" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="toast.camera.Camera.width">
+<tt class="descname">width</tt><a class="reference internal" href="_modules/toast/camera.html#Camera.width"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toast.camera.Camera.width" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="toast.bitmap_font.html"
+                        title="previous chapter"><tt class="docutils literal docutils literal docutils literal"><span class="pre">bitmap_font</span></tt> Module</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="toast.emitter.html"
+                        title="next chapter"><tt class="docutils literal"><span class="pre">emitter</span></tt> Module</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/toast.camera.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="toast.emitter.html" title="emitter Module"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="toast.bitmap_font.html" title="bitmap_font Module"
+             >previous</a> |</li>
+        <li><a href="index.html">toast  documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Author.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+    </div>
+  </body>
+</html>

@@ -24,7 +24,7 @@
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
     <link rel="top" title="toast  documentation" href="../../index.html" />
-    <link rel="up" title="Module code" href="../index.html" /> 
+    <link rel="up" title="toast" href="../toast.html" /> 
   </head>
   <body>
     <div class="related">
@@ -37,7 +37,8 @@
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li><a href="../../index.html">toast  documentation</a> &raquo;</li>
-          <li><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
+          <li><a href="../index.html" >Module code</a> &raquo;</li>
+          <li><a href="../toast.html" accesskey="U">toast</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -47,7 +48,7 @@
           <div class="body">
             
   <h1>Source code for toast.quadtree</h1><pre>
-<div class="viewcode-block" id="QuadTree"><a class="viewcode-back" href="../../toast.html#toast.quadtree.QuadTree">[docs]</a>class QuadTree(object):
+<div class="viewcode-block" id="QuadTree"><a class="viewcode-back" href="../../toast.quadtree.html#toast.quadtree.QuadTree">[docs]</a>class QuadTree(object):
     def __init__(self, items, region):
         
         self.quadrant = region
@@ -79,7 +80,7 @@
     def __len__(self):
         return self.length
             
-<div class="viewcode-block" id="QuadTree.create_subtrees"><a class="viewcode-back" href="../../toast.html#toast.quadtree.QuadTree.create_subtrees">[docs]</a>    def create_subtrees(self):
+<div class="viewcode-block" id="QuadTree.create_subtrees"><a class="viewcode-back" href="../../toast.quadtree.html#toast.quadtree.QuadTree.create_subtrees">[docs]</a>    def create_subtrees(self):
         if self.width &lt; 8:
             return False
         
@@ -93,7 +94,7 @@
         
         return True
         </div>
-<div class="viewcode-block" id="QuadTree.insert"><a class="viewcode-back" href="../../toast.html#toast.quadtree.QuadTree.insert">[docs]</a>    def insert(self, item):
+<div class="viewcode-block" id="QuadTree.insert"><a class="viewcode-back" href="../../toast.quadtree.html#toast.quadtree.QuadTree.insert">[docs]</a>    def insert(self, item):
         in_nw = False
         in_ne = False
         in_sw = False
@@ -124,7 +125,7 @@
         elif in_se:
             self.southeast_tree.insert(item)
             </div>
-<div class="viewcode-block" id="QuadTree.hit"><a class="viewcode-back" href="../../toast.html#toast.quadtree.QuadTree.hit">[docs]</a>    def hit(self, rect):
+<div class="viewcode-block" id="QuadTree.hit"><a class="viewcode-back" href="../../toast.quadtree.html#toast.quadtree.QuadTree.hit">[docs]</a>    def hit(self, rect):
         def contains(item):
             return rect[0] &lt; item[0] + item[2] and \
                    rect[0] + rect[2] &gt; item[0] and \
@@ -187,7 +188,8 @@
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li><a href="../../index.html">toast  documentation</a> &raquo;</li>
-          <li><a href="../index.html" >Module code</a> &raquo;</li> 
+          <li><a href="../index.html" >Module code</a> &raquo;</li>
+          <li><a href="../toast.html" >toast</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

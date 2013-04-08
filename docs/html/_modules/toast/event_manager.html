@@ -24,7 +24,7 @@
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
     <link rel="top" title="toast  documentation" href="../../index.html" />
-    <link rel="up" title="Module code" href="../index.html" /> 
+    <link rel="up" title="toast" href="../toast.html" /> 
   </head>
   <body>
     <div class="related">
@@ -37,7 +37,8 @@
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li><a href="../../index.html">toast  documentation</a> &raquo;</li>
-          <li><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
+          <li><a href="../index.html" >Module code</a> &raquo;</li>
+          <li><a href="../toast.html" accesskey="U">toast</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -49,35 +50,35 @@
   <h1>Source code for toast.event_manager</h1><pre>
 import weakref
 
-<div class="viewcode-block" id="EventManager"><a class="viewcode-back" href="../../toast.html#toast.event_manager.EventManager">[docs]</a>class EventManager(object):
+<div class="viewcode-block" id="EventManager"><a class="viewcode-back" href="../../toast.event_manager.html#toast.event_manager.EventManager">[docs]</a>class EventManager(object):
     __events = {}
         
     @staticmethod
-<div class="viewcode-block" id="EventManager.subscribe"><a class="viewcode-back" href="../../toast.html#toast.event_manager.EventManager.subscribe">[docs]</a>    def subscribe(subscriber, method):
+<div class="viewcode-block" id="EventManager.subscribe"><a class="viewcode-back" href="../../toast.event_manager.html#toast.event_manager.EventManager.subscribe">[docs]</a>    def subscribe(subscriber, method):
         if method not in EventManager.__events:
             EventManager.__events[method] = EventObserver(method)
             
         EventManager.__events[method].add(subscriber)
 </div>
     @staticmethod
-<div class="viewcode-block" id="EventManager.notify"><a class="viewcode-back" href="../../toast.html#toast.event_manager.EventManager.notify">[docs]</a>    def notify(method, event):
+<div class="viewcode-block" id="EventManager.notify"><a class="viewcode-back" href="../../toast.event_manager.html#toast.event_manager.EventManager.notify">[docs]</a>    def notify(method, event):
         if method in EventManager.__events:
             EventManager.__events[method].notify(event)
             </div></div>
-<div class="viewcode-block" id="EventObserver"><a class="viewcode-back" href="../../toast.html#toast.event_manager.EventObserver">[docs]</a>class EventObserver(object):
+<div class="viewcode-block" id="EventObserver"><a class="viewcode-back" href="../../toast.event_manager.html#toast.event_manager.EventObserver">[docs]</a>class EventObserver(object):
     def __init__(self, method):
         self.__subscribers = []
         self.__target_method = method
         self.__is_notifying_subscribers = False
         self.__subscribers_to_add = []
     
-<div class="viewcode-block" id="EventObserver.add"><a class="viewcode-back" href="../../toast.html#toast.event_manager.EventObserver.add">[docs]</a>    def add(self, subscriber):
+<div class="viewcode-block" id="EventObserver.add"><a class="viewcode-back" href="../../toast.event_manager.html#toast.event_manager.EventObserver.add">[docs]</a>    def add(self, subscriber):
         if self.__is_notifying_subscribers:
             self.__subscribers_to_add.append(subscriber)
         else:
             self.__subscribers.append(weakref.ref(subscriber))
         </div>
-<div class="viewcode-block" id="EventObserver.notify"><a class="viewcode-back" href="../../toast.html#toast.event_manager.EventObserver.notify">[docs]</a>    def notify(self, event):
+<div class="viewcode-block" id="EventObserver.notify"><a class="viewcode-back" href="../../toast.event_manager.html#toast.event_manager.EventObserver.notify">[docs]</a>    def notify(self, event):
         cleanup_list = []
         
         self.__is_notifying_subscribers = True
@@ -101,11 +102,11 @@ import weakref
             for g in cleanup_list:
                 self.__subscribers.remove(g)
             </div>
-<div class="viewcode-block" id="EventObserver.remove"><a class="viewcode-back" href="../../toast.html#toast.event_manager.EventObserver.remove">[docs]</a>    def remove(self, subscriber):
+<div class="viewcode-block" id="EventObserver.remove"><a class="viewcode-back" href="../../toast.event_manager.html#toast.event_manager.EventObserver.remove">[docs]</a>    def remove(self, subscriber):
         if subscriber in self.__subscribers:
             self.__subscribers.remove(subscriber)
             </div></div>
-<div class="viewcode-block" id="EventNotificationException"><a class="viewcode-back" href="../../toast.html#toast.event_manager.EventNotificationException">[docs]</a>class EventNotificationException(Exception):
+<div class="viewcode-block" id="EventNotificationException"><a class="viewcode-back" href="../../toast.event_manager.html#toast.event_manager.EventNotificationException">[docs]</a>class EventNotificationException(Exception):
     def __init__(self, value):
         self.value = value
         
@@ -145,7 +146,8 @@ import weakref
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li><a href="../../index.html">toast  documentation</a> &raquo;</li>
-          <li><a href="../index.html" >Module code</a> &raquo;</li> 
+          <li><a href="../index.html" >Module code</a> &raquo;</li>
+          <li><a href="../toast.html" >toast</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

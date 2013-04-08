@@ -24,7 +24,7 @@
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
     <link rel="top" title="toast  documentation" href="../../index.html" />
-    <link rel="up" title="Module code" href="../index.html" /> 
+    <link rel="up" title="toast" href="../toast.html" /> 
   </head>
   <body>
     <div class="related">
@@ -37,7 +37,8 @@
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li><a href="../../index.html">toast  documentation</a> &raquo;</li>
-          <li><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
+          <li><a href="../index.html" >Module code</a> &raquo;</li>
+          <li><a href="../toast.html" accesskey="U">toast</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -50,7 +51,7 @@
 from toast.scene_graph import GameObject
 from toast.transform import Transform
 
-<div class="viewcode-block" id="Sprite"><a class="viewcode-back" href="../../toast.html#toast.sprite.Sprite">[docs]</a>class Sprite(GameObject):
+<div class="viewcode-block" id="Sprite"><a class="viewcode-back" href="../../toast.sprite.html#toast.sprite.Sprite">[docs]</a>class Sprite(GameObject):
     def __init__(self, image_or_animation, position=(0,0)):
         super(Sprite, self).__init__()
         
@@ -68,7 +69,7 @@ from toast.transform import Transform
             self.image = image_or_animation
         
     @property
-<div class="viewcode-block" id="Sprite.transform"><a class="viewcode-back" href="../../toast.html#toast.sprite.Sprite.transform">[docs]</a>    def transform(self):
+<div class="viewcode-block" id="Sprite.transform"><a class="viewcode-back" href="../../toast.sprite.html#toast.sprite.Sprite.transform">[docs]</a>    def transform(self):
         return self.get_component('Transform')
         </div>
     @property
@@ -76,7 +77,7 @@ from toast.transform import Transform
         return self.transform.position
         
     @position.setter
-<div class="viewcode-block" id="Sprite.position"><a class="viewcode-back" href="../../toast.html#toast.sprite.Sprite.position">[docs]</a>    def position(self, value):
+<div class="viewcode-block" id="Sprite.position"><a class="viewcode-back" href="../../toast.sprite.html#toast.sprite.Sprite.position">[docs]</a>    def position(self, value):
         self.transform.position = value
         </div>
     @property
@@ -84,7 +85,7 @@ from toast.transform import Transform
         return self.__visibility
     
     @visible.setter
-<div class="viewcode-block" id="Sprite.visible"><a class="viewcode-back" href="../../toast.html#toast.sprite.Sprite.visible">[docs]</a>    def visible(self, value):
+<div class="viewcode-block" id="Sprite.visible"><a class="viewcode-back" href="../../toast.sprite.html#toast.sprite.Sprite.visible">[docs]</a>    def visible(self, value):
         self.__visibility = value
         </div>
     @property
@@ -92,10 +93,10 @@ from toast.transform import Transform
         return self.__image
     
     @image.setter
-<div class="viewcode-block" id="Sprite.image"><a class="viewcode-back" href="../../toast.html#toast.sprite.Sprite.image">[docs]</a>    def image(self, image):
+<div class="viewcode-block" id="Sprite.image"><a class="viewcode-back" href="../../toast.sprite.html#toast.sprite.Sprite.image">[docs]</a>    def image(self, image):
         self.__image = image
         </div>
-<div class="viewcode-block" id="Sprite.render"><a class="viewcode-back" href="../../toast.html#toast.sprite.Sprite.render">[docs]</a>    def render(self, surface, offset=(0,0)):
+<div class="viewcode-block" id="Sprite.render"><a class="viewcode-back" href="../../toast.sprite.html#toast.sprite.Sprite.render">[docs]</a>    def render(self, surface, offset=(0,0)):
         if not self.visible:
             return
         
@@ -137,7 +138,8 @@ from toast.transform import Transform
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li><a href="../../index.html">toast  documentation</a> &raquo;</li>
-          <li><a href="../index.html" >Module code</a> &raquo;</li> 
+          <li><a href="../index.html" >Module code</a> &raquo;</li>
+          <li><a href="../toast.html" >toast</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

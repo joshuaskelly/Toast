@@ -24,7 +24,7 @@
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
     <link rel="top" title="toast  documentation" href="../../index.html" />
-    <link rel="up" title="Module code" href="../index.html" /> 
+    <link rel="up" title="toast" href="../toast.html" /> 
   </head>
   <body>
     <div class="related">
@@ -37,7 +37,8 @@
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li><a href="../../index.html">toast  documentation</a> &raquo;</li>
-          <li><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
+          <li><a href="../index.html" >Module code</a> &raquo;</li>
+          <li><a href="../toast.html" accesskey="U">toast</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -51,7 +52,7 @@ import new
 
 from toast.scene_graph import GameObject, GameObjectException
 
-<div class="viewcode-block" id="GameObjectPool"><a class="viewcode-back" href="../../toast.html#toast.game_object_pool.GameObjectPool">[docs]</a>class GameObjectPool(GameObject):
+<div class="viewcode-block" id="GameObjectPool"><a class="viewcode-back" href="../../toast.game_object_pool.html#toast.game_object_pool.GameObjectPool">[docs]</a>class GameObjectPool(GameObject):
     def __init__(self, class_name, default_args=(), initial_size=0):
         super(GameObjectPool, self).__init__()
         self.__class_name = class_name
@@ -71,17 +72,17 @@ from toast.scene_graph import GameObject, GameObjectException
     def __len__(self):
         return len(self.__children)
         
-<div class="viewcode-block" id="GameObjectPool.update"><a class="viewcode-back" href="../../toast.html#toast.game_object_pool.GameObjectPool.update">[docs]</a>    def update(self, milliseconds=0):
+<div class="viewcode-block" id="GameObjectPool.update"><a class="viewcode-back" href="../../toast.game_object_pool.html#toast.game_object_pool.GameObjectPool.update">[docs]</a>    def update(self, milliseconds=0):
         for child in self.__children:
             if hasattr(child, 'update') and not child.dead:
                 child.update(milliseconds)
                 </div>
-<div class="viewcode-block" id="GameObjectPool.render"><a class="viewcode-back" href="../../toast.html#toast.game_object_pool.GameObjectPool.render">[docs]</a>    def render(self, surface, offset=(0,0)):
+<div class="viewcode-block" id="GameObjectPool.render"><a class="viewcode-back" href="../../toast.game_object_pool.html#toast.game_object_pool.GameObjectPool.render">[docs]</a>    def render(self, surface, offset=(0,0)):
         for child in self.__children:
             if hasattr(child, 'render') and not child.dead:
                 child.render(surface, offset)
     </div>
-<div class="viewcode-block" id="GameObjectPool.add"><a class="viewcode-back" href="../../toast.html#toast.game_object_pool.GameObjectPool.add">[docs]</a>    def add(self, child):
+<div class="viewcode-block" id="GameObjectPool.add"><a class="viewcode-back" href="../../toast.game_object_pool.html#toast.game_object_pool.GameObjectPool.add">[docs]</a>    def add(self, child):
         raise GameObjectException('Cannot add a child to a Component Pool.')
     </div>
     def __add(self, child):
@@ -105,7 +106,7 @@ from toast.scene_graph import GameObject, GameObjectException
         
         return instance
     
-<div class="viewcode-block" id="GameObjectPool.getNextAvailable"><a class="viewcode-back" href="../../toast.html#toast.game_object_pool.GameObjectPool.getNextAvailable">[docs]</a>    def getNextAvailable(self):
+<div class="viewcode-block" id="GameObjectPool.getNextAvailable"><a class="viewcode-back" href="../../toast.game_object_pool.html#toast.game_object_pool.GameObjectPool.getNextAvailable">[docs]</a>    def getNextAvailable(self):
         """ Returns first-available non-dead child. If you are limiting the
         number of instances created, this can possibly return None.
         """
@@ -120,11 +121,11 @@ from toast.scene_graph import GameObject, GameObjectException
             return self.__getNewInstance(*self.__default_args)
         </div>
     @property
-<div class="viewcode-block" id="GameObjectPool.children"><a class="viewcode-back" href="../../toast.html#toast.game_object_pool.GameObjectPool.children">[docs]</a>    def children(self):
+<div class="viewcode-block" id="GameObjectPool.children"><a class="viewcode-back" href="../../toast.game_object_pool.html#toast.game_object_pool.GameObjectPool.children">[docs]</a>    def children(self):
         """ Returns a list of non-dead children. """
         return [child for child in self.__children if not child.dead]
     </div>
-<div class="viewcode-block" id="GameObjectPool.has_child_alive"><a class="viewcode-back" href="../../toast.html#toast.game_object_pool.GameObjectPool.has_child_alive">[docs]</a>    def has_child_alive(self):
+<div class="viewcode-block" id="GameObjectPool.has_child_alive"><a class="viewcode-back" href="../../toast.game_object_pool.html#toast.game_object_pool.GameObjectPool.has_child_alive">[docs]</a>    def has_child_alive(self):
         """ Returns true if at least one child is not dead. """
         for child in self.children:
             if not child.dead:
@@ -132,7 +133,7 @@ from toast.scene_graph import GameObject, GameObjectException
         
         return False
     </div></div>
-<div class="viewcode-block" id="override_remove"><a class="viewcode-back" href="../../toast.html#toast.game_object_pool.override_remove">[docs]</a>def override_remove(self, target=None):
+<div class="viewcode-block" id="override_remove"><a class="viewcode-back" href="../../toast.game_object_pool.html#toast.game_object_pool.override_remove">[docs]</a>def override_remove(self, target=None):
     self.dead = True</pre></div>
 
           </div>
@@ -167,7 +168,8 @@ from toast.scene_graph import GameObject, GameObjectException
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li><a href="../../index.html">toast  documentation</a> &raquo;</li>
-          <li><a href="../index.html" >Module code</a> &raquo;</li> 
+          <li><a href="../index.html" >Module code</a> &raquo;</li>
+          <li><a href="../toast.html" >toast</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

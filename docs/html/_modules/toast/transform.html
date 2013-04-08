@@ -24,7 +24,7 @@
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
     <link rel="top" title="toast  documentation" href="../../index.html" />
-    <link rel="up" title="Module code" href="../index.html" /> 
+    <link rel="up" title="toast" href="../toast.html" /> 
   </head>
   <body>
     <div class="related">
@@ -37,7 +37,8 @@
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li><a href="../../index.html">toast  documentation</a> &raquo;</li>
-          <li><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
+          <li><a href="../index.html" >Module code</a> &raquo;</li>
+          <li><a href="../toast.html" accesskey="U">toast</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -50,7 +51,7 @@
 from toast.scene_graph import Component
 from toast.math.vector import Vector2D
 
-<div class="viewcode-block" id="Transform"><a class="viewcode-back" href="../../toast.html#toast.transform.Transform">[docs]</a>class Transform(Component):
+<div class="viewcode-block" id="Transform"><a class="viewcode-back" href="../../toast.transform.html#toast.transform.Transform">[docs]</a>class Transform(Component):
     """A Component to help with positioning of GameObjects and all it's
     attached children with transforms. On changing of position, children will
     re-position themselves relative to their parent's position.
@@ -88,7 +89,7 @@ from toast.math.vector import Vector2D
             return self.local_position
     
     @position.setter
-<div class="viewcode-block" id="Transform.position"><a class="viewcode-back" href="../../toast.html#toast.transform.Transform.position">[docs]</a>    def position(self, other):
+<div class="viewcode-block" id="Transform.position"><a class="viewcode-back" href="../../toast.transform.html#toast.transform.Transform.position">[docs]</a>    def position(self, other):
         """Sets the position in world space.
         
         :param other: The new position.
@@ -109,7 +110,7 @@ from toast.math.vector import Vector2D
         return self.__local_position
     
     @local_position.setter
-<div class="viewcode-block" id="Transform.local_position"><a class="viewcode-back" href="../../toast.html#toast.transform.Transform.local_position">[docs]</a>    def local_position(self, other):
+<div class="viewcode-block" id="Transform.local_position"><a class="viewcode-back" href="../../toast.transform.html#toast.transform.Transform.local_position">[docs]</a>    def local_position(self, other):
         """Sets the position relative to the GameObject's parent. 
         
         :param other: The new position in the GameObject's parent's local space.
@@ -151,7 +152,8 @@ from toast.math.vector import Vector2D
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li><a href="../../index.html">toast  documentation</a> &raquo;</li>
-          <li><a href="../index.html" >Module code</a> &raquo;</li> 
+          <li><a href="../index.html" >Module code</a> &raquo;</li>
+          <li><a href="../toast.html" >toast</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

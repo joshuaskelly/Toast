@@ -54,7 +54,7 @@ class Particle(Sprite):
         if self.lifetime.is_time_up():
             self.lifetime.reset()
             self.remove()
-
+            
 class EmitterPerformanceTest(Scene):
     def __init__(self):
         super(EmitterPerformanceTest, self).__init__()

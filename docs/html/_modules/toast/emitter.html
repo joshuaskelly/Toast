@@ -24,7 +24,7 @@
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
     <link rel="top" title="toast  documentation" href="../../index.html" />
-    <link rel="up" title="Module code" href="../index.html" /> 
+    <link rel="up" title="toast" href="../toast.html" /> 
   </head>
   <body>
     <div class="related">
@@ -37,7 +37,8 @@
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li><a href="../../index.html">toast  documentation</a> &raquo;</li>
-          <li><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
+          <li><a href="../index.html" >Module code</a> &raquo;</li>
+          <li><a href="../toast.html" accesskey="U">toast</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -50,7 +51,7 @@
 from toast.game_object_pool import GameObjectPool
 from toast.math.vector import Vector2D
 
-<div class="viewcode-block" id="Emitter"><a class="viewcode-back" href="../../toast.html#toast.emitter.Emitter">[docs]</a>class Emitter(GameObjectPool):
+<div class="viewcode-block" id="Emitter"><a class="viewcode-back" href="../../toast.emitter.html#toast.emitter.Emitter">[docs]</a>class Emitter(GameObjectPool):
     def __init__(self, particle_class_name, default_args=(), frequency=0, on_particle_create=None):
         super(Emitter, self).__init__(particle_class_name, default_args)
         
@@ -60,7 +61,7 @@ from toast.math.vector import Vector2D
         self.position = Vector2D(0, 0)
         self.is_emitting = True
         
-<div class="viewcode-block" id="Emitter.update"><a class="viewcode-back" href="../../toast.html#toast.emitter.Emitter.update">[docs]</a>    def update(self, milliseconds=0):
+<div class="viewcode-block" id="Emitter.update"><a class="viewcode-back" href="../../toast.emitter.html#toast.emitter.Emitter.update">[docs]</a>    def update(self, milliseconds=0):
         super(Emitter, self).update(milliseconds)
         
         if self.is_emitting:
@@ -108,7 +109,8 @@ from toast.math.vector import Vector2D
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li><a href="../../index.html">toast  documentation</a> &raquo;</li>
-          <li><a href="../index.html" >Module code</a> &raquo;</li> 
+          <li><a href="../index.html" >Module code</a> &raquo;</li>
+          <li><a href="../toast.html" >toast</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

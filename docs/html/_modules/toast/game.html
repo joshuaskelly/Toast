@@ -24,7 +24,7 @@
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
     <link rel="top" title="toast  documentation" href="../../index.html" />
-    <link rel="up" title="Module code" href="../index.html" /> 
+    <link rel="up" title="toast" href="../toast.html" /> 
   </head>
   <body>
     <div class="related">
@@ -37,7 +37,8 @@
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li><a href="../../index.html">toast  documentation</a> &raquo;</li>
-          <li><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
+          <li><a href="../index.html" >Module code</a> &raquo;</li>
+          <li><a href="../toast.html" accesskey="U">toast</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -55,7 +56,7 @@ from toast.camera import Camera
 from toast.scene_graph import Scene
 from toast.event_manager import EventManager
 
-<div class="viewcode-block" id="Game"><a class="viewcode-back" href="../../toast.html#toast.game.Game">[docs]</a>class Game(object):
+<div class="viewcode-block" id="Game"><a class="viewcode-back" href="../../toast.game.html#toast.game.Game">[docs]</a>class Game(object):
     game_instance = None
     
     def __init__(self, resolution, initial_scene):
@@ -92,7 +93,7 @@ from toast.event_manager import EventManager
         return self.__frame_limit
     
     @frame_limit.setter
-<div class="viewcode-block" id="Game.frame_limit"><a class="viewcode-back" href="../../toast.html#toast.game.Game.frame_limit">[docs]</a>    def frame_limit(self, max_fps):
+<div class="viewcode-block" id="Game.frame_limit"><a class="viewcode-back" href="../../toast.game.html#toast.game.Game.frame_limit">[docs]</a>    def frame_limit(self, max_fps):
         self.__frame_limit = max_fps
         </div>
     @property
@@ -100,7 +101,7 @@ from toast.event_manager import EventManager
         return (self.__flags &amp; (HWSURFACE | FULLSCREEN)) != 0
     
     @fullscreen.setter
-<div class="viewcode-block" id="Game.fullscreen"><a class="viewcode-back" href="../../toast.html#toast.game.Game.fullscreen">[docs]</a>    def fullscreen(self, is_fullscreen):
+<div class="viewcode-block" id="Game.fullscreen"><a class="viewcode-back" href="../../toast.game.html#toast.game.Game.fullscreen">[docs]</a>    def fullscreen(self, is_fullscreen):
         if is_fullscreen:
             self.__flags = self.__flags | (HWSURFACE | FULLSCREEN)
         else:
@@ -113,16 +114,16 @@ from toast.event_manager import EventManager
         return self.__resolution
     
     @resolution.setter
-<div class="viewcode-block" id="Game.resolution"><a class="viewcode-back" href="../../toast.html#toast.game.Game.resolution">[docs]</a>    def resolution(self, resolution):
+<div class="viewcode-block" id="Game.resolution"><a class="viewcode-back" href="../../toast.game.html#toast.game.Game.resolution">[docs]</a>    def resolution(self, resolution):
         self.__resolution = resolution
         pygame.display.set_mode(resolution, self.__flags)
        
     </div>
     @classmethod
-<div class="viewcode-block" id="Game.time"><a class="viewcode-back" href="../../toast.html#toast.game.Game.time">[docs]</a>    def time(cls):
+<div class="viewcode-block" id="Game.time"><a class="viewcode-back" href="../../toast.game.html#toast.game.Game.time">[docs]</a>    def time(cls):
         return cls.game_instance._Game__msecs
         </div>
-<div class="viewcode-block" id="Game.run"><a class="viewcode-back" href="../../toast.html#toast.game.Game.run">[docs]</a>    def run(self):
+<div class="viewcode-block" id="Game.run"><a class="viewcode-back" href="../../toast.game.html#toast.game.Game.run">[docs]</a>    def run(self):
         Scene.current_scene.awake()
         
         while self.__running:
@@ -166,7 +167,7 @@ from toast.event_manager import EventManager
                 print "Average fps: " + str(self.__frame_count / (self.__msecs / 1000))
                 
     @staticmethod
-<div class="viewcode-block" id="Game.camera_to_world"><a class="viewcode-back" href="../../toast.html#toast.game.Game.camera_to_world">[docs]</a>    def camera_to_world(coord):
+<div class="viewcode-block" id="Game.camera_to_world"><a class="viewcode-back" href="../../toast.game.html#toast.game.Game.camera_to_world">[docs]</a>    def camera_to_world(coord):
         camera = Camera.current_camera
         viewport = Game.game_instance.resolution
         
@@ -176,7 +177,7 @@ from toast.event_manager import EventManager
                 camera.position[1] + (coord[1] * scale_y) - (camera.viewport.get_height() / 2))
     </div>
     @staticmethod
-<div class="viewcode-block" id="Game.world_to_camera"><a class="viewcode-back" href="../../toast.html#toast.game.Game.world_to_camera">[docs]</a>    def world_to_camera(coord):
+<div class="viewcode-block" id="Game.world_to_camera"><a class="viewcode-back" href="../../toast.game.html#toast.game.Game.world_to_camera">[docs]</a>    def world_to_camera(coord):
         camera = Camera.current_camera
         viewport = Game.game_instance.resolution
         
@@ -185,7 +186,7 @@ from toast.event_manager import EventManager
         return (((camera.viewport.get_width() / 2) - camera.position[0] - coord[0]) / -scale_x, 
                 (camera.position[1] - coord[1] - (camera.viewport.get_height() / 2)) / -scale_y)
         </div></div>
-<div class="viewcode-block" id="GameException"><a class="viewcode-back" href="../../toast.html#toast.game.GameException">[docs]</a>class GameException(Exception):
+<div class="viewcode-block" id="GameException"><a class="viewcode-back" href="../../toast.game.html#toast.game.GameException">[docs]</a>class GameException(Exception):
     def __init__(self, value):
         self.value = value
         
@@ -224,7 +225,8 @@ from toast.event_manager import EventManager
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li><a href="../../index.html">toast  documentation</a> &raquo;</li>
-          <li><a href="../index.html" >Module code</a> &raquo;</li> 
+          <li><a href="../index.html" >Module code</a> &raquo;</li>
+          <li><a href="../toast.html" >toast</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

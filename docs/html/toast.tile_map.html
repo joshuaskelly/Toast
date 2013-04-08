@@ -1,0 +1,243 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>tile_map Module &mdash; toast  documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="toast  documentation" href="index.html" />
+    <link rel="next" title="timer Module" href="toast.timer.html" />
+    <link rel="prev" title="text Module" href="toast.text.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="toast.timer.html" title="timer Module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="toast.text.html" title="text Module"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">toast  documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-toast.tile_map">
+<span id="tile-map-module"></span><h1><tt class="xref py py-mod docutils literal"><span class="pre">tile_map</span></tt> Module<a class="headerlink" href="#module-toast.tile_map" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="toast.tile_map.TileMap">
+<em class="property">class </em><tt class="descclassname">toast.tile_map.</tt><tt class="descname">TileMap</tt><big>(</big><em>image_sheet</em>, <em>data</em><big>)</big><a class="reference internal" href="_modules/toast/tile_map.html#TileMap"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toast.tile_map.TileMap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">toast.scene_graph.GameObject</span></tt></p>
+<dl class="attribute">
+<dt id="toast.tile_map.TileMap.INVALID_TILE">
+<tt class="descname">INVALID_TILE</tt><em class="property"> = -1</em><a class="headerlink" href="#toast.tile_map.TileMap.INVALID_TILE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="toast.tile_map.TileMap.draw_tile_outlines">
+<tt class="descname">draw_tile_outlines</tt><big>(</big><em>surface</em>, <em>offset=(0</em>, <em>0)</em><big>)</big><a class="reference internal" href="_modules/toast/tile_map.html#TileMap.draw_tile_outlines"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toast.tile_map.TileMap.draw_tile_outlines" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draws a black box around each tile. Handy for debugging.</p>
+<p>surface:     The surface to draw the tilemap on.
+offset:      The amount to offset the tilemap.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="toast.tile_map.TileMap.get_collide_list">
+<tt class="descname">get_collide_list</tt><big>(</big><em>rect</em>, <em>predicate=None</em><big>)</big><a class="reference internal" href="_modules/toast/tile_map.html#TileMap.get_collide_list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toast.tile_map.TileMap.get_collide_list" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="toast.tile_map.TileMap.get_indexes_in_rect">
+<tt class="descname">get_indexes_in_rect</tt><big>(</big><em>rect</em><big>)</big><a class="reference internal" href="_modules/toast/tile_map.html#TileMap.get_indexes_in_rect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toast.tile_map.TileMap.get_indexes_in_rect" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="toast.tile_map.TileMap.height">
+<tt class="descname">height</tt><a class="reference internal" href="_modules/toast/tile_map.html#TileMap.height"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toast.tile_map.TileMap.height" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="toast.tile_map.TileMap.parallax">
+<tt class="descname">parallax</tt><a class="reference internal" href="_modules/toast/tile_map.html#TileMap.parallax"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toast.tile_map.TileMap.parallax" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="toast.tile_map.TileMap.position">
+<tt class="descname">position</tt><a class="reference internal" href="_modules/toast/tile_map.html#TileMap.position"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toast.tile_map.TileMap.position" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="toast.tile_map.TileMap.redraw_buffer">
+<tt class="descname">redraw_buffer</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/toast/tile_map.html#TileMap.redraw_buffer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toast.tile_map.TileMap.redraw_buffer" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="toast.tile_map.TileMap.render">
+<tt class="descname">render</tt><big>(</big><em>surface</em>, <em>offset=(0</em>, <em>0)</em><big>)</big><a class="reference internal" href="_modules/toast/tile_map.html#TileMap.render"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toast.tile_map.TileMap.render" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="toast.tile_map.TileMap.render_internal">
+<tt class="descname">render_internal</tt><big>(</big><em>surface</em>, <em>offset=(0</em>, <em>0)</em><big>)</big><a class="reference internal" href="_modules/toast/tile_map.html#TileMap.render_internal"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toast.tile_map.TileMap.render_internal" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="toast.tile_map.TileMap.render_old">
+<tt class="descname">render_old</tt><big>(</big><em>surface</em>, <em>offset=(0</em>, <em>0)</em><big>)</big><a class="reference internal" href="_modules/toast/tile_map.html#TileMap.render_old"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toast.tile_map.TileMap.render_old" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draws the tilemap to the given surface with the specified offset.</p>
+<p>surface:     The surface to draw the tilemap on.
+offset:      The amount to offset the tilemap.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="toast.tile_map.TileMap.scroll_rate">
+<tt class="descname">scroll_rate</tt><a class="reference internal" href="_modules/toast/tile_map.html#TileMap.scroll_rate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toast.tile_map.TileMap.scroll_rate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="toast.tile_map.TileMap.scrollx">
+<tt class="descname">scrollx</tt><a class="reference internal" href="_modules/toast/tile_map.html#TileMap.scrollx"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toast.tile_map.TileMap.scrollx" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="toast.tile_map.TileMap.scrolly">
+<tt class="descname">scrolly</tt><a class="reference internal" href="_modules/toast/tile_map.html#TileMap.scrolly"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toast.tile_map.TileMap.scrolly" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="toast.tile_map.TileMap.set_tile">
+<tt class="descname">set_tile</tt><big>(</big><em>index</em>, <em>value</em><big>)</big><a class="reference internal" href="_modules/toast/tile_map.html#TileMap.set_tile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toast.tile_map.TileMap.set_tile" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="toast.tile_map.TileMap.tile_id_at_index">
+<tt class="descname">tile_id_at_index</tt><big>(</big><em>index</em><big>)</big><a class="reference internal" href="_modules/toast/tile_map.html#TileMap.tile_id_at_index"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toast.tile_map.TileMap.tile_id_at_index" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="toast.tile_map.TileMap.tile_id_at_pixel">
+<tt class="descname">tile_id_at_pixel</tt><big>(</big><em>pixel</em>, <em>offset=(0</em>, <em>0)</em><big>)</big><a class="reference internal" href="_modules/toast/tile_map.html#TileMap.tile_id_at_pixel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toast.tile_map.TileMap.tile_id_at_pixel" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="toast.tile_map.TileMap.tile_id_at_position">
+<tt class="descname">tile_id_at_position</tt><big>(</big><em>pos</em>, <em>offset=(0</em>, <em>0)</em><big>)</big><a class="reference internal" href="_modules/toast/tile_map.html#TileMap.tile_id_at_position"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toast.tile_map.TileMap.tile_id_at_position" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="toast.tile_map.TileMap.tile_index_at_pixel">
+<tt class="descname">tile_index_at_pixel</tt><big>(</big><em>pixel</em><big>)</big><a class="reference internal" href="_modules/toast/tile_map.html#TileMap.tile_index_at_pixel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toast.tile_map.TileMap.tile_index_at_pixel" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="toast.tile_map.TileMap.tile_rect_at_index">
+<tt class="descname">tile_rect_at_index</tt><big>(</big><em>index</em>, <em>offset=(0</em>, <em>0)</em><big>)</big><a class="reference internal" href="_modules/toast/tile_map.html#TileMap.tile_rect_at_index"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toast.tile_map.TileMap.tile_rect_at_index" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="toast.tile_map.TileMap.tile_rect_at_pixel">
+<tt class="descname">tile_rect_at_pixel</tt><big>(</big><em>pixel</em>, <em>offset=(0</em>, <em>0)</em><big>)</big><a class="reference internal" href="_modules/toast/tile_map.html#TileMap.tile_rect_at_pixel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toast.tile_map.TileMap.tile_rect_at_pixel" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="toast.tile_map.TileMap.update">
+<tt class="descname">update</tt><big>(</big><em>milliseconds=16</em><big>)</big><a class="reference internal" href="_modules/toast/tile_map.html#TileMap.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toast.tile_map.TileMap.update" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="toast.tile_map.TileMap.width">
+<tt class="descname">width</tt><a class="reference internal" href="_modules/toast/tile_map.html#TileMap.width"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toast.tile_map.TileMap.width" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="toast.text.html"
+                        title="previous chapter"><tt class="docutils literal docutils literal docutils literal docutils literal"><span class="pre">text</span></tt> Module</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="toast.timer.html"
+                        title="next chapter"><tt class="docutils literal"><span class="pre">timer</span></tt> Module</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/toast.tile_map.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="toast.timer.html" title="timer Module"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="toast.text.html" title="text Module"
+             >previous</a> |</li>
+        <li><a href="index.html">toast  documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Author.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+    </div>
+  </body>
+</html>

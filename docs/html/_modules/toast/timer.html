@@ -24,7 +24,7 @@
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
     <link rel="top" title="toast  documentation" href="../../index.html" />
-    <link rel="up" title="Module code" href="../index.html" /> 
+    <link rel="up" title="toast" href="../toast.html" /> 
   </head>
   <body>
     <div class="related">
@@ -37,7 +37,8 @@
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li><a href="../../index.html">toast  documentation</a> &raquo;</li>
-          <li><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
+          <li><a href="../index.html" >Module code</a> &raquo;</li>
+          <li><a href="../toast.html" accesskey="U">toast</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -49,15 +50,15 @@
   <h1>Source code for toast.timer</h1><pre>
 from toast.game import Game
 
-<div class="viewcode-block" id="Timer"><a class="viewcode-back" href="../../toast.html#toast.timer.Timer">[docs]</a>class Timer(object):
+<div class="viewcode-block" id="Timer"><a class="viewcode-back" href="../../toast.timer.html#toast.timer.Timer">[docs]</a>class Timer(object):
     def __init__(self, interval):
         self.__interval = interval
         self.reset()
         
-<div class="viewcode-block" id="Timer.is_time_up"><a class="viewcode-back" href="../../toast.html#toast.timer.Timer.is_time_up">[docs]</a>    def is_time_up(self):
+<div class="viewcode-block" id="Timer.is_time_up"><a class="viewcode-back" href="../../toast.timer.html#toast.timer.Timer.is_time_up">[docs]</a>    def is_time_up(self):
         return Game.time() &gt; self.__time_up
     </div>
-<div class="viewcode-block" id="Timer.reset"><a class="viewcode-back" href="../../toast.html#toast.timer.Timer.reset">[docs]</a>    def reset(self):
+<div class="viewcode-block" id="Timer.reset"><a class="viewcode-back" href="../../toast.timer.html#toast.timer.Timer.reset">[docs]</a>    def reset(self):
         self.__time_up = Game.time() + self.__interval</pre></div></div>
 
           </div>
@@ -92,7 +93,8 @@ from toast.game import Game
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li><a href="../../index.html">toast  documentation</a> &raquo;</li>
-          <li><a href="../index.html" >Module code</a> &raquo;</li> 
+          <li><a href="../index.html" >Module code</a> &raquo;</li>
+          <li><a href="../toast.html" >toast</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
