@@ -50,7 +50,7 @@
   <h1>Source code for toast.scene_graph</h1><pre>
 import weakref
 
-<div class="viewcode-block" id="Component"><a class="viewcode-back" href="../../toast.scene_graph.html#toast.scene_graph.Component">[docs]</a>class Component(object):
+<div class="viewcode-block" id="Component"><a class="viewcode-back" href="../../toast.math.html#toast.scene_graph.Component">[docs]</a>class Component(object):
 <div class="viewcode-block" id="Component.__init__"><a class="viewcode-back" href="../../toast.scene_graph.html#toast.scene_graph.Component.__init__">[docs]</a>    def __init__(self):
         self.__game_object = None
         self.added = False
@@ -61,16 +61,16 @@ import weakref
         return None if self.__game_object is None else self.__game_object()
     
     @game_object.setter
-<div class="viewcode-block" id="Component.game_object"><a class="viewcode-back" href="../../toast.scene_graph.html#toast.scene_graph.Component.game_object">[docs]</a>    def game_object(self, other):
+<div class="viewcode-block" id="Component.game_object"><a class="viewcode-back" href="../../toast.math.html#toast.scene_graph.Component.game_object">[docs]</a>    def game_object(self, other):
         self.__game_object = weakref.ref(other)
         </div>
-<div class="viewcode-block" id="Component.is_a_component"><a class="viewcode-back" href="../../toast.scene_graph.html#toast.scene_graph.Component.is_a_component">[docs]</a>    def is_a_component(self, other=None):
+<div class="viewcode-block" id="Component.is_a_component"><a class="viewcode-back" href="../../toast.math.html#toast.scene_graph.Component.is_a_component">[docs]</a>    def is_a_component(self, other=None):
         return hasattr(other, 'is_a_component') if other is not None else True
     </div>
-<div class="viewcode-block" id="Component.awake"><a class="viewcode-back" href="../../toast.scene_graph.html#toast.scene_graph.Component.awake">[docs]</a>    def awake(self):
+<div class="viewcode-block" id="Component.awake"><a class="viewcode-back" href="../../toast.math.html#toast.scene_graph.Component.awake">[docs]</a>    def awake(self):
         pass
     </div>
-<div class="viewcode-block" id="Component.update"><a class="viewcode-back" href="../../toast.scene_graph.html#toast.scene_graph.Component.update">[docs]</a>    def update(self, milliseconds=0):
+<div class="viewcode-block" id="Component.update"><a class="viewcode-back" href="../../toast.math.html#toast.scene_graph.Component.update">[docs]</a>    def update(self, milliseconds=0):
         pass
     </div></div>
 <div class="viewcode-block" id="ComponentException"><a class="viewcode-back" href="../../toast.scene_graph.html#toast.scene_graph.ComponentException">[docs]</a>class ComponentException(Exception):

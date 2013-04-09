@@ -24,7 +24,6 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="toast  documentation" href="index.html" />
-    <link rel="up" title="toast Package" href="toast.html" />
     <link rel="next" title="text_effects Package" href="toast.text_effects.html" />
     <link rel="prev" title="gui Package" href="toast.gui.html" /> 
   </head>
@@ -44,8 +43,7 @@
         <li class="right" >
           <a href="toast.gui.html" title="gui Package"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">toast  documentation</a> &raquo;</li>
-          <li><a href="toast.html" accesskey="U">toast Package</a> &raquo;</li> 
+        <li><a href="index.html">toast  documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -54,73 +52,185 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="math-package">
-<h1>math Package<a class="headerlink" href="#math-package" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="id1">
-<h2><tt class="xref py py-mod docutils literal"><span class="pre">math</span></tt> Package<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<span class="target" id="module-toast.math"></span><dl class="function">
+  <div class="section" id="module-toast.math">
+<span id="math-package"></span><h1>math Package<a class="headerlink" href="#module-toast.math" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
 <dt id="toast.math.lerp">
 <tt class="descclassname">toast.math.</tt><tt class="descname">lerp</tt><big>(</big><em>fromValue</em>, <em>toValue</em>, <em>step</em><big>)</big><a class="reference internal" href="_modules/toast/math.html#lerp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toast.math.lerp" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-</div>
-<div class="section" id="module-toast.math.vector">
-<span id="vector-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">vector</span></tt> Module<a class="headerlink" href="#module-toast.math.vector" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="vector2d-class">
+<h2><tt class="xref py py-mod docutils literal"><span class="pre">Vector2D</span></tt> Class<a class="headerlink" href="#vector2d-class" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="toast.math.vector.Vector2D">
 <em class="property">class </em><tt class="descclassname">toast.math.vector.</tt><tt class="descname">Vector2D</tt><big>(</big><em>xOrDouble</em>, <em>y=None</em><big>)</big><a class="reference internal" href="_modules/toast/math/vector.html#Vector2D"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toast.math.vector.Vector2D" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
 <dl class="method">
-<dt id="toast.math.vector.Vector2D.Cross">
-<tt class="descname">Cross</tt><big>(</big><em>other</em><big>)</big><a class="reference internal" href="_modules/toast/math/vector.html#Vector2D.Cross"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toast.math.vector.Vector2D.Cross" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the cross product of self by other.</p>
+<dt id="toast.math.vector.Vector2D.__add__">
+<tt class="descname">__add__</tt><big>(</big><em>other</em><big>)</big><a class="reference internal" href="_modules/toast/math/vector.html#Vector2D.__add__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toast.math.vector.Vector2D.__add__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Performs vector addition.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>other</strong> (<em>Vector2D</em>) &#8211; The RHS Vector2D.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Vector2D. &#8211; The result of this vector added to other.</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
-<dt id="toast.math.vector.Vector2D.Dot">
-<tt class="descname">Dot</tt><big>(</big><em>other</em><big>)</big><a class="reference internal" href="_modules/toast/math/vector.html#Vector2D.Dot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toast.math.vector.Vector2D.Dot" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the dot product of self by other</p>
+<dt id="toast.math.vector.Vector2D.__div__">
+<tt class="descname">__div__</tt><big>(</big><em>scalar</em><big>)</big><a class="reference internal" href="_modules/toast/math/vector.html#Vector2D.__div__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toast.math.vector.Vector2D.__div__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Performs scalar division.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>scalar</strong> (<em>numbers.Real</em>) &#8211; A scalar.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Vector2D. &#8211; The product of scalar division.</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
-<dt id="toast.math.vector.Vector2D.GetAngle">
-<tt class="descname">GetAngle</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/toast/math/vector.html#Vector2D.GetAngle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toast.math.vector.Vector2D.GetAngle" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the angle of this vector.</p>
+<dt id="toast.math.vector.Vector2D.__eq__">
+<tt class="descname">__eq__</tt><big>(</big><em>other</em><big>)</big><a class="reference internal" href="_modules/toast/math/vector.html#Vector2D.__eq__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toast.math.vector.Vector2D.__eq__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Determines if one vector is equal to the other.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>other</strong> (<em>Vector2D.</em>) &#8211; A Vector2D to check for equality.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">bool. &#8211; True if each x and y are equal.</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
-<dt id="toast.math.vector.Vector2D.GetPerpendicular">
-<tt class="descname">GetPerpendicular</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/toast/math/vector.html#Vector2D.GetPerpendicular"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toast.math.vector.Vector2D.GetPerpendicular" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="toast.math.vector.Vector2D.Magnitude">
-<tt class="descname">Magnitude</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/toast/math/vector.html#Vector2D.Magnitude"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toast.math.vector.Vector2D.Magnitude" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the length of this vector.</p>
+<dt id="toast.math.vector.Vector2D.__mul__">
+<tt class="descname">__mul__</tt><big>(</big><em>scalar</em><big>)</big><a class="reference internal" href="_modules/toast/math/vector.html#Vector2D.__mul__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toast.math.vector.Vector2D.__mul__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Performs scalar multiplication.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>scalar</strong> (<em>numbers.Real</em>) &#8211; A scalar.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Vector2D. &#8211; The product of scalar multiplication.</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
-<dt id="toast.math.vector.Vector2D.MagnitudeSquared">
-<tt class="descname">MagnitudeSquared</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/toast/math/vector.html#Vector2D.MagnitudeSquared"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toast.math.vector.Vector2D.MagnitudeSquared" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the length of this vector in square space.</p>
+<dt id="toast.math.vector.Vector2D.__sub__">
+<tt class="descname">__sub__</tt><big>(</big><em>other</em><big>)</big><a class="reference internal" href="_modules/toast/math/vector.html#Vector2D.__sub__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toast.math.vector.Vector2D.__sub__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Performs vector subtraction.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>other</strong> (<em>Vector2D</em>) &#8211; The RHS Vector2D.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Vector2D. &#8211; The result of this vector subtracted from other.</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
-<dt id="toast.math.vector.Vector2D.Normalized">
-<tt class="descname">Normalized</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/toast/math/vector.html#Vector2D.Normalized"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toast.math.vector.Vector2D.Normalized" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a unit vector in the direction of this vector.</p>
+<dt id="toast.math.vector.Vector2D.cross">
+<tt class="descname">cross</tt><big>(</big><em>other</em><big>)</big><a class="headerlink" href="#toast.math.vector.Vector2D.cross" title="Permalink to this definition">¶</a></dt>
+<dd><p>Performs a cross product.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>other</strong> (<em>Vector2D.</em>) &#8211; The RHS Vector2D.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The cross product of this by other.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="toast.math.vector.Vector2D.dot">
+<tt class="descname">dot</tt><big>(</big><em>other</em><big>)</big><a class="headerlink" href="#toast.math.vector.Vector2D.dot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Performs a dot product.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>other</strong> (<em>Vector2D.</em>) &#8211; The RHS Vector2D.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The dot product of this by other.</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="staticmethod">
-<dt id="toast.math.vector.Vector2D.UnitVectorFromAngle">
-<em class="property">static </em><tt class="descname">UnitVectorFromAngle</tt><big>(</big><em>angle</em><big>)</big><a class="reference internal" href="_modules/toast/math/vector.html#Vector2D.UnitVectorFromAngle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toast.math.vector.Vector2D.UnitVectorFromAngle" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a unit vector in the direction of angle.</p>
+<dt id="toast.math.vector.Vector2D.from_angle">
+<em class="property">static </em><tt class="descname">from_angle</tt><big>(</big><em>angle_in_degrees</em><big>)</big><a class="headerlink" href="#toast.math.vector.Vector2D.from_angle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets a unit vector in the direction of angle from Vector2D(1, 0).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>angle_in_degrees</strong> (<em>float.</em>) &#8211; The desired angle with respect to Vector2D(1, 0).</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Vector2D &#8211; In the desired angle with respect to Vector2D(1, 0).</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
-<dl class="staticmethod">
-<dt id="toast.math.vector.Vector2D.Zero">
-<em class="property">static </em><tt class="descname">Zero</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/toast/math/vector.html#Vector2D.Zero"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toast.math.vector.Vector2D.Zero" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a vector of length zero.</p>
+<dl class="attribute">
+<dt id="toast.math.vector.Vector2D.magnitude">
+<tt class="descname">magnitude</tt><a class="headerlink" href="#toast.math.vector.Vector2D.magnitude" title="Permalink to this definition">¶</a></dt>
+<dd><p>The length of this vector.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="toast.math.vector.Vector2D.magnitude_squared">
+<tt class="descname">magnitude_squared</tt><a class="headerlink" href="#toast.math.vector.Vector2D.magnitude_squared" title="Permalink to this definition">¶</a></dt>
+<dd><p>The length of this vector in square space.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="toast.math.vector.Vector2D.normalized">
+<tt class="descname">normalized</tt><big>(</big><big>)</big><a class="headerlink" href="#toast.math.vector.Vector2D.normalized" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets a unit vector in the direction of this vector.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Vector2D &#8211; A vector of length one in the direction of this.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="toast.math.vector.Vector2D.to_angle">
+<tt class="descname">to_angle</tt><big>(</big><big>)</big><a class="headerlink" href="#toast.math.vector.Vector2D.to_angle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the angle of this vector with respect to Vector2D(1, 0).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">float &#8211; The angle of this vector with respect to Vector2D(1, 0).</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </dd></dl>
@@ -137,8 +247,7 @@
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">math Package</a><ul>
-<li><a class="reference internal" href="#id1"><tt class="docutils literal"><span class="pre">math</span></tt> Package</a></li>
-<li><a class="reference internal" href="#module-toast.math.vector"><tt class="docutils literal"><span class="pre">vector</span></tt> Module</a></li>
+<li><a class="reference internal" href="#vector2d-class"><tt class="docutils literal"><span class="pre">Vector2D</span></tt> Class</a></li>
 </ul>
 </li>
 </ul>
@@ -186,8 +295,7 @@
         <li class="right" >
           <a href="toast.gui.html" title="gui Package"
              >previous</a> |</li>
-        <li><a href="index.html">toast  documentation</a> &raquo;</li>
-          <li><a href="toast.html" >toast Package</a> &raquo;</li> 
+        <li><a href="index.html">toast  documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

@@ -1,19 +1,15 @@
 math Package
 ============
 
-:mod:`math` Package
--------------------
-
 .. automodule:: toast.math
     :members:
     :undoc-members:
     :show-inheritance:
 
-:mod:`vector` Module
---------------------
+:mod:`Vector2D` Class
+----------------------------------
 
-.. automodule:: toast.math.vector
-    :members:
+.. autoclass:: toast.math.vector.Vector2D
+    :members: __add__, __sub__, __mul__, __div__, __eq__, cross, dot, magnitude, magnitude_squared, normalized, to_angle, from_angle
     :undoc-members:
     :show-inheritance:
-

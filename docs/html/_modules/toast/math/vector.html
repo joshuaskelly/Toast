@@ -82,12 +82,12 @@ from math import sqrt, degrees, atan2, cos, sin, radians
     def __repr__(self):
         return '&lt;{0} {1}&gt;'.format(self.__class__.__name__, (self.x, self.y))
     
-    def __eq__(self, other):
+<div class="viewcode-block" id="Vector2D.__eq__"><a class="viewcode-back" href="../../../toast.math.html#toast.math.vector.Vector2D.__eq__">[docs]</a>    def __eq__(self, other):
         if hasattr(other, '__getitem__') and len(other) == 2:
             return self.x == other[0] and self.y == other[1]
         else:
             return False
-        
+        </div>
     def __ne__(self, other):
         if hasattr(other, '__getitem__') and len(other) == 2:
             return self.x != other[0] or self.y != other[1]
@@ -97,20 +97,20 @@ from math import sqrt, degrees, atan2, cos, sin, radians
     def __nonzero__(self):
         return self.x or self.y
     
-    def __add__(self, other):
+<div class="viewcode-block" id="Vector2D.__add__"><a class="viewcode-back" href="../../../toast.math.html#toast.math.vector.Vector2D.__add__">[docs]</a>    def __add__(self, other):
         return Vector2D(self.x + other[0], self.y + other[1])
-    
+    </div>
     __radd__ = __add__
     
-    def __sub__(self, other):
+<div class="viewcode-block" id="Vector2D.__sub__"><a class="viewcode-back" href="../../../toast.math.html#toast.math.vector.Vector2D.__sub__">[docs]</a>    def __sub__(self, other):
         if hasattr(other, '__getitem__') and len(other) == 2:
             return Vector2D(self.x - other[0], self.y - other[1])
-        
+        </div>
     def __rsub__(self, other):
         if hasattr(other, '__getitem__') and len(other) == 2:
             return Vector2D(other[0] - self.x , other[1] - self.y)
         
-    def __mul__(self, scalar):
+<div class="viewcode-block" id="Vector2D.__mul__"><a class="viewcode-back" href="../../../toast.math.html#toast.math.vector.Vector2D.__mul__">[docs]</a>    def __mul__(self, scalar):
         """ Returns the product of self by other. 
         
         Arguments:
@@ -124,10 +124,10 @@ from math import sqrt, degrees, atan2, cos, sin, radians
                 raise TypeError('Unable to multiply Vector2D by type \'{0}\'.'.format(scalar.__class__.__name__))
         
         return Vector2D(self.x * scalar, self.y * scalar)
-        
+        </div>
     __rmul__ = __mul__
     
-    def __div__(self, scalar):
+<div class="viewcode-block" id="Vector2D.__div__"><a class="viewcode-back" href="../../../toast.math.html#toast.math.vector.Vector2D.__div__">[docs]</a>    def __div__(self, scalar):
         """ Returns the quotient of self by other. 
         
         Arguments:
@@ -138,7 +138,7 @@ from math import sqrt, degrees, atan2, cos, sin, radians
             raise TypeError('Division of two vectors is not well-defined.')
        
         return Vector2D(self.x / scalar, self.y / scalar)
-        
+        </div>
     def __neg__(self):
         return Vector2D( -self.x , -self.y)
     
