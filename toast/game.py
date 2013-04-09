@@ -88,7 +88,7 @@ class Game(object):
             camera.update(delta)
             scene.update(delta)
 
-            camera.renderScene(self.__screen, scene)
+            camera.render_scene(self.__screen, scene)
 
             pygame.display.update()
             pygame.display.set_caption('Toast Window: %d fps' % self.__clock.get_fps())

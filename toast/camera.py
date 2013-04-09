@@ -1,7 +1,6 @@
 import pygame
 
 from toast.scene_graph import GameObject
-from toast.camera_effects.shake_effect import ShakeEffect
 from toast.event_manager import EventManager
 from toast.math import lerp
 from toast.math.vector import Vector2D
@@ -28,13 +27,14 @@ class Camera(GameObject):
         
         EventManager.subscribe(self, 'onCameraEvent')
         
-    def get_target(self):
+    @property
+    def target(self):
         return self.__target
         
-    def set_target(self, target):
+    @target.setter
+    def target(self, target):
         self.__target = target
         
-    target = property(get_target, set_target)
     
     @staticmethod
     def get_current():
@@ -137,10 +137,7 @@ class Camera(GameObject):
                 rect.bottom = self.bounds.bottom
                 self.position = rect.center
         
-    def renderScene(self, surface, scene):
-        """
-        " * Camera.renderScene
-        """
+    def render_scene(self, surface, scene):
         
         render_target = self.__viewport
         
@@ -155,13 +152,3 @@ class Camera(GameObject):
         SCREEN_SIZE = (surface.get_width(), surface.get_height())
 
         pygame.transform.scale(render_target, SCREEN_SIZE, surface)
-            
-    def onCameraEvent(self, event):
-        if event.action == 'set_target':
-            self.__target = event.target
-            
-        elif event.action == 'effect':
-            if event.effect == 'shake':
-                e = ShakeEffect(self, event.magnitude, event.duration)
-                
-                self.add(e)
