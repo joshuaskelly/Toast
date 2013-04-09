@@ -162,7 +162,8 @@ class Vector2D(object):
             return self / length
         return Vector2D(self)
     
-    def to_angle(self):
+    @property
+    def angle(self):
         """ Gets the angle of this vector with respect to Vector2D(1, 0).
         
         :returns: float -- The angle of this vector with respect to Vector2D(1, 0).

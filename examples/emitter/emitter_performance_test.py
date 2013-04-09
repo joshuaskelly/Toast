@@ -34,7 +34,7 @@ class Particle(Sprite):
     def __init__(self, image, lifetime):
         super(Particle, self).__init__(image)
         self.lifetime = Timer(int(lifetime))
-        self.__velocity = Vector2D.UnitVectorFromAngle(random.randrange(80.0, 100.0)) * -1.65
+        self.__velocity = Vector2D.from_angle(random.randrange(80.0, 100.0)) * -1.65
         
         sheet = ImageSheet(ResourceLoader.load('data//puffs.png'), (32, 32))
         
