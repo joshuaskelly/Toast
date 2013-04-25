@@ -84,14 +84,18 @@ class TileMap(GameObject):
     def height(self, value):
         self.__map_size = (self.__map_size[0], value)
         
+    @property
+    def bounds(self):
+        return self.position[0], self.position[1], self.width * self.__tile_size[0], self.height * self.__tile_size[1]
+        
     def tile_id_at_index(self, index):
         x, y = index
         
         if x < 0 or y < 0:
-            return None
+            return self.INVALID_TILE
         
         if x >= self.width or y >= self.height:
-            return None
+            return self.INVALID_TILE
         
         try:
             return self.__data[y][x]
@@ -158,10 +162,10 @@ class TileMap(GameObject):
     def get_indexes_in_rect(self, rect):
         offset = (self.__scroll_register[0], self.__scroll_register[1])
         
-        left = (rect[0] + offset[0]) / self.__tile_size[0]
-        top = (rect[1] + offset[1]) / self.__tile_size[1]
-        right = left + (rect[2] + self.__tile_size[0] / 2) / self.__tile_size[0]
-        bottom = top + (rect[3] + self.__tile_size[1] / 2) / self.__tile_size[1]
+        left = int((rect[0] + offset[0]) / self.__tile_size[0])
+        top = int((rect[1] + offset[1]) / self.__tile_size[1])
+        right = int(left + (rect[2] + self.__tile_size[0] / 2) / self.__tile_size[0])
+        bottom = int(top + (rect[3] + self.__tile_size[1] / 2) / self.__tile_size[1])
         
         result = []
         
@@ -244,14 +248,14 @@ class TileMap(GameObject):
         height = surface.get_height() / self.__tile_size[1]
         
         x_begin = int(offset[0] / self.__tile_size[0])
-        x_end = int(x_begin + width + 0.5) + 1
+        x_end = int(x_begin + width + 0.5) + 2
         
         y_begin = int(offset[1] / int(self.__tile_size[1]))
-        y_end = int(y_begin + height + 0.5) + 1
+        y_end = int(y_begin + height + 0.5) + 2
         
         for y in range(y_begin, y_end):#self.__map_size[0]):
             for x in range(x_begin, x_end):#self.__map_size[1]):
-                if self.tile_id_at_index((x, y)):# != TileMap.INVALID_TILE:
+                if self.tile_id_at_index((x, y)) != TileMap.INVALID_TILE:
                     surface.blit(self.__image_sheet[self.tile_id_at_index((x, y))],
                                  self.tile_rect_at_index((x, y), offset))
         

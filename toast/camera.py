@@ -21,21 +21,10 @@ class Camera(GameObject):
         self.__viewport = pygame.Surface(resolution).convert()#.convert_alpha()
         self.__viewport.set_colorkey((255,0,255))
         self.__clear_color = None
-        self.__target = None
-        self.__bounds = None
         self.__tracking_strength = 0.1
         
         EventManager.subscribe(self, 'onCameraEvent')
         
-    @property
-    def target(self):
-        return self.__target
-        
-    @target.setter
-    def target(self, target):
-        self.__target = target
-        
-    
     @staticmethod
     def get_current():
         return Camera.__current_camera
@@ -74,16 +63,9 @@ class Camera(GameObject):
 
     position = property(get_position, set_position)
     
-    def get_bounds(self):
-        return self.__bounds
-    
-    def set_bounds(self, value):
-        if value != None:
-            self.__bounds = pygame.Rect(value[0], value[1], value[2], value[3])
-        else:
-            self.__bounds = None
-
-    bounds = property(get_bounds, set_bounds)
+    @property
+    def bounds(self):
+        return self.left, self.top, self.width, self.height
     
     def get_viewport_size(self):
         return self.__viewport
@@ -101,41 +83,8 @@ class Camera(GameObject):
 
     clear_color = property(get_clear_color, set_clear_color)
 
-    def update(self, delta):
-        if self.target != None:
-            dest = None
-            
-            try:
-                dest = self.target.position
-            except:
-                dest = self.target
-                
-            self.position = lerp(self.position, dest, self.__tracking_strength * (delta / 1000.0) * 60)
-                
-        self.handle_out_of_bounds()
-        
-        super(Camera, self).update(delta)
-        
-    def handle_out_of_bounds(self):
-        if self.bounds != None:
-            rect = self.viewport.get_rect()
-            rect.center = self.position
-            
-            if rect.left < self.bounds.left:
-                rect.left = self.bounds.left
-                self.position = rect.center
-                
-            elif rect.right > self.bounds.right:
-                rect.right = self.bounds.right
-                self.position = rect.center
-                
-            if rect.top < self.bounds.top:
-                rect.top = self.bounds.top
-                self.position = rect.center
-            
-            elif rect.bottom > self.bounds.bottom:
-                rect.bottom = self.bounds.bottom
-                self.position = rect.center
+    def update(self, milliseconds=0):
+        super(Camera, self).update(milliseconds)
         
     def render_scene(self, surface, scene):
         
@@ -147,8 +96,6 @@ class Camera(GameObject):
         position = (self.__position[0] - self.__viewport.get_width() / 2,
                     self.__position[1] - self.__viewport.get_height() / 2)
         
+        # Render and scale scene
         scene.render(render_target, (int(position[0]), int(position[1])))
-
-        SCREEN_SIZE = (surface.get_width(), surface.get_height())
-
-        pygame.transform.scale(render_target, SCREEN_SIZE, surface)
+        pygame.transform.scale(render_target, surface.get_size(), surface)
