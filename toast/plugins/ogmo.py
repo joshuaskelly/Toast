@@ -6,6 +6,12 @@ from toast.camera import Camera
 from toast.util import dict_from_xml
 
 class OgmoProject(object):
+    """The OgmoProject class loads Ogmo project definitions from an oep file
+    and provides the ability to load Ogmo levels as a Scene.
+    
+    >>> project = OgmoProject('SimpleGame.oep')
+    >>> level = project.load_level('LevelOne.oel')
+    """
     def __init__(self, oep_file):
         self.__data = dict_from_xml(oep_file)
         
@@ -100,6 +106,12 @@ class OgmoProject(object):
         return self.__tilesets
     
     def load_level(self, oel_file):
+        """Loads an Ogmo level file and returns a Scene built from the 
+        definitions.
+        
+        :param oel_file: The Ogmo level to load.
+        :type oel_file: A filepath.
+        """
         rel_path = '/'.join(oel_file.split('/')[:len(oel_file.split('/')) - 1])
         level_data = dict_from_xml(oel_file)
         
