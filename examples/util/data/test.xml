@@ -1,0 +1,24 @@
+<map>
+	<tilemap name="Green Hill Zone">
+		<position>
+			<x>0</x>
+			<y>0</y>
+		</position>
+		<dimension>
+			<width>10</width>
+			<height>10</height>
+		</dimension>
+		<tileset>tiles.png</tileset>
+	</tilemap>
+	<tilemap name="Marble Zone">
+		<position>
+			<x>0</x>
+			<y>0</y>
+		</position>
+		<dimension>
+			<width>10</width>
+			<height>10</height>
+		</dimension>
+		<tileset>tiles.png</tileset>
+	</tilemap>
+</map>
