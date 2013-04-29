@@ -36,7 +36,8 @@ class Game(object):
         self.__frame_count = 0
         self.__msecs = 0
         
-        Scene.current_scene = initial_scene()
+        if initial_scene:
+            Scene.current_scene = initial_scene()
         
     @property
     def frame_limit(self):

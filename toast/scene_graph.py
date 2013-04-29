@@ -22,7 +22,6 @@ class Component(object):
     def __init__(self):
         self.__game_object = None
         self.added = False
-        self.index = 0
         
     @property
     def game_object(self):
@@ -91,7 +90,6 @@ class GameObject(object):
         self.__components = []
         self.__parent = None
         self.added = False
-        self.index = 0
         
     @property
     def children(self):

@@ -38,6 +38,10 @@ class Camera(GameObject):
     @property
     def top_left(self):
         return self.left, self.top
+    
+    @top_left.setter
+    def top_left(self, pos):
+        self.position = pos[0] + self.width / 2, pos[1] + self.height / 2
         
     @property
     def top(self):
