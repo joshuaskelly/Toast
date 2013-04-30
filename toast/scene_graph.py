@@ -233,7 +233,7 @@ class GameObject(object):
         for child in self.children:
             if child.__class__.__name__ == class_name:
                 return child
-    
+            
 class GameObjectException(Exception):
     def __init__(self, value):
         self.value = value

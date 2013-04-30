@@ -33,7 +33,7 @@ class GameObjectPool(GameObject):
                 child.render(surface, offset)
     
     def add(self, child):
-        raise GameObjectException('Cannot add a child to a Component Pool.')
+        raise GameObjectException('Cannot add a child to a GameObject Pool.')
     
     def __add(self, child):
         if not self.is_a_game_object(child):
