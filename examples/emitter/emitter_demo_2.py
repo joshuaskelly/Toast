@@ -33,7 +33,7 @@ class DestroyAfter(Component):
 class Particle(Sprite):
     def __init__(self, image, lifetime):
         super(Particle, self).__init__(image)
-        self.__velocity = Vector2D.UnitVectorFromAngle(random.randrange(80, 100)) * -1.35
+        self.__velocity = Vector2D.from_angle(random.randrange(80, 100)) * -1.35
         
         sheet = ImageSheet(ResourceLoader.load('data//puffs.png'), (32, 32))
         
@@ -95,7 +95,7 @@ class NewScene(Scene):
                 
                 e = PuffEmitter(2000)
                 e.position = Vector2D(Game.camera_to_world(event.pos))
-                e.velocity = Vector2D.UnitVectorFromAngle(theta) * -180.0
+                e.velocity = Vector2D.from_angle(theta) * -180.0
                 self.add(e)
         
 game = DemoGame((640, 480), NewScene)
