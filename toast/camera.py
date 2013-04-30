@@ -75,7 +75,7 @@ class Camera(GameObject):
         return self.__viewport
 
     def set_viewport_size(self, dimension):
-        self.__viewport = pygame.Surface((dimension[0], dimension[1]), pygame.SRCALPHA, 32)
+        self.__viewport = pygame.Surface(dimension).convert()
 
     viewport = property(get_viewport_size, set_viewport_size)
     
