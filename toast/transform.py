@@ -32,6 +32,9 @@ class Transform(Component):
         return self.global_matrix
     
     def mark_dirty(self):
+        if not self.game_object:
+            return
+        
         self.global_matrix = None
         self.__local_matrix = None
         

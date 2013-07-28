@@ -61,18 +61,18 @@ class EmitterPerformanceTest(Scene):
         
         bg = Gradient.createVerticalGradient((20, 15), (255,255,255), (228, 139, 165), (111,86,117))
         bg = pygame.transform.scale(bg, (320, 240))
-        self.add(Sprite(bg))
+        self.add(Sprite(bg, (160, 120)))
         
         num_emitters = 8
         for i in range(num_emitters):
             e = Emitter(Particle, (ImageSheet(ResourceLoader.load('data//puffs.png'), (32, 32))[0], 1000), 40, self.onCreate)
-            e.position = 32 + (i * (256 / (num_emitters - 1))), 208
+            e.position = 40 + (i * (256 / (num_emitters - 1))), 216
             self.add(e)
         
         self.add(EndGameAfter(1000 * 30))
         
     def onCreate(self, emitter, particle):
-        particle.position = Vector2D(emitter.position) - (16, 16)
+        particle.position = Vector2D(emitter.position)
         particle.position += (random.random() - 0.5) * 2.0 * 8, (random.random() - 0.5) * 2.0 * 16
         particle.animation.play('puff', 0)
         if (random.random() < 0.3):

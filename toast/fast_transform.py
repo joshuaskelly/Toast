@@ -71,7 +71,13 @@ class Transform(Component):
         self.__local_position = Vector2D(other[0], other[1])
         
     @property
-    def matrix(self):
-        t = MatrixHelper.translation_matrix(self.position[0], self.position[1])
+    def rotation(self):
+        return 0
+    
+    @property
+    def scale(self):
+        return Vector2D(1, 1)
         
-        return t
+    @property
+    def matrix(self):
+        return MatrixHelper.translation_matrix(self.position[0], self.position[1])
