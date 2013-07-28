@@ -10,14 +10,11 @@ class NewScene(Scene):
     def __init__(self):
         super(NewScene, self).__init__()
         
-        self.clear_color = 98, 186, 221
-        self.resolution = 640, 480
-        
-        dimension = 32, 37
+        dimension = (32, 37)
         data = ResourceLoader.load('data//player_run.png')
         sheet = ImageSheet(data, dimension)
         
-        interval = 60
+        interval = 80
 
         run = [(sheet[i], interval) for i in range(8)]
         
@@ -26,11 +23,11 @@ class NewScene(Scene):
             animation.goto_and_play(i, 'run_cycle')
             
             staticSprite = Sprite(sheet[i])
-            staticSprite.position = (i + 1) * 32, 68
+            staticSprite.position = (i + 1) * 32 + 16, 84
             self.add(staticSprite)
             
             animatedSprite = Sprite(animation)
-            animatedSprite.position = (i + 1) * 32, 132
+            animatedSprite.position = (i + 1) * 32 + 16, 148
             self.add(animatedSprite)
 
 game = DemoGame((640, 480), NewScene)

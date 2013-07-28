@@ -74,7 +74,7 @@ class PuffEmitter(Emitter):
                 self.remove()
         
     def onCreate(self, emitter, particle):
-        particle.position = Vector2D(emitter.position) - (16, 16)
+        particle.position = Vector2D(emitter.position)
         particle.position += (random.random() - 0.5) * 2.0 * 8, (random.random() - 0.5) * 2.0 * 16
         particle.animation.play('puff', 0)
 
@@ -85,7 +85,7 @@ class NewScene(Scene):
         
         bg = Gradient.createVerticalGradient((20, 15), (255,255,255), (228, 139, 165), (111,86,117))
         bg = pygame.transform.scale(bg, (320, 240))
-        self.add(Sprite(bg))
+        self.add(Sprite(bg, (160, 120)))
         
     def onMouseDown(self, event):
         if event.button == 1:

@@ -57,7 +57,7 @@ class Particle(Sprite):
         
     @classmethod
     def on_create(cls, emitter, particle):
-        particle.transform.position = emitter.parent.transform.position + (16, 16)
+        particle.transform.position = emitter.parent.transform.position
         
         
 class OrbitBehavior(Component):
