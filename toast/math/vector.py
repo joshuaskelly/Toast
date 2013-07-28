@@ -124,6 +124,14 @@ class Vector2D(object):
         """
         return Vector2D(self.x , self.y)
     
+    def __abs__(self):
+        """Determines the absolute value(magnitude).
+        
+        :returns: Number. -- The magnitude of this vector.
+        """
+        
+        return self.magnitude
+    
     def dot(self, other):
         """Performs a dot product.
         
@@ -171,7 +179,12 @@ class Vector2D(object):
         if self.x == self.y == 0:
             return 0
         else:
-            return degrees(atan2(self.y, self.x))
+            result = degrees(atan2(self.y, self.x))
+            
+            while result < 0:
+                result += 360
+                
+            return result
     
     @staticmethod
     def from_angle(angle_in_degrees):
