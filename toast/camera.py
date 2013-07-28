@@ -47,11 +47,11 @@ class Camera(GameObject):
         
     @property
     def top(self):
-        return self.__position[1] - (self.__viewport.get_height() / 2)
+        return self.position[1] - (self.__viewport.get_height() / 2)
     
     @property
     def left(self):
-        return self.__position[0] - (self.__viewport.get_width() / 2)
+        return self.position[0] - (self.__viewport.get_width() / 2)
     
     @property
     def width(self):
@@ -64,12 +64,10 @@ class Camera(GameObject):
     @property
     def position(self):
         return self.transform.position
-        #return self.__position
     
     @position.setter
     def position(self, other):
         self.transform.position = other
-        #self.__position = Vector2D(other[0], other[1])
     
     @property
     def bounds(self):
