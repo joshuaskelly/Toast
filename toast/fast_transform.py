@@ -48,7 +48,7 @@ class Transform(Component):
         
         """
         if self.parent and hasattr(self.parent, 'transform'):
-            self.__local_position = self.parent.get_component('Transform').position - other
+            self.__local_position = self.parent.get_component('Transform').position + other
         else:
             self.local_position = other
         
@@ -73,9 +73,5 @@ class Transform(Component):
     @property
     def matrix(self):
         t = MatrixHelper.translation_matrix(self.position[0], self.position[1])
-        #r = MatrixHelper.rotation_matrix(self.__rotation)
-        #s = MatrixHelper.scale_matrix(self.__scale[0], self.__scale[1])
-        
-        #self.__local_matrix = t * r * s
         
         return t
