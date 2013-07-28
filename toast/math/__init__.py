@@ -1,2 +1,2 @@
-def lerp(fromValue, toValue, step):
-    return fromValue + (toValue - fromValue) * step
+def lerp(fromValue, toValue, percent):
+    return fromValue + (toValue - fromValue) * percent
