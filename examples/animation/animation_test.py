@@ -16,14 +16,7 @@ class NewScene(Scene):
         
         interval = 80
 
-        run = [(sheet[0], interval), 
-               (sheet[1], interval), 
-               (sheet[2], interval), 
-               (sheet[3], interval), 
-               (sheet[4], interval), 
-               (sheet[5], interval), 
-               (sheet[6], interval), 
-               (sheet[7], interval)]
+        run = [(sheet[i], interval) for i in range(8)]
         
         for i in range(8):
             animation = Animation('run_cycle', run)
