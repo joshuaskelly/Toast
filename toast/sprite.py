@@ -1,5 +1,5 @@
 from toast.scene_graph import GameObject
-from toast.transform import Transform
+from toast.fast_transform import Transform
 
 class Sprite(GameObject):
     def __init__(self, image_or_animation, position=(0,0)):
