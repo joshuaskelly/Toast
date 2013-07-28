@@ -70,6 +70,13 @@ class Transform(Component):
         """
         self.__local_position = Vector2D(other[0], other[1])
         
+    def look_at(self, pos):
+        return
+        
+    @property
+    def forward(self):
+        return Vector2D(1, 0)
+        
     @property
     def rotation(self):
         return 0
