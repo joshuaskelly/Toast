@@ -39,7 +39,7 @@ class Transform(Component):
         self.__local_matrix = None
         
         for child_transform in [c.transform for c in self.game_object.children]:
-            child_transform.global_matrix = None
+            child_transform.mark_dirty()
     
     @property
     def position(self):
