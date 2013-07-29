@@ -51,6 +51,8 @@ class Transform(Component):
             self.__local_position = self.parent.get_component('Transform').position + other
         else:
             self.local_position = other
+            
+        self.mark_dirty()
         
     @property
     def local_position(self):
@@ -69,6 +71,14 @@ class Transform(Component):
         
         """
         self.__local_position = Vector2D(other[0], other[1])
+        self.mark_dirty()
+        
+    def mark_dirty(self):
+        if not self.game_object:
+            return
+        
+        for child_transform in [c.transform for c in self.game_object.children if hasattr(c, 'transform')]:
+            child_transform.mark_dirty()
         
     def look_at(self, pos):
         return
