@@ -20,6 +20,9 @@ class Transform(Component):
         else:
             self.__local_position = Vector2D(position)
             
+        self.__local_rotation = 0
+        self.__local_scale = Vector2D(1, 1)
+            
     @property
     def parent(self):
         """Gets the parent of the GameObject. 
@@ -81,19 +84,28 @@ class Transform(Component):
             child_transform.mark_dirty()
         
     def look_at(self, pos):
-        return
+        angle = (pos - self.position).angle
+        self.rotation = -angle
         
     @property
     def forward(self):
-        return Vector2D(1, 0)
+        return Vector2D.from_angle(self.rotation)
         
     @property
     def rotation(self):
-        return 0
+        return self.__local_rotation
+    
+    @rotation.setter
+    def rotation(self, angle_in_degrees):
+        self.__local_rotation = angle_in_degrees
     
     @property
     def scale(self):
-        return Vector2D(1, 1)
+        return self.__local_scale
+    
+    @scale.setter
+    def scale(self, new_scale):
+        self.__local_scale = Vector2D(new_scale[0], new_scale[1])
         
     @property
     def matrix(self):

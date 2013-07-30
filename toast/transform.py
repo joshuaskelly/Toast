@@ -54,7 +54,7 @@ class Transform(Component):
     def rotation(self):
         a = self.matrix * Vector2D(1, 0)
         b = self.position
-        return -(a - b).angle
+        return (a - b).angle
     
     @rotation.setter
     def rotation(self, rotation):

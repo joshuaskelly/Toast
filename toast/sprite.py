@@ -2,6 +2,7 @@ import pygame
 
 from toast.scene_graph import GameObject
 from toast.fast_transform import Transform
+from toast.math.vector import Vector2D
 
 class Sprite(GameObject):
     def __init__(self, image_or_animation, position=(0,0)):
@@ -70,19 +71,21 @@ class Sprite(GameObject):
         if self.transform.scale != (1, 1):
             sw = self.transform.scale[0] * w
             sh = self.transform.scale[1] * h
-            image = pygame.transform.scale(image, (sw, sh))
+            image = pygame.transform.scale(image, (int(sw), int(sh)))
         
         # Handle rotation if needed
         if self.transform.rotation:
-            image = pygame.transform.rotate(image, self.transform.rotation)
+            image = pygame.transform.rotate(image, int(-self.transform.rotation))
             
         # Calculate center
         hw, hh = image.get_size()
         hw = hw / 2
         hh = hh / 2
         
+        pos = Vector2D(int(self.transform.position[0]), int(self.transform.position[1]))
+        
         # Draw image to surface
-        surface.blit(image, self.transform.position - (hw, hh) - offset)
+        surface.blit(image, pos - (hw, hh) - offset)
         
         # Draw children
         for child in [c for c in self.children if hasattr(c, 'render')]:
