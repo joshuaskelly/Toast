@@ -16,7 +16,7 @@ class Transform(Component):
     @property
     def matrix(self):
         if self.__local_matrix == None:
-            t = MatrixHelper.translation_matrix(self.__position[0], self.__position[1])
+            t = MatrixHelper.translation_matrix(int(self.__position[0]), int(self.__position[1]))
             r = MatrixHelper.rotation_matrix(self.__rotation)
             s = MatrixHelper.scale_matrix(self.__scale[0], self.__scale[1])
             

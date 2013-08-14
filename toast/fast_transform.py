@@ -109,4 +109,4 @@ class Transform(Component):
         
     @property
     def matrix(self):
-        return MatrixHelper.translation_matrix(self.position[0], self.position[1])
+        return MatrixHelper.translation_matrix(int(self.position[0]), int(self.position[1]))
