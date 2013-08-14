@@ -53,9 +53,7 @@ class ImageSheet(object):
                     self.__frame_list.append(frame_ID)
 
                 self.__image_dict[frame_ID] = \
-                self.__image_sheet.subsurface(pygame.Rect(i, j,
-                                                          self.__dimension[0],
-                                                          self.__dimension[1])).copy()
+                self.__image_sheet.subsurface((i, j, self.__dimension[0], self.__dimension[1])).copy()
                                                           
                 bounding_rect = self.__image_dict[frame_ID].get_bounding_rect()
                 

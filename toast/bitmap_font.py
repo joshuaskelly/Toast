@@ -30,7 +30,7 @@ class BitmapFont(object):
                 j = y * dimension[1]
 
                 self.font_dict[sample_string[((y * width) + x)]] = \
-                self.font_sheet.subsurface(pygame.Rect(i, j, self.dimension[0],
+                self.font_sheet.subsurface((i, j, self.dimension[0],
                                                        self.dimension[1]))
 
     def render(self, text):
@@ -48,25 +48,17 @@ class BitmapFont(object):
         index = 0
         for char in text:
             try:
-                font_buffer.blit(self.font_dict[char],
-                                 pygame.Rect(index, 0, self.dimension[0],
-                                             self.dimension[1]))
+                font_buffer.blit(self.font_dict[char], (index, 0, self.dimension[0], self.dimension[1]))
             except:
                 # Unable to find char in dictionary.
                 if char.isupper():
                     try:
-                        font_buffer.blit(self.font_dict[char.lower()],
-                                         pygame.Rect(index, 0,
-                                                     self.dimension[0],
-                                                     self.dimension[1]))
+                        font_buffer.blit(self.font_dict[char.lower()], (index, 0, self.dimension[0], self.dimension[1]))
                     except:
                         raise IndexError("Missing glyph: '{0}'".format(str(char)))
                 elif char.islower():
                     try:
-                        font_buffer.blit(self.font_dict[char.upper()],
-                                         pygame.Rect(index, 0,
-                                                     self.dimension[0],
-                                                     self.dimension[1]))
+                        font_buffer.blit(self.font_dict[char.upper()], (index, 0, self.dimension[0], self.dimension[1]))
                     except:
                         raise IndexError("Missing glyph: '{0}'".format(str(char)))
                 else:

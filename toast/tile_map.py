@@ -176,7 +176,7 @@ class TileMap(GameObject):
                 x1 = x * self.__tile_size[0]
                 y1 = y * self.__tile_size[1]
                 
-                sub_rect = pygame.Rect(x1 + offset[0], y1 + offset[1], self.__tile_size[0], self.__tile_size[1])
+                sub_rect = (x1 + offset[0], y1 + offset[1], self.__tile_size[0], self.__tile_size[1])
                 
                 result.append((index, sub_rect))
                 
@@ -195,7 +195,7 @@ class TileMap(GameObject):
         width = surface.get_width() / self.__tile_size[0]
         height = surface.get_height() / self.__tile_size[1]
 
-        rect = pygame.Rect((0, 0), self.__tile_size)
+        rect = ((0, 0), self.__tile_size)
 
         x_begin = int(offset[0] / self.__tile_size[0])
         x_end = int(x_begin + width + 1)
