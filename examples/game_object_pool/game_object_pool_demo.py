@@ -20,7 +20,6 @@ class NewScene(Scene):
         if event.button is 1:
             sprite = self.pool.getNextAvailable()
             sprite.position = Game.camera_to_world(event.pos)
-            sprite.position -= 16, 16
             
 game = DemoGame((640, 480), NewScene)
 game.run()

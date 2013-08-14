@@ -1,9 +1,9 @@
 import pygame
 
 from toast.scene_graph import GameObject
-from toast.event_manager import EventManager
-from toast.math import lerp
 from toast.math.vector import Vector2D
+
+from toast.fast_transform import Transform
 
 class Camera(GameObject):
     __current_camera = None
@@ -17,14 +17,16 @@ class Camera(GameObject):
         super(Camera, self).__init__()
         Camera.current_camera = self
         
-        self.__position = Vector2D(0, 0)
         self.__viewport = pygame.Surface(resolution).convert()#.convert_alpha()
         self.__viewport.set_colorkey((255,0,255))
         self.__clear_color = None
-        self.__tracking_strength = 0.1
         
-        EventManager.subscribe(self, 'onCameraEvent')
+        self.add(Transform())
         
+    @property
+    def transform(self):
+        return self.get_component('Transform')    
+    
     @staticmethod
     def get_current():
         return Camera.__current_camera
@@ -45,11 +47,11 @@ class Camera(GameObject):
         
     @property
     def top(self):
-        return self.__position[1] - (self.__viewport.get_height() / 2)
+        return self.position[1] - (self.__viewport.get_height() / 2)
     
     @property
     def left(self):
-        return self.__position[0] - (self.__viewport.get_width() / 2)
+        return self.position[0] - (self.__viewport.get_width() / 2)
     
     @property
     def width(self):
@@ -59,13 +61,13 @@ class Camera(GameObject):
     def height(self):
         return self.__viewport.get_height()
         
-    def get_position(self):
-        return self.__position
-
-    def set_position(self, value):
-        self.__position = Vector2D(value[0], value[1])
-
-    position = property(get_position, set_position)
+    @property
+    def position(self):
+        return self.transform.position
+    
+    @position.setter
+    def position(self, other):
+        self.transform.position = other
     
     @property
     def bounds(self):
@@ -97,8 +99,8 @@ class Camera(GameObject):
         if self.clear_color:
             render_target.fill(self.clear_color)
 
-        position = (self.__position[0] - self.__viewport.get_width() / 2,
-                    self.__position[1] - self.__viewport.get_height() / 2)
+        position = (self.position[0] - self.__viewport.get_width() / 2,
+                    self.position[1] - self.__viewport.get_height() / 2)
         
         # Render and scale scene
         scene.render(render_target, (int(position[0]), int(position[1])))

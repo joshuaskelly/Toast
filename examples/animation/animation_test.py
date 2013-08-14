@@ -23,11 +23,11 @@ class NewScene(Scene):
             animation.goto_and_play(i, 'run_cycle')
             
             staticSprite = Sprite(sheet[i])
-            staticSprite.position = (i + 1) * 32, 68
+            staticSprite.position = (i + 1) * 32 + 16, 84
             self.add(staticSprite)
             
             animatedSprite = Sprite(animation)
-            animatedSprite.position = (i + 1) * 32, 132
+            animatedSprite.position = (i + 1) * 32 + 16, 148
             self.add(animatedSprite)
 
 game = DemoGame((640, 480), NewScene)
