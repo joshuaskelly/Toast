@@ -47,12 +47,13 @@ class Transform(Component):
     
     @position.setter
     def position(self, other):
-        self.__position = Vector2D(other[0], other[1])
+        self.__position.x = other[0]
+        self.__position.y = other[1]
         self.mark_dirty()
         
     @property
     def rotation(self):
-        a = self.matrix * Vector2D(1, 0)
+        a = self.matrix * (1, 0)
         b = self.position
         return (a - b).angle
     
@@ -63,8 +64,8 @@ class Transform(Component):
         
     @property
     def scale(self):
-        sx = (self.matrix * Vector2D(1, 0)) - self.position
-        sy = (self.matrix * Vector2D(0, 1)) - self.position
+        sx = (self.matrix * (1, 0)) - self.position
+        sy = (self.matrix * (0, 1)) - self.position
         
         return Vector2D(sx.magnitude, sy.magnitude)
     
@@ -76,7 +77,6 @@ class Transform(Component):
     @property
     def forward(self):
         f = Vector2D.from_angle(self.rotation)
-        f[1] = -f[1]
         return f
     
     @property

@@ -73,7 +73,8 @@ class Transform(Component):
         :type other: tuple.
         
         """
-        self.__local_position = Vector2D(other[0], other[1])
+        self.__local_position.x = other[0]
+        self.__local_position.y = other[1]
         self.mark_dirty()
         
     def mark_dirty(self):
@@ -105,7 +106,8 @@ class Transform(Component):
     
     @scale.setter
     def scale(self, new_scale):
-        self.__local_scale = Vector2D(new_scale[0], new_scale[1])
+        self.__local_scale.x = new_scale[0]
+        self.__local_scale.y = new_scale[1]
         
     @property
     def matrix(self):
