@@ -11,6 +11,9 @@ class Sprite(GameObject):
         self.add(Transform())
         self.transform.position = position
         
+        self.flip_x = False
+        self.flip_y = False
+        
         self.__image = None
         self.__animation = None
         self.__visibility = True
@@ -18,9 +21,17 @@ class Sprite(GameObject):
         if hasattr(image_or_animation, 'add_animation'):
             self.__animation = image_or_animation
             self.add(image_or_animation)
-            self.image = self.__animation.get_current_frame()
+            self.image = self.__animation.image
         else:
             self.image = image_or_animation
+            
+    @property
+    def animation(self):
+        return self.__animation
+    
+    @animation.setter
+    def animation(self, new_anim):
+        self.__animation = new_anim
         
     @property
     def transform(self):
@@ -69,9 +80,13 @@ class Sprite(GameObject):
         
         # Handle scaling if needed
         if self.transform.scale != (1, 1):
-            sw = self.transform.scale[0] * w
-            sh = self.transform.scale[1] * h
+            sx, sy = self.transform.scale
+            sw = abs(sx) * w
+            sh = abs(sy) * h
+            
             image = pygame.transform.scale(image, (int(sw), int(sh)))
+            
+        image = pygame.transform.flip(image, self.flip_x, self.flip_y)
         
         # Handle rotation if needed
         if self.transform.rotation:

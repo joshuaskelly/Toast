@@ -20,7 +20,7 @@ class NewScene(Scene):
         
         for i in range(8):
             animation = Animation('run_cycle', run)
-            animation.goto_and_play(i, 'run_cycle')
+            animation.play('run_cycle', i)
             
             staticSprite = Sprite(sheet[i])
             staticSprite.position = (i + 1) * 32 + 16, 84
