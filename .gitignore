@@ -18,6 +18,13 @@ develop-eggs
 lib
 lib64
 
+# IDE artifacts
+.idea
+.vscode
+
+# Pyenv artifacts
+.python-version
+
 # Installer logs
 pip-log.txt
 
