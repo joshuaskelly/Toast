@@ -15,8 +15,6 @@ import pygame
 
 from examples.demo_game import DemoGame
 
-import psyco
-psyco.full()
 
 class DestroyAfter(Component):
     def __init__(self, milliseconds):
