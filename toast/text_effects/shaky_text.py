@@ -22,9 +22,9 @@ class ShakyText(wrapper.Wrapper):
         random.seed()
         
     def update(self, time = 16):
-        self.internal.update(time)
-        self.charList = self.internal.charList
+        self.internal._update_chars(time)
+        self.char_list = self.internal.char_list
         
-        for (_, rect) in self.charList:
+        for (_, rect) in self.char_list:
             rect.top += rect.height * random.random() * self.scale
             rect.left += rect.width * random.random() * self.scale

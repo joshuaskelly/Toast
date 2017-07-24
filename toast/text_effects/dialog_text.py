@@ -19,12 +19,12 @@ class DialogText(wrapper.Wrapper):
         self.delay = 125
         
     def update(self, time = 16):
-        self.internal.update(time)
-        self.charList = self.internal.charList
+        self.internal._update_chars(time)
+        self.char_list = self.internal.char_list
         
         index = 0;
         
-        for (_, rect) in self.charList:
+        for (_, rect) in self.char_list:
             if self.time > (self.delay * index):
                 pass
             else:

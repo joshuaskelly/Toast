@@ -1,7 +1,7 @@
 from toast.scene_graph import GameObject
 
-class Text(GameObject):
 
+class Text(GameObject):
     def __init__(self, font, message):
         """Class Constructor
         
@@ -16,29 +16,31 @@ class Text(GameObject):
         self.visible = True
         self.__message = message
 
-        self.charList = []
-        self.positionList = []
+        self.char_list = []
+        self.position_list = []
         
         self.__update_char_list()
+        self._update_chars()
 
-    def update(self, time = 0.1667):
+    def update(self, time=0.1667):
         super(Text, self).update(time)
         
         self.time += time
 
+    def _update_chars(self, time=0.1667):
         left = 0
         index = 0
-        for (_, rect) in self.charList:
-            rect.left = self.position[0] + self.positionList[index][0]
-            rect.top = self.position[1] + self.positionList[index][1]
+        for (_, rect) in self.char_list:
+            rect.left = self.position[0] + self.position_list[index][0]
+            rect.top = self.position[1] + self.position_list[index][1]
             left += rect.width
             index += 1
 
-    def render(self, surface, offset=(0,0)):
+    def render(self, surface, offset=(0, 0)):
         if not self.visible:
             return
         
-        for (image, rect) in self.charList:
+        for (image, rect) in self.char_list:
             surface.blit(image, rect)
        
     @property
@@ -51,8 +53,8 @@ class Text(GameObject):
         self.__update_char_list()
         
     def __update_char_list(self):
-        self.charList = []
-        self.positionList = []
+        self.char_list = []
+        self.position_list = []
         
         left = 0
         top = 0
@@ -63,8 +65,8 @@ class Text(GameObject):
             rect = image.get_rect()
             rect.left = left
             rect.top = top
-            self.charList.append((image, rect))
-            self.positionList.append((left, top))
+            self.char_list.append((image, rect))
+            self.position_list.append((left, top))
             left += rect.width
 
     def GetPosition(self):
