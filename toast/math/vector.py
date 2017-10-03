@@ -1,6 +1,12 @@
 from math import sqrt, degrees, atan2, cos, sin, radians
 
+
 class Vector2D(object):
+    __slots__ = (
+        'x',
+        'y'
+    )
+
     def __init__(self, xOrDouble, y = None):
         if y == None:
             self.x = xOrDouble[0]
@@ -88,7 +94,7 @@ class Vector2D(object):
         :type scalar: numbers.Real
         :returns: Vector2D. -- The product of scalar multiplication.
         """
-        if not isinstance(scalar, (int, float, long)):
+        if not isinstance(scalar, (int, float)):
             if hasattr(scalar, 'dot'):
                 raise TypeError('Unable to multiply Vector2D by type \'{0}\'. Did you mean dot() or cross()?'.format(scalar.__class__.__name__))
             else:
@@ -109,6 +115,9 @@ class Vector2D(object):
             raise TypeError('Division of two vectors is not well-defined.')
        
         return Vector2D(self.x / scalar, self.y / scalar)
+
+    __truediv__ = __div__
+    __floordiv__ = __div__
         
     def __neg__(self):
         """Performs unary negation.

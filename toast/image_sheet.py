@@ -33,8 +33,8 @@ class ImageSheet(object):
             self.__frame_list = []
 
         # Determine number of steps needed
-        height = self.__image_sheet.get_height() / self.__dimension[1]
-        width = self.__image_sheet.get_width() / self.__dimension[0]
+        height = self.__image_sheet.get_height() // self.__dimension[1]
+        width = self.__image_sheet.get_width() // self.__dimension[0]
 
         # Build the dictionary
         for y in range(height):

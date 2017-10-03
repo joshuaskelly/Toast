@@ -11,7 +11,7 @@
 " * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 """
 
-import wrapper
+from toast.text_effects import wrapper
 import random
 
 class ShakyText(wrapper.Wrapper):

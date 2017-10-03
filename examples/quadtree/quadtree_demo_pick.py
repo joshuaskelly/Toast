@@ -108,9 +108,9 @@ class NewScene(Scene):
     def onMouseDown(self, event):
         self.use_quadtree_collision = not self.use_quadtree_collision
         if self.use_quadtree_collision:
-            print 'Using QuadTree Collision Detection'
+            print('Using QuadTree Collision Detection')
         else:
-            print 'Using PyGame Rect Collision'
+            print('Using PyGame Rect Collision')
         
     def onMouseMotion(self, event):
         p = DemoGame.camera_to_world(event.pos)

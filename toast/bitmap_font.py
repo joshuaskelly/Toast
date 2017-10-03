@@ -20,8 +20,8 @@ class BitmapFont(object):
         self.font_dict = {}
 
         # Determine number of steps needed
-        height = self.font_sheet.get_height() / self.dimension[1]
-        width = self.font_sheet.get_width() / self.dimension[0]
+        height = self.font_sheet.get_height() // self.dimension[1]
+        width = self.font_sheet.get_width() // self.dimension[0]
 
         # Build the dictionary
         for y in range(height):

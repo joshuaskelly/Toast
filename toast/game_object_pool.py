@@ -1,6 +1,5 @@
-import new
-
 from toast.scene_graph import GameObject, GameObjectException
+
 
 class GameObjectPool(GameObject):
     def __init__(self, class_name, default_args=(), initial_size=0):
@@ -55,7 +54,7 @@ class GameObjectPool(GameObject):
         instance.dead = False
         
         if self.__limit_instances:
-            instance.remove = new.instancemethod(override_remove, instance, None)
+            instance.remove = override_remove #new.instancemethod(override_remove, instance, None)
             
         self.__add(instance)
         

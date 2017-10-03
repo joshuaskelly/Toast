@@ -1,5 +1,6 @@
 from toast.scene_graph import Component, GameObject 
 
+
 class VerboseGameObject(GameObject):
     def __init__(self, name):
         GameObject.__init__(self)
@@ -9,20 +10,21 @@ class VerboseGameObject(GameObject):
         return self.parent.name if self.parent is not None else 'None'
         
     def update(self, milliseconds=0):
-        print '<VerboseGameObject (name:' + self.name + ', parent:' + self.parentName() + ')>'
+        print('<VerboseGameObject (name:' + self.name + ', parent:' + self.parentName() + ')>')
         GameObject.update(self, milliseconds)
         
     def remove(self, target):
-        print 'Removing GameObject: ' + target.name + ' from GameObject: ' + self.name
+        print('Removing GameObject: ' + target.name + ' from GameObject: ' + self.name)
         GameObject.remove(self, target)
-        
+
+
 class VerboseComponent(Component):
     def __init__(self, name):
         Component.__init__(self)
         self.name = name
         
     def update(self, milliseconds=0):
-        print '   <VerboseComponent (name:' + self.name + ', game object:' + self.game_object.name + ')>'
+        print('   <VerboseComponent (name:' + self.name + ', game object:' + self.game_object.name + ')>')
         Component.update(self, milliseconds)
         
 

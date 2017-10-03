@@ -11,6 +11,7 @@
 " * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 """
 
+
 class IconBar(object):
     LEFT_TO_RIGHT = (1, 0)
     RIGHT_TO_LEFT = (-1, 0)
@@ -47,7 +48,7 @@ class IconBar(object):
     total = property(get_total, set_total)
     
     def render(self, surface, offset=(0,0)):
-        for i in xrange(self.total):
+        for i in range(self.total):
             pos = ( self.position[0] + (i * self.direction[0] * (self.full.get_width() + self.spacing)),
                     self.position[1] + (i * self.direction[1] * (self.full.get_height() + self.spacing)))
             

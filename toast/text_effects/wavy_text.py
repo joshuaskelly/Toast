@@ -1,5 +1,5 @@
 import math
-import wrapper
+from toast.text_effects import wrapper
 
 
 class WavyText(wrapper.Wrapper):

@@ -1,5 +1,6 @@
 # 86 fps 10/27/2012
 #106 fps 3/1/2013
+# 39 fps 10/3/2017 - no psyco support in Python3
 
 from toast.scene_graph import Component, Scene
 from toast.sprite import Sprite
@@ -13,9 +14,6 @@ from toast.timer import Timer
 
 import random
 import pygame
-
-import psyco
-psyco.full()
 
 from examples.demo_game import DemoGame
 

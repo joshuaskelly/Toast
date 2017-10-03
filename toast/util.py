@@ -35,9 +35,9 @@ def __convert(node):
         
     for child in node:
         new_node_dict = __convert(child)
-        
-        if node_dict.has_key(child.tag):
-            
+
+        if child.tag in node_dict:
+
             if type(node_dict[child.tag]) is type([]):
                 node_dict[child.tag].append(new_node_dict)
             else:
@@ -69,6 +69,6 @@ def dict_from_xml(root):
     if type(root) == type(''):
         root = ElementTree.parse(root).getroot()
     elif not isinstance(root, ElementTree.Element):
-        raise TypeError, 'blah'
+        raise(TypeError, 'blah')
     
     return XMLDict({root.tag : __convert(root)})

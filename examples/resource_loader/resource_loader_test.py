@@ -1,5 +1,4 @@
 import pygame
-import toast
 from pygame.locals import *
 
 from toast.animation import Animation
@@ -54,7 +53,7 @@ while running:
     
     buffer.blit(target,(0,0))
     anim.update(16)
-    target = anim.get_current_frame()
+    target = anim.image
 
     # Scale up buffer and draw to screen
     screen.blit(pygame.transform.scale(buffer,SCREEN_SIZE), pygame.Rect(ORIGIN,SCREEN_SIZE))
