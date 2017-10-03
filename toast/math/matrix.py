@@ -62,7 +62,7 @@ class Matrix3x3(object):
                          [0, 0, 1])
     
     def __rmul__(self, other):
-        if isinstance(other, (int,float,long)):
+        if isinstance(other, (int, float)):
             return self.__scalar_multiplication(other)
         raise TypeError('can\'t right multiply Matrix3x3 by a non-scalar type')
     
