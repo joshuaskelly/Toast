@@ -81,8 +81,8 @@ if __name__ == '__main__':
     
     v = Vector2D(2, 2)
     
-    print m
-    print 3 * m
+    print(m)
+    print(3 * m)
     
 class MatrixHelper(object):
     @staticmethod

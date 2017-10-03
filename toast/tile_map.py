@@ -100,7 +100,7 @@ class TileMap(GameObject):
         try:
             return self.__data[y][x]
         except:
-            print 'Invalid index: {0}'.format(index)
+            print('Invalid index: {0}'.format(index))
     
     def tile_id_at_position(self, pos, offset=(0,0)):
         

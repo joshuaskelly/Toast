@@ -115,7 +115,7 @@ class Game(object):
                 
             elif event.type == QUIT:
                 self.__running = False
-                print "Average fps: " + str(self.__frame_count / (self.__msecs / 1000))
+                print("Average fps: " + str(self.__frame_count / (self.__msecs / 1000)))
                 
     @staticmethod
     def camera_to_world(coord):
